@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 const helpers = require('./helpers');
 const path = require('path');
 
@@ -23,7 +19,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function (options) {
+module.exports = function(options) {
   return {
 
     /**
@@ -91,8 +87,7 @@ module.exports = function (options) {
          */
         {
           test: /\.ts$/,
-          use: [
-            {
+          use: [{
               loader: 'awesome-typescript-loader',
               query: {
                 // use inline sourcemaps for "karma-remap-coverage" reporter
