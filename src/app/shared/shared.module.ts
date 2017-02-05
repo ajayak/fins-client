@@ -30,16 +30,14 @@ import { ApiService } from './services';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    MaterialModule,
-    ApiService
+    MaterialModule
   ],
-  providers: [ApiService]
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: []
+      providers: [ApiService]
     };
   }
 }
