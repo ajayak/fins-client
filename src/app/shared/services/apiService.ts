@@ -6,7 +6,7 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { config } from '../../core/config';
+import { config } from '../../core';
 
 @Injectable()
 export class ApiService {

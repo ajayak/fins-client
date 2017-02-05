@@ -14,6 +14,8 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
 import { ApiService } from './services';
+import { JwtHelper } from './helpers';
+
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
@@ -37,7 +39,10 @@ export class SharedModule {
   public static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [ApiService]
+      providers: [
+        ApiService,
+        JwtHelper
+      ]
     };
   }
 }
