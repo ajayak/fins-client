@@ -3,7 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { Store } from '../store';
+import { Store } from '../shared';
 
 @Component({
   // The selector is what angular internally uses

@@ -15,7 +15,7 @@ export class ApiService {
     'Accept': 'application/json'
   });
 
-  private apiUrl: string = config.urls.baseUrl;
+  private apiUrl: string = config.urls.base;
 
   constructor(private http: Http) { }
 

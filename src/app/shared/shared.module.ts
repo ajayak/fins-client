@@ -15,6 +15,10 @@ import 'hammerjs';
 
 import { ApiService } from './services';
 import { JwtHelper } from './helpers';
+import {
+  Store,
+  StoreHelper
+} from './store';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -41,7 +45,9 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         ApiService,
-        JwtHelper
+        JwtHelper,
+        Store,
+        StoreHelper
       ]
     };
   }

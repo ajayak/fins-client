@@ -12,35 +12,6 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Observable } from 'rxjs';
-
-import { isProduction } from '../environment';
-
-const debuggerOn = !isProduction;
-
-Observable.prototype.debug = (message: string) => {
-  return this.do(
-    (nextValue) => {
-      if (debuggerOn) {
-        console.log(message, nextValue);
-      }
-    },
-    (error) => {
-      if (debuggerOn) {
-        console.error(message, error);
-      }
-    },
-    () => {
-      if (debuggerOn) {
-        console.error('Observable completed - ', message);
-      }
-    }
-  );
-};
-
-declare module 'rxjs/Observable' {
-  interface Observable<T> {
-    debug: (...params) => Observable<T>;
-  }
-}

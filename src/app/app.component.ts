@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { Store } from './store';
+import { Store } from './shared';
 
 /*
  * App Component

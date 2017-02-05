@@ -18,7 +18,7 @@ import { getControlErrors } from '../../shared';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
-  @Output() public onsubmit = new EventEmitter();
+  @Output() public onSubmit = new EventEmitter();
   @Output() public onForgotPassword = new EventEmitter();
   public signinForm: FormGroup;
   public getControlErrors = getControlErrors;
@@ -27,9 +27,10 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
-  public signIn(): void {
+  public signIn($event): void {
+    $event.preventDefault();
     if (this.signinForm.valid) {
-      this.onsubmit.emit(this.signinForm.value);
+      this.onSubmit.emit(this.signinForm.value);
     }
   }
 

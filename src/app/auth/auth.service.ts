@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { ApiService } from '../shared';
 import {
-  State,
   Store,
   StoreHelper
-} from '../store';
+} from '../shared';
+import { ApiService } from '../shared';
+
 import { config } from '../core';
 
 @Injectable()
@@ -17,9 +17,9 @@ export class AuthService implements CanActivate {
 
   constructor(
     private router: Router,
-    private storeHelper: StoreHelper,
+    private apiService: ApiService,
     private store: Store,
-    private apiService: ApiService
+    private storeHelper: StoreHelper
   ) {
     const token = window.localStorage.getItem(this.JWT_KEY);
     if (token) {
@@ -48,8 +48,9 @@ export class AuthService implements CanActivate {
     }
   }
 
-  public authenticate(path, credits): Observable<any> {
-    return this.apiService.post(`/${path}`, credits)
+  public authenticate(credits): Observable<any> {
+    const authUrl = config.urls.token;
+    return this.apiService.post(`/${authUrl}`, credits)
       .do((res) => this.setJwt(res.token))
       .do((res) => this.storeHelper.update('user', res.data))
       .map((res) => res.data);

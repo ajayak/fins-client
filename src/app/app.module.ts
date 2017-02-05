@@ -15,6 +15,8 @@ import {
   PreloadAllModules
 } from '@angular/router';
 
+import './core/reactive-extensions';
+
 // App Modules
 import { SharedModule } from './shared';
 import { AuthModule } from './auth';
@@ -30,11 +32,10 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import {
   State,
   Store
-} from './store';
+} from './shared/store';
 import { HomeComponent } from './home';
 import { NoContentComponent } from './no-content';
 
-import './core/reactive-extensions';
 import '../styles/material.scss';
 import '../styles/styles.scss';
 
