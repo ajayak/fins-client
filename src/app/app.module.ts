@@ -19,6 +19,9 @@ import {
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
+// App Modules
+import { AuthModule } from './auth';
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -65,7 +68,10 @@ type StoreType = {
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+
+    // App Modules
+    AuthModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
