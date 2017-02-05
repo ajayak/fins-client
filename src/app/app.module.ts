@@ -15,11 +15,8 @@ import {
   PreloadAllModules
 } from '@angular/router';
 
-// Material 2
-import { MaterialModule } from '@angular/material';
-import 'hammerjs';
-
 // App Modules
+import { SharedModule } from './shared';
 import { AuthModule } from './auth';
 
 /*
@@ -67,10 +64,10 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
 
     // App Modules
+    SharedModule.forRoot(),
     AuthModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
