@@ -10,10 +10,7 @@ import {
   Validators
 } from '@angular/forms';
 
-import {
-  controlIsValid,
-  getControlErrors
-} from '../../shared';
+import { getControlErrors } from '../../shared';
 
 @Component({
   selector: 'signin-form',
@@ -24,8 +21,8 @@ export class SigninComponent implements OnInit {
   @Output() public onsubmit = new EventEmitter();
   @Output() public onForgotPassword = new EventEmitter();
   public signinForm: FormGroup;
-  public controlIsValid = controlIsValid;
   public getControlErrors = getControlErrors;
+
   constructor(private fb: FormBuilder) { }
 
   public signIn(): void {

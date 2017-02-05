@@ -23,6 +23,8 @@ const generateErrorMessages = (errorType: string, info: any): string => {
       return 'This field is required';
     case 'minlength':
       return `This field should contain atleast ${info.requiredLength} characters`;
+    case 'maxlength':
+      return `This field should contain maximum ${info.requiredLength} characters`;
     default:
       console.info(errorType, info);
       return 'Unknown Error. Added this error to error list';
