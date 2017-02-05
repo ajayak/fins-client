@@ -53,9 +53,6 @@
       "allow-pascal-case",
       "ban-keywords",
       "check-format"
-    ],
-    "member-access": [
-      false
     ]
   }
 }
