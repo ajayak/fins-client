@@ -23,7 +23,9 @@ export class SigninComponent implements OnInit {
   public signinForm: FormGroup;
   public getControlErrors = getControlErrors;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   public signIn(): void {
     if (this.signinForm.valid) {

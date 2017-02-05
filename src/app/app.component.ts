@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { AppState } from './app.service';
+import { Store } from './store';
 
 /*
  * App Component
@@ -23,20 +23,16 @@ import { AppState } from './app.service';
       <router-outlet></router-outlet>
     </main>
 
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
+    <pre class="app-state">this.appState.state = {{ state |  json }}</pre>
   `
 })
 export class AppComponent implements OnInit {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
+  public state;
 
-  constructor(
-    public appState: AppState
-  ) { }
+  constructor(public appState: Store) { }
 
   public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+    console.log('Initial App State', this.appState.getState());
+    this.appState.changes.subscribe((state) => this.state = state);
   }
-
 }

@@ -27,10 +27,12 @@ import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import { AppState, InternalStateType } from './app.service';
+import {
+  State,
+  Store
+} from './store';
 import { HomeComponent } from './home';
 import { NoContentComponent } from './no-content';
-import { XLargeDirective } from './home/x-large';
 
 import './core/reactive-extensions';
 import '../styles/material.scss';
@@ -39,11 +41,11 @@ import '../styles/styles.scss';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  Store
 ];
 
 type StoreType = {
-  state: InternalStateType,
+  state: State,
   restoreInputValues: () => void,
   disposeOldHosts: () => void
 };
@@ -56,10 +58,10 @@ type StoreType = {
   declarations: [
     AppComponent,
     HomeComponent,
-    NoContentComponent,
-    XLargeDirective
+    NoContentComponent
   ],
-  imports: [ // import Angular's modules
+  imports: [
+    // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -69,7 +71,8 @@ type StoreType = {
     SharedModule.forRoot(),
     AuthModule
   ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
+  providers: [
+    // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS
   ]
@@ -78,7 +81,7 @@ export class AppModule {
 
   constructor(
     public appRef: ApplicationRef,
-    public appState: AppState
+    public appState: Store
   ) { }
 
   public hmrOnInit(store: StoreType) {
@@ -87,7 +90,7 @@ export class AppModule {
     }
     console.log('HMR store', JSON.stringify(store, null, 2));
     // set state
-    this.appState._state = store.state;
+    this.appState.setState(store.state);
     // set input values
     if ('restoreInputValues' in store) {
       let restoreInputValues = store.restoreInputValues;
@@ -102,7 +105,7 @@ export class AppModule {
   public hmrOnDestroy(store: StoreType) {
     const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
     // save state
-    const state = this.appState._state;
+    const state = this.appState.getState();
     store.state = state;
     // recreate root elements
     store.disposeOldHosts = createNewHosts(cmpLocation);
