@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
+import { ApiService } from './services';
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
@@ -29,8 +30,10 @@ import 'hammerjs';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    MaterialModule
-  ]
+    MaterialModule,
+    ApiService
+  ],
+  providers: [ApiService]
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {
