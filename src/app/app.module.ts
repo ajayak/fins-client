@@ -33,6 +33,7 @@ import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
 
+import './core/reactive-extensions';
 import '../styles/material.scss';
 import '../styles/styles.scss';
 
