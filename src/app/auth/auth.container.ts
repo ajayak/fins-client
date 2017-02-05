@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { SigninModel } from './signinForm';
+
 @Component({
   selector: 'fs-auth',
   template: `
@@ -12,7 +14,7 @@ import { Component } from '@angular/core';
 // tslint:disable-next-line:component-class-suffix
 export class AuthContainer {
 
-  public onSubmit($event) {
+  public onSubmit($event: SigninModel) {
     console.log($event);
   }
 

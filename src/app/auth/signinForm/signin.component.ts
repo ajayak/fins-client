@@ -26,8 +26,9 @@ export class SigninComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   public signIn(): void {
-    console.log('Form submitted', this.signinForm.value);
-    this.onsubmit.emit();
+    if (this.signinForm.valid) {
+      this.onsubmit.emit(this.signinForm.value);
+    }
   }
 
   public ngOnInit(): void {
