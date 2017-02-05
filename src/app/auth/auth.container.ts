@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'fs-auth',
   template: `
-    <md-card>Simple card</md-card>
-
+    <signin-form
+      (onSubmit)="onSubmit($event)"
+    ></signin-form>
   `
 })
 // tslint:disable-next-line:component-class-suffix
-export class AuthContainer implements OnInit {
-  constructor() { }
+export class AuthContainer {
 
-  public ngOnInit() { }
+  public onSubmit($event) {
+    console.log($event);
+  }
 }
