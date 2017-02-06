@@ -23,6 +23,10 @@ import {
   LogService
 } from './services';
 import { JwtHelper } from './helpers';
+import {
+  SpinnerComponent,
+  SpinnerService
+} from './spinner';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -34,14 +38,18 @@ import { JwtHelper } from './helpers';
     RouterModule,
     MaterialModule.forRoot()
   ],
-  declarations: [],
+  declarations: [SpinnerComponent],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+
+    // App exports
+    SpinnerComponent
   ],
+  providers: [SpinnerService]
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {

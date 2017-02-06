@@ -17,7 +17,7 @@ export class LogService {
     console.log(message, data);
     this.toastr.info({
       title: message,
-      html: `<pre class="logger-text">${JSON.stringify(data, null, 2)}</pre>`
+      html: this.getFormattedHtml(data)
     });
   }
 
@@ -26,7 +26,7 @@ export class LogService {
     console.error(message, data);
     this.toastr.error({
       title: message,
-      html: `<pre class="logger-text">${JSON.stringify(data, null, 2)}</pre>`
+      html: this.getFormattedHtml(data)
     });
   }
 
@@ -35,7 +35,7 @@ export class LogService {
     console.warn(message, data);
     this.toastr.warn({
       title: message,
-      html: `<pre class="logger-text">${JSON.stringify(data, null, 2)}</pre>`
+      html: this.getFormattedHtml(data)
     });
   }
 
@@ -44,7 +44,11 @@ export class LogService {
     console.info(message, data);
     this.toastr.info({
       title: message,
-      html: `<pre class="logger-text">${JSON.stringify(data, null, 2)}</pre>`
+      html: this.getFormattedHtml(data)
     });
+  }
+
+  private getFormattedHtml(data: any): string {
+    return `<pre class="logger-text">${JSON.stringify(data, null, 2)}</pre>`;
   }
 }

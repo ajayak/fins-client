@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-export interface State {
-}
-
-const defaultState: State = {
-};
+import {
+  defaultState,
+  State
+} from './state';
 
 const _store = new BehaviorSubject<State>(defaultState);
 

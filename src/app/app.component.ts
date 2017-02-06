@@ -21,6 +21,7 @@ import { Store } from './shared';
   template: `
     <main>
       <router-outlet></router-outlet>
+      <fs-spinner></fs-spinner>
     </main>
 
     <pre class="app-state">this.appState.state = {{ state |  json }}</pre>

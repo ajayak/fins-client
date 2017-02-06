@@ -61,6 +61,7 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+    "arrow-parens": false
   }
 }

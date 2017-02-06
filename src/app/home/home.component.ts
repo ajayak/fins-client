@@ -3,7 +3,10 @@ import {
   OnInit
 } from '@angular/core';
 
-import { Store } from '../shared';
+import {
+  StateHelper,
+  StoreHelper
+} from '../shared';
 
 @Component({
   // The selector is what angular internally uses
@@ -20,17 +23,20 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   // TypeScript public modifiers
   constructor(
-    public appState: Store
+    public storeHelper: StoreHelper
   ) { }
 
   public ngOnInit() {
     console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
   }
 
   public submitState(value: string) {
     console.log('submitState', value);
-    this.appState.setState({ value });
+    if (value.length > 0) {
+      this.storeHelper.update(StateHelper.showSpinner, true);
+    } else {
+      this.storeHelper.update(StateHelper.showSpinner, false);
+    }
     this.localState.value = '';
   }
 }

@@ -1,5 +1,6 @@
+export { Store } from './store';
 export {
   State,
-  Store
-} from './store';
+  StateHelper
+} from './state';
 export { StoreHelper } from './store-helper';
