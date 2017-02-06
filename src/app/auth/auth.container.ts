@@ -17,8 +17,7 @@ export class AuthContainer {
   constructor(private authService: AuthService) { }
 
   public onSubmit($event: SigninModel) {
-    this.authService.authenticate($event)
-      .subscribe((e) => console.log(e));
+    this.authService.authenticate($event).subscribe();
   }
 
   public onForgotPasword(): void {

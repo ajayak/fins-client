@@ -37,12 +37,9 @@ if ('production' === ENV) {
     const appRef = modRef.injector.get(ApplicationRef);
     const cmpRef = appRef.components[0];
 
-    // tslint:disable-next-line:whitespace
     let _ng = (<any>window).ng;
     enableDebugTools(cmpRef);
-    // tslint:disable-next-line:whitespace
     (<any>window).ng.probe = _ng.probe;
-    // tslint:disable-next-line:whitespace
     (<any>window).ng.coreTokens = _ng.coreTokens;
     return modRef;
   };

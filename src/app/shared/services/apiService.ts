@@ -6,6 +6,7 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import { isProduction } from '../../environment';
 import { config } from '../../core';
 
 @Injectable()
@@ -21,9 +22,8 @@ export class ApiService {
 
   public get(path: string): Observable<any> {
     return this.http.get(`${this.apiUrl}${path}`, this.headers)
-      .map(this.checkForError)
-      .catch((err) => Observable.throw(err))
-      .map(this.getJson);
+      .map((res) => this.extractData(res))
+      .catch((err) => this.catchBadResponse(err));
   }
 
   public post(path: string, body): Observable<any> {
@@ -31,9 +31,8 @@ export class ApiService {
       JSON.stringify(body),
       { headers: this.headers }
     )
-      .map(this.checkForError)
-      .catch((err) => Observable.throw(err))
-      .map(this.getJson);
+      .map((res) => this.extractData(res))
+      .catch((err) => this.catchBadResponse(err));
   }
 
   public put(path: string, body): Observable<any> {
@@ -41,16 +40,14 @@ export class ApiService {
       JSON.stringify(body),
       { headers: this.headers }
     )
-      .map(this.checkForError)
-      .catch((err) => Observable.throw(err))
-      .map(this.getJson);
+      .map((res) => this.extractData(res))
+      .catch((err) => this.catchBadResponse(err));
   }
 
   public delete(path: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}${path}`, this.headers)
-      .map(this.checkForError)
-      .catch((err) => Observable.throw(err))
-      .map(this.getJson);
+      .map((res) => this.extractData(res))
+      .catch((err) => this.catchBadResponse(err));
   }
 
   public setHeaders(headers) {
@@ -58,18 +55,25 @@ export class ApiService {
       .forEach((header) => this.headers.set(header, headers[header]));
   }
 
-  private getJson(response: Response) {
-    return response.json();
+  private extractData<T>(res: Response) {
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error('Bad response status: ' + res.status);
+    }
+    const body = res.json ? res.json() : null;
+    return <T>(body && body.data || {});
   }
 
-  private checkForError(response: Response): Response {
-    if (response.status >= 200 && response.status < 300) {
-      return response;
-    } else {
-      const error = new Error(response.statusText);
-      error['response'] = response;
-      console.log(error);
-      throw error;
+  private catchBadResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
+    console.log(errorResponse);
+
+    const res = <Response>errorResponse;
+    const err = res.json();
+    const emsg = err ?
+      (err.error ? err.error : JSON.stringify(err)) :
+      (res.statusText || 'unknown error');
+    if (!isProduction) {
+      console.log('Http Error', emsg);
     }
+    return Observable.throw(emsg);
   }
 }

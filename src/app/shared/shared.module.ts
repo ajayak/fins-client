@@ -44,6 +44,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        // App providers
         ApiService,
         JwtHelper,
         Store,
