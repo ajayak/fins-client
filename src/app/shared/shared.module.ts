@@ -13,12 +13,16 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
-import { ApiService } from './services';
-import { JwtHelper } from './helpers';
 import {
   Store,
   StoreHelper
 } from './store';
+import {
+  ApiService,
+  ToastService,
+  LoggerService
+} from './services';
+import { JwtHelper } from './helpers';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -48,7 +52,8 @@ export class SharedModule {
         ApiService,
         JwtHelper,
         Store,
-        StoreHelper
+        StoreHelper,
+        ToastService
       ]
     };
   }
