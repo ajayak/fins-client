@@ -20,7 +20,7 @@ import {
 import {
   ApiService,
   ToastService,
-  LoggerService
+  LogService
 } from './services';
 import { JwtHelper } from './helpers';
 
@@ -53,7 +53,8 @@ export class SharedModule {
         JwtHelper,
         Store,
         StoreHelper,
-        ToastService
+        ToastService,
+        LogService
       ]
     };
   }

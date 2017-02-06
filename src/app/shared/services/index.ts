@@ -1,5 +1,5 @@
 export { ApiService } from './apiService';
-export { LoggerService } from './logger';
+export { LogService } from './logger';
 export {
   ToastOptions,
   ToastService,

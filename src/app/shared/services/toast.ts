@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
+// CSS imported in Style.scss
 import sweetalert from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+
 import {
   SweetAlertOptions,
   SweetAlertType
@@ -22,7 +23,7 @@ export class ToastService {
     return sweetalert(title, message, type);
   }
 
-  public prompt(options) {
+  public prompt(options: ToastOptions) {
     const baseOptions: ToastOptions = {
       showCancelButton: true,
       confirmButtonText: 'Submit',
@@ -31,7 +32,7 @@ export class ToastService {
     return sweetalert(assign(baseOptions, options));
   }
 
-  public confirm(options) {
+  public confirm(options: ToastOptions) {
     const baseOptions: ToastOptions = {
       showCancelButton: true,
       confirmButtonText: 'Confirm',
@@ -40,7 +41,7 @@ export class ToastService {
     return sweetalert(assign(baseOptions, options));
   }
 
-  public alert(options) {
+  public alert(options: ToastOptions) {
     const baseOptions: ToastOptions = {
       confirmButtonText: 'OK',
       type: 'info'
@@ -48,23 +49,23 @@ export class ToastService {
     return sweetalert(assign(baseOptions, options));
   }
 
-  public question(options) {
-    return this.alert(assign({ type: 'question' }, options));
+  public question(options: ToastOptions) {
+    return this.alert(assign(<ToastOptions>{ type: 'question' }, options));
   }
 
-  public success(options) {
-    return this.alert(assign({ type: 'success' }, options));
+  public success(options: ToastOptions) {
+    return this.alert(assign(<ToastOptions>{ type: 'success' }, options));
   }
 
-  public error(options) {
-    return this.alert(assign({ type: 'error' }, options));
+  public error(options: ToastOptions) {
+    return this.alert(assign(<ToastOptions>{ type: 'error' }, options));
   }
 
-  public warn(options) {
-    return this.alert(assign({ type: 'warn' }, options));
+  public warn(options: ToastOptions) {
+    return this.alert(assign(<ToastOptions>{ type: 'warning' }, options));
   }
 
-  public info(options) {
-    return this.alert(assign({ type: 'info' }, options));
+  public info(options: ToastOptions) {
+    return this.alert(assign(<ToastOptions>{ type: 'info' }, options));
   }
 }

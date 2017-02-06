@@ -5,6 +5,13 @@
 
 @import 'variables';
 @import 'utility';
+
+/* Sweet Alert Styles */
+
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
+
+/* Angular Error styles */
+
 md-input-container.ng-invalid.ng-touched,
 md-input-container.ng-invalid.ng-dirty {
   .md-input-placeholder.md-focused,
