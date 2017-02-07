@@ -8,8 +8,6 @@ import {
   SweetAlertType
 } from 'sweetalert2';
 
-import assign from 'lodash.assign';
-
 export type ToastType = SweetAlertType;
 export interface ToastOptions extends SweetAlertOptions { }
 
@@ -29,7 +27,7 @@ export class ToastService {
       confirmButtonText: 'Submit',
       input: 'text'
     };
-    return sweetalert(assign(baseOptions, options));
+    return sweetalert({ ...baseOptions, ...options });
   }
 
   public confirm(options: ToastOptions) {
@@ -38,7 +36,7 @@ export class ToastService {
       confirmButtonText: 'Confirm',
       type: 'warning'
     };
-    return sweetalert(assign(baseOptions, options));
+    return sweetalert({ ...baseOptions, ...options });
   }
 
   public alert(options: ToastOptions) {
@@ -46,26 +44,26 @@ export class ToastService {
       confirmButtonText: 'OK',
       type: 'info'
     };
-    return sweetalert(assign(baseOptions, options));
+    return sweetalert({ ...baseOptions, ...options });
   }
 
   public question(options: ToastOptions) {
-    return this.alert(assign(<ToastOptions>{ type: 'question' }, options));
+    return this.alert({ type: 'question', ...options });
   }
 
   public success(options: ToastOptions) {
-    return this.alert(assign(<ToastOptions>{ type: 'success' }, options));
+    return this.alert({ type: 'success', ...options });
   }
 
   public error(options: ToastOptions) {
-    return this.alert(assign(<ToastOptions>{ type: 'error' }, options));
+    return this.alert({ type: 'error', ...options });
   }
 
   public warn(options: ToastOptions) {
-    return this.alert(assign(<ToastOptions>{ type: 'warning' }, options));
+    return this.alert({ type: 'warning', ...options });
   }
 
   public info(options: ToastOptions) {
-    return this.alert(assign(<ToastOptions>{ type: 'info' }, options));
+    return this.alert({ type: 'info', ...options });
   }
 }
