@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { isProduction } from '../../environment';
 import { config } from '../../core';
+import { SpinnerService } from '../spinner';
 
 @Injectable()
 export class ApiService {
@@ -18,36 +19,46 @@ export class ApiService {
 
   private apiUrl: string = config.urls.base;
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private spinner: SpinnerService) { }
 
   public get(path: string): Observable<any> {
+    this.spinner.show();
     return this.http.get(`${this.apiUrl}${path}`, this.headers)
       .map((res) => this.extractData(res))
-      .catch((err) => this.catchBadResponse(err));
+      .catch((err) => this.catchBadResponse(err))
+      .finally(() => this.spinner.hide());
   }
 
   public post(path: string, body): Observable<any> {
+    this.spinner.show();
     return this.http.post(`${this.apiUrl}${path}`,
       JSON.stringify(body),
       { headers: this.headers }
     )
       .map((res) => this.extractData(res))
-      .catch((err) => this.catchBadResponse(err));
+      .catch((err) => this.catchBadResponse(err))
+      .finally(() => this.spinner.hide());
   }
 
   public put(path: string, body): Observable<any> {
+    this.spinner.show();
     return this.http.put(`${this.apiUrl}${path}`,
       JSON.stringify(body),
       { headers: this.headers }
     )
       .map((res) => this.extractData(res))
-      .catch((err) => this.catchBadResponse(err));
+      .catch((err) => this.catchBadResponse(err))
+      .finally(() => this.spinner.hide());
   }
 
   public delete(path: string): Observable<any> {
+    this.spinner.show();
     return this.http.delete(`${this.apiUrl}${path}`, this.headers)
       .map((res) => this.extractData(res))
-      .catch((err) => this.catchBadResponse(err));
+      .catch((err) => this.catchBadResponse(err))
+      .finally(() => this.spinner.hide());
   }
 
   public setHeaders(headers) {

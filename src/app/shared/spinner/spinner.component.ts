@@ -10,8 +10,11 @@ import { Store } from '../store';
 @Component({
   selector: 'fs-spinner',
   template: `
-  <div *ngIf="visible">
-    <md-progress-bar mode="indeterminate"></md-progress-bar>
+  <div style="height: 5px;">
+    <md-progress-bar 
+        mode="indeterminate" 
+        *ngIf="visible">
+    </md-progress-bar>
   </div>
   `
 })
