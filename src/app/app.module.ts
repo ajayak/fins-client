@@ -20,6 +20,7 @@ import './core/reactive-extensions';
 // App Modules
 import { SharedModule } from './shared';
 import { AuthModule } from './auth';
+import { HomeModule } from './home';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -33,7 +34,6 @@ import {
   State,
   Store
 } from './shared/store';
-import { HomeComponent } from './home';
 import { NoContentComponent } from './no-content';
 
 import '../styles/material.scss';
@@ -58,7 +58,6 @@ type StoreType = {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    HomeComponent,
     NoContentComponent
   ],
   imports: [
@@ -70,7 +69,8 @@ type StoreType = {
 
     // App Modules
     SharedModule.forRoot(),
-    AuthModule
+    AuthModule,
+    HomeModule
   ],
   providers: [
     // expose our Services and Providers into Angular's dependency injection

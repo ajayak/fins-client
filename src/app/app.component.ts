@@ -15,9 +15,6 @@ import { Store } from './shared';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './app.component.css'
-  ],
   template: `
     <fs-spinner></fs-spinner>
     <main>

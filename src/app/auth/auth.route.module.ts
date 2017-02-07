@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {
+  Routes,
+  RouterModule
+} from '@angular/router';
 
 import { AuthContainer } from './auth.container';
 import { SigninComponent } from './signinForm';
