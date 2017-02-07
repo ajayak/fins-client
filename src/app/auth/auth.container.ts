@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { SigninModel } from './signinForm';
 import { AuthService } from './auth.service';
+import { ToastService } from '../shared';
 
 @Component({
   selector: 'fs-auth',
@@ -14,10 +15,16 @@ import { AuthService } from './auth.service';
 })
 // tslint:disable-next-line:component-class-suffix
 export class AuthContainer {
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private toastr: ToastService) { }
 
   public onSubmit($event: SigninModel) {
-    this.authService.authenticate($event).subscribe();
+    this.authService.authenticate($event)
+      .subscribe(
+      success => this.toastr.success({ titleText: 'Success' }),
+      error => this.toastr.error({ title: error.error_description })
+      );
   }
 
   public onForgotPasword(): void {

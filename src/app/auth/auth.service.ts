@@ -6,7 +6,11 @@ import {
   Store,
   StoreHelper
 } from '../shared';
-import { ApiService } from '../shared';
+import {
+  ApiService,
+  LogService
+} from '../shared';
+import { SigninModel } from './signinForm';
 
 import { config } from '../core';
 
@@ -19,7 +23,8 @@ export class AuthService implements CanActivate {
     private router: Router,
     private apiService: ApiService,
     private store: Store,
-    private storeHelper: StoreHelper
+    private storeHelper: StoreHelper,
+    private logger: LogService
   ) {
     const token = window.localStorage.getItem(this.JWT_KEY);
     if (token) {
@@ -48,10 +53,17 @@ export class AuthService implements CanActivate {
     }
   }
 
-  public authenticate(credits): Observable<any> {
+  public authenticate(credits: SigninModel): Observable<any> {
     const authUrl = config.urls.token;
-    return this.apiService.post(`/${authUrl}`, credits)
-      .do((res) => this.setJwt(res.token))
+    const openIdRequest =
+      `username=${credits.username}&` +
+      `password=${credits.password}&` +
+      `tenant=${credits.tenant}&` +
+      `grant_type=password&` +
+      `scope=openid email profiles roles`;
+
+    return this.apiService.formEncodedPost(`/${authUrl}`, openIdRequest)
+      .do((res) => this.setJwt(res.id_token))
       .do((res) => this.storeHelper.update('user', res.data))
       .map((res) => res.data);
   }

@@ -62,6 +62,21 @@ export class ApiService {
       .finally(() => this.spinner.hide());
   }
 
+  public formEncodedPost(path: string, body): Observable<any> {
+    this.spinner.show();
+    return this.http.post(`${this.apiUrl}${path}`, body,
+      {
+        headers: new Headers({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        })
+      }
+    )
+      .map((res) => this.extractData(res))
+      .catch((err) => this.catchBadResponse(err))
+      .finally(() => this.spinner.hide());
+  }
+
   public setHeaders(headers) {
     Object.keys(headers)
       .forEach((header) => this.headers.set(header, headers[header]));
@@ -72,16 +87,21 @@ export class ApiService {
       throw new Error('Bad response status: ' + res.status);
     }
     const body = res.json ? res.json() : null;
-    return <T>(body && body.data || {});
+    return <T>(body || {});
   }
 
   private catchBadResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
     const res = <Response>errorResponse;
     const err = res.json();
-    const emsg = err ?
-      (err.error ? err.error : JSON.stringify(err)) :
-      (res.statusText || 'unknown error');
     this.logger.error('Http Error', err);
-    return Observable.throw(emsg);
+    if (err.currentTarget && err.currentTarget.status === 0) {
+      // Request not sent
+      const errMessage = 'Please check your internet connection';
+      return Observable.throw({ error: errMessage, error_description: errMessage });
+    }
+    // const emsg = err ?
+    //   (err.error ? err.error : JSON.stringify(err)) :
+    //   (res.statusText || 'unknown error');
+    return Observable.throw(err);
   }
 }
