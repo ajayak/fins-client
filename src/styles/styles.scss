@@ -3,12 +3,19 @@
 
 /* This file is for setting global styles  */
 
-@import 'variables';
-@import 'utility';
+
+/*  CSS Reset */
+
+@import '../../node_modules/normalize.css/normalize.css';
 
 /* Sweet Alert Styles */
 
 @import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
+
+/* App Styles */
+
+@import 'variables';
+@import 'utility';
 
 /* Angular Error styles */
 
