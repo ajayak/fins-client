@@ -6,9 +6,9 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { isProduction } from '../../environment';
 import { config } from '../../core';
 import { SpinnerService } from '../spinner';
+import { LogService } from './logger';
 
 @Injectable()
 export class ApiService {
@@ -21,7 +21,8 @@ export class ApiService {
 
   constructor(
     private http: Http,
-    private spinner: SpinnerService) { }
+    private spinner: SpinnerService,
+    private logger: LogService) { }
 
   public get(path: string): Observable<any> {
     this.spinner.show();
@@ -75,16 +76,12 @@ export class ApiService {
   }
 
   private catchBadResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
-    console.log(errorResponse);
-
     const res = <Response>errorResponse;
     const err = res.json();
     const emsg = err ?
       (err.error ? err.error : JSON.stringify(err)) :
       (res.statusText || 'unknown error');
-    if (!isProduction) {
-      console.log('Http Error', emsg);
-    }
+    this.logger.error('Http Error', err);
     return Observable.throw(emsg);
   }
 }

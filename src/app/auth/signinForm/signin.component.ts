@@ -2,7 +2,8 @@ import {
   Component,
   Output,
   EventEmitter,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   FormGroup,
@@ -15,7 +16,8 @@ import { getControlErrors } from '../../shared';
 @Component({
   selector: 'signin-form',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  styleUrls: ['./signin.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SigninComponent implements OnInit {
   @Output() public onSubmit = new EventEmitter();
