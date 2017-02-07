@@ -99,6 +99,9 @@ export class ApiService {
       const errMessage = 'Please check your internet connection';
       return Observable.throw({ error: errMessage, error_description: errMessage });
     }
+    if (err.status === 403) {
+      this.logger.error('Forbidden', err);
+    }
     // const emsg = err ?
     //   (err.error ? err.error : JSON.stringify(err)) :
     //   (res.statusText || 'unknown error');

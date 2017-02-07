@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+
+import { tokenNotExpired } from '../shared';
 
 import {
   Store,
-  StoreHelper
+  StoreHelper,
+  StateHelper
 } from '../shared';
 import {
   ApiService,
@@ -15,7 +18,7 @@ import { SigninModel } from './signinForm';
 import { config } from '../core';
 
 @Injectable()
-export class AuthService implements CanActivate {
+export class AuthService {
   private JWT_KEY: string = config.appKeys.jwtKey;
   private JWT: string = '';
 
@@ -27,30 +30,18 @@ export class AuthService implements CanActivate {
     private logger: LogService
   ) {
     const token = window.localStorage.getItem(this.JWT_KEY);
-    if (token) {
+    if (tokenNotExpired()) {
       this.setJwt(token);
     }
   }
 
-  public setJwt(jwt) {
+  public setJwt(jwt: string) {
     window.localStorage.setItem(this.JWT_KEY, jwt);
     this.apiService.setHeaders({ Authorization: `Bearer ${jwt}` });
   }
 
   public isAuthorized(): boolean {
-    return Boolean(this.JWT);
-  }
-
-  public canActivate(): boolean {
-    const canActivate = this.isAuthorized();
-    this.onCanActivate(canActivate);
-    return canActivate;
-  }
-
-  public onCanActivate(canActivate: boolean) {
-    if (!canActivate) {
-      this.router.navigate(['', 'auth']);
-    }
+    return tokenNotExpired();
   }
 
   public authenticate(credits: SigninModel): Observable<any> {
@@ -64,7 +55,7 @@ export class AuthService implements CanActivate {
 
     return this.apiService.formEncodedPost(`/${authUrl}`, openIdRequest)
       .do((res) => this.setJwt(res.id_token))
-      .do((res) => this.storeHelper.update('user', res.data))
+      .do((res) => this.storeHelper.update(StateHelper.auth, res))
       .map((res) => res.data);
   }
 

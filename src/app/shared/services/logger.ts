@@ -15,10 +15,6 @@ export class LogService {
   public log(message: string, data?: any): void {
     if (isProduction) { return; }
     console.log(message, data);
-    this.toastr.info({
-      title: message,
-      html: this.getFormattedHtml(data)
-    });
   }
 
   public error(message: string, data?: any) {

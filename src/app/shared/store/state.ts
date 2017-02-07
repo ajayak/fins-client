@@ -1,9 +1,11 @@
 export interface State {
   showSpinner: boolean;
+  auth: any;
 }
 
 export const defaultState: State = {
-  showSpinner: false
+  showSpinner: false,
+  auth: {}
 };
 
 /*
@@ -11,5 +13,6 @@ export const defaultState: State = {
  for easy state updates
 */
 export const StateHelper = {
-  showSpinner: 'showSpinner'
+  showSpinner: 'showSpinner',
+  auth: 'auth'
 };
