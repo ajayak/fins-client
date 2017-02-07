@@ -9,7 +9,7 @@ import { Store } from '../store';
   selector: 'fs-spinner',
   template: `
   <div *ngIf="visible">
-    <md-spinner></md-spinner>
+    <md-spinner color="accent"></md-spinner>
   </div>
   `
 })

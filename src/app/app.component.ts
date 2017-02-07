@@ -19,9 +19,9 @@ import { Store } from './shared';
     './app.component.css'
   ],
   template: `
+    <fs-spinner></fs-spinner>
     <main>
       <router-outlet></router-outlet>
-      <fs-spinner></fs-spinner>
     </main>
 
     <pre class="app-state">this.appState.state = {{ state |  json }}</pre>

@@ -3,7 +3,7 @@ export interface State {
 }
 
 export const defaultState: State = {
-  showSpinner: true
+  showSpinner: false
 };
 
 /*
