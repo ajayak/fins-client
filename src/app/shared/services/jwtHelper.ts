@@ -3,7 +3,7 @@ import { config } from '../../core';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class JwtHelper {
+export class JwtHelperService {
   public urlBase64Decode(str: string): string {
     let output = str.replace(/-/g, '+').replace(/_/g, '/');
     switch (output.length % 4) {
@@ -101,6 +101,6 @@ export class JwtHelper {
  */
 export function tokenNotExpired(tokenName = config.appKeys.jwtKey, jwt?: string): boolean {
   const token: string = jwt || localStorage.getItem(tokenName);
-  const jwtHelper = new JwtHelper();
+  const jwtHelper = new JwtHelperService();
   return token != null && !jwtHelper.isTokenExpired(token);
 }

@@ -22,7 +22,7 @@ import {
   ToastService,
   LogService
 } from './services';
-import { JwtHelper } from './helpers';
+import { JwtHelperService } from './services';
 import {
   SpinnerComponent,
   SpinnerService
@@ -58,7 +58,7 @@ export class SharedModule {
       providers: [
         // App providers
         ApiService,
-        JwtHelper,
+        JwtHelperService,
         Store,
         StoreHelper,
         ToastService,

@@ -5,3 +5,7 @@ export {
   ToastService,
   ToastType
 } from './toast';
+export {
+  JwtHelperService,
+  tokenNotExpired
+} from './jwtHelper';
