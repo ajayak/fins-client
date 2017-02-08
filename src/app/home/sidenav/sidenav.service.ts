@@ -23,6 +23,6 @@ export class SideNavService {
 
   public toggle() {
     const state = this.store.getState();
-    this.storeHelper.update(StateHelper.openSideNav, !state.showSpinner);
+    this.storeHelper.update(StateHelper.openSideNav, !state.openSideNav);
   }
 }

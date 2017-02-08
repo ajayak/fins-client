@@ -1,7 +1,9 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '../../shared/store';
 
@@ -10,7 +12,8 @@ import { Store } from '../../shared/store';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.container.scss']
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent implements OnInit, OnDestroy {
+  public subscription: Subscription;
   public sideNavOpen: boolean = false;
   public folders = [
     {
@@ -39,9 +42,13 @@ export class SideNavComponent implements OnInit {
 
   constructor(private store: Store) { }
 
-  public ngOnInit(): void {
-    this.store.changes
+  public ngOnInit() {
+    this.subscription = this.store.changes
       .map(state => state.openSideNav)
       .subscribe(sidenavState => this.sideNavOpen = sidenavState);
+  }
+
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

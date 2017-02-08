@@ -20,17 +20,13 @@ import { Store } from './shared';
     <main>
       <router-outlet></router-outlet>
     </main>
-
-    <pre class="app-state">this.appState.state = {{ state |  json }}</pre>
   `
 })
 export class AppComponent implements OnInit {
-  public state;
-
   constructor(public appState: Store) { }
 
   public ngOnInit() {
     console.log('Initial App State', this.appState.getState());
-    this.appState.changes.subscribe((state) => this.state = state);
+    this.appState.changes.subscribe((state) => window['state'] = state);
   }
 }
