@@ -1,10 +1,12 @@
 export interface State {
   showSpinner: boolean;
+  openSideNav: boolean;
   auth: any;
 }
 
 export const defaultState: State = {
   showSpinner: false,
+  openSideNav: true,
   auth: {}
 };
 
@@ -14,5 +16,6 @@ export const defaultState: State = {
 */
 export const StateHelper = {
   showSpinner: 'showSpinner',
+  openSideNav: 'openSideNav',
   auth: 'auth'
 };

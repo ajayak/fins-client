@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import { Store } from '../../shared/store';
 
 @Component({
   selector: 'fs-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.container.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
+  public sideNavOpen: boolean = false;
   public folders = [
     {
       name: 'Photos',
@@ -30,4 +36,12 @@ export class SidebarComponent {
       updated: new Date('1/18/16'),
     }
   ];
+
+  constructor(private store: Store) { }
+
+  public ngOnInit(): void {
+    this.store.changes
+      .map(state => state.openSideNav)
+      .subscribe(sidenavState => this.sideNavOpen = sidenavState);
+  }
 }

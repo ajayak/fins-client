@@ -1,6 +1,6 @@
 <md-sidenav-container>
   <md-sidenav mode="side"
-              opened="true">
+              [opened]="sideNavOpen">
     <md-list>
       <h3 md-subheader>Folders</h3>
       <md-list-item *ngFor="let folder of folders">
