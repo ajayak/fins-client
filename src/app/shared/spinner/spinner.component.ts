@@ -10,12 +10,10 @@ import { Store } from '../store';
 @Component({
   selector: 'fs-spinner',
   template: `
-  <div style="height: 5px;">
-    <md-progress-bar 
-        mode="indeterminate" 
-        *ngIf="visible">
-    </md-progress-bar>
-  </div>
+  <md-progress-bar
+      *ngIf="visible"
+      mode="indeterminate"> 
+  </md-progress-bar>
   `
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
