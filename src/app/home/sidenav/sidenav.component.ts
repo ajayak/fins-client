@@ -1,20 +1,18 @@
 import {
   Component,
-  OnInit,
-  OnDestroy
+  Input,
+  ChangeDetectionStrategy
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-
-import { Store } from '../../shared/store';
 
 @Component({
   selector: 'fs-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.container.scss']
+  styleUrls: ['./sidenav.container.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SideNavComponent implements OnInit, OnDestroy {
-  public subscription: Subscription;
-  public sideNavOpen: boolean = false;
+export class SideNavComponent {
+  @Input() public open: boolean = false;
+
   public folders = [
     {
       name: 'Photos',
@@ -39,16 +37,4 @@ export class SideNavComponent implements OnInit, OnDestroy {
       updated: new Date('1/18/16'),
     }
   ];
-
-  constructor(private store: Store) { }
-
-  public ngOnInit() {
-    this.subscription = this.store.changes
-      .map(state => state.openSideNav)
-      .subscribe(sidenavState => this.sideNavOpen = sidenavState);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }
