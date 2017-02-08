@@ -15,8 +15,7 @@ import { Store } from '../store';
       *ngIf="visible"
       mode="indeterminate"> 
   </md-progress-bar>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  `
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
   public visible: boolean = false;

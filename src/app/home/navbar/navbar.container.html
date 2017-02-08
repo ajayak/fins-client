@@ -1,9 +1,13 @@
 <md-toolbar color="accent">
-  <md-icon class="fs-toolbar-icon">menu</md-icon>
-  <span>FINS</span>
+  <md-icon class="fs-toolbar-icon"
+           (click)="toggleSidenav()">{{openSideNav ? 'arrow_back': 'menu'}}</md-icon>
 
-  <span class="spacer"></span>
-  <button md-button
-          (click)="toggleSidenav()">Toggle</button>
+    <span>
+      <a md-button
+         [routerLink]="['']">FINS</a>
+    </span>
+
+    <span class="spacer"></span>
+
     <md-icon>account_circle</md-icon>
 </md-toolbar>
