@@ -6,11 +6,11 @@ import {
 import { Store } from '../../shared/store';
 
 @Component({
-  selector: 'fs-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.container.scss']
+  selector: 'fs-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.container.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SideNavComponent implements OnInit {
   public sideNavOpen: boolean = false;
   public folders = [
     {

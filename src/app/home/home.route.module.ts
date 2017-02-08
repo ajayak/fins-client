@@ -7,7 +7,7 @@ import {
 import { AuthGuard } from '../auth';
 import { HomeContainer } from './home.container';
 import { NavbarComponent } from './navbar';
-import { SidebarComponent } from './sidebar';
+import { SideNavComponent } from './sidenav';
 
 const routes: Routes = [
   {
@@ -31,5 +31,5 @@ export class HomeRoutingModule { }
 export const routedComponents = [
   HomeContainer,
   NavbarComponent,
-  SidebarComponent
+  SideNavComponent
 ];

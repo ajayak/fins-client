@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'home',
   template: `
     <fs-navbar></fs-navbar>
-    <fs-sidebar></fs-sidebar>
+    <fs-sidenav></fs-sidenav>
   `
 })
 // tslint:disable-next-line:component-class-suffix

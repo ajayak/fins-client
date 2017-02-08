@@ -5,7 +5,7 @@ import {
   routedComponents
 } from './home.route.module';
 import { SharedModule } from '../shared';
-import { SideNavService } from './sidebar';
+import { SideNavService } from './sidenav';
 
 @NgModule({
   imports: [
