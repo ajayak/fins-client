@@ -46,14 +46,15 @@ export class AuthService {
 
   public authenticate(credits: SigninModel): Observable<any> {
     const authUrl = config.urls.token;
-    const openIdRequest =
-      `username=${credits.username}&` +
-      `password=${credits.password}&` +
-      `tenant=${credits.tenant}&` +
-      `grant_type=password&` +
-      `scope=openid email profiles roles`;
+    const openIdRequest = {
+      username: credits.username,
+      password: credits.password,
+      tenant: credits.tenant,
+      grant_type: 'pasword',
+      scope: 'openid email profiles roles offline_access'
+    };
 
-    return this.apiService.formEncodedPost(`/${authUrl}`, openIdRequest)
+    return this.apiService.formEncodedPost(`/${authUrl}`, this.encodeObjectToParams(openIdRequest))
       .do((res) => this.setJwt(res.id_token))
       .do((res) => this.storeHelper.update(StateHelper.auth, res))
       .map((res) => res.data);
@@ -63,5 +64,11 @@ export class AuthService {
     window.localStorage.removeItem(this.JWT_KEY);
     this.store.purge();
     this.router.navigate(['', 'auth']);
+  }
+
+  private encodeObjectToParams(obj: any): string {
+    return Object.keys(obj)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]))
+      .join('&');
   }
 }
