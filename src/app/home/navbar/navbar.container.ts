@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 import { SideNavService } from '../sidenav';
 import { Store } from '../../shared';
@@ -20,7 +21,8 @@ export class NavbarContainer implements OnInit {
 
   constructor(
     private sidenav: SideNavService,
-    private store: Store) { }
+    private store: Store,
+    private router: Router) { }
 
   public toggleSidenav() {
     this.sidenav.toggle();
@@ -30,5 +32,10 @@ export class NavbarContainer implements OnInit {
     this.sideNavSubscription = this.store.changes
       .map(state => state.openSideNav)
       .subscribe(sideNavState => this.openSideNav = sideNavState);
+  }
+
+  public signout() {
+    this.store.purge();
+    this.router.navigate(['', 'auth']);
   }
 }

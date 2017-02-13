@@ -9,7 +9,7 @@ export interface State {
 export const defaultState: State = {
   showSpinner: false,
   openSideNav: true,
-  auth: undefined
+  auth: null
 };
 
 /*
