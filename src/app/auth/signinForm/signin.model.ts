@@ -1,6 +1,6 @@
 export class SigninModel {
   constructor(
-    public tenant = '',
+    public organization = '',
     public username = '',
     public password = ''
   ) { }

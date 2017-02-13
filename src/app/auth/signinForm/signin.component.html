@@ -9,11 +9,11 @@
       <md-input-container class="full-width">
         <input md-input
                placeholder="Organization"
-               formControlName="tenant" />
+               formControlName="organization" />
         <span class="input-error"
-              *ngFor="let error of getControlErrors(signinForm, 'tenant')">
+              *ngFor="let error of getControlErrors(signinForm, 'organization')">
           {{error}}
-          </span>
+        </span>
       </md-input-container>
       <md-input-container class="full-width top-20">
         <input md-input
@@ -22,7 +22,7 @@
         <span class="input-error"
               *ngFor="let error of getControlErrors(signinForm, 'username')">
           {{error}}
-          </span>
+        </span>
       </md-input-container>
       <md-input-container class="full-width top-20">
         <input md-input
@@ -32,7 +32,7 @@
         <span class="input-error"
               *ngFor="let error of getControlErrors(signinForm, 'password')">
           {{error}}
-          </span>
+        </span>
       </md-input-container>
     </md-card-content>
     <md-card-actions align="end">
@@ -40,10 +40,10 @@
               type="submit"
               color="primary"
               [disabled]="!signinForm.valid">Sign In</button>
-        <button md-raised-button
-                type="button"
-                (click)="onForgotPassword.emit()"
-                color="accent">Forgot Password</button>
+      <button md-raised-button
+              type="button"
+              (click)="onForgotPassword.emit()"
+              color="accent">Forgot Password</button>
     </md-card-actions>
-    </form>
+  </form>
 </md-card>

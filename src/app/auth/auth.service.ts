@@ -49,8 +49,8 @@ export class AuthService {
     const openIdRequest = {
       username: credits.username,
       password: credits.password,
-      tenant: credits.tenant,
-      grant_type: 'pasword',
+      organization: credits.organization,
+      grant_type: 'password',
       scope: 'openid email profiles roles offline_access'
     };
 
