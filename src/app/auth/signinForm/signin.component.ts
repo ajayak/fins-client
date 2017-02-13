@@ -38,7 +38,7 @@ export class SigninComponent implements OnInit {
 
   public ngOnInit(): void {
     this.signinForm = this.fb.group({
-      organization: ['fs', [Validators.required, Validators.maxLength(50), Validators.minLength(2)]],
+      organization: ['fs', [Validators.required, Validators.maxLength(50)]],
       username: ['organization@example.com', [Validators.required, Validators.maxLength(250)]],
       password: ['YouShouldChangeThisPassword1!', [Validators.required]]
     });

@@ -7,13 +7,15 @@ import { tokenNotExpired } from '../shared';
 import {
   Store,
   StoreHelper,
-  StateHelper
+  StateHelper,
+  JwtHelperService
 } from '../shared';
 import {
   ApiService,
   LogService
 } from '../shared';
 import { SigninModel } from './signinForm';
+import { AuthTokenModel } from './auth-token.model';
 
 import { config } from '../core';
 
@@ -27,7 +29,8 @@ export class AuthService {
     private apiService: ApiService,
     private store: Store,
     private storeHelper: StoreHelper,
-    private logger: LogService
+    private logger: LogService,
+    private jwtHelper: JwtHelperService
   ) {
     const token = window.localStorage.getItem(this.JWT_KEY);
     if (tokenNotExpired()) {
@@ -56,7 +59,11 @@ export class AuthService {
 
     return this.apiService.formEncodedPost(`/${authUrl}`, this.encodeObjectToParams(openIdRequest))
       .do((res) => this.setJwt(res.id_token))
-      .do((res) => this.storeHelper.update(StateHelper.auth, res))
+      .do((res) => {
+        const user = this.jwtHelper.decodeToken(res.id_token);
+        const authToken = new AuthTokenModel(user);
+        this.storeHelper.update(StateHelper.auth, authToken);
+      })
       .map((res) => res.data);
   }
 

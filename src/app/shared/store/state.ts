@@ -1,13 +1,15 @@
+import { AuthTokenModel } from '../../auth/auth-token.model';
+
 export interface State {
   showSpinner: boolean;
   openSideNav: boolean;
-  auth: any;
+  auth?: AuthTokenModel;
 }
 
 export const defaultState: State = {
   showSpinner: false,
   openSideNav: true,
-  auth: {}
+  auth: undefined
 };
 
 /*
