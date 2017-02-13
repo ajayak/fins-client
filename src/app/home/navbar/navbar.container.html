@@ -1,6 +1,8 @@
 <md-toolbar color="accent">
-  <md-icon class="fs-toolbar-icon"
-           (click)="toggleSidenav()">{{openSideNav ? 'arrow_back': 'menu'}}</md-icon>
+  <button md-icon-button
+          (click)="toggleSidenav()">
+    <md-icon>{{openSideNav ? 'arrow_back': 'menu'}}</md-icon>
+  </button>
 
   <span>
     <a md-button
@@ -11,11 +13,17 @@
 
   <button md-icon-button
           [mdMenuTriggerFor]="menu">
-    <md-icon>account_circle</md-icon>
+    <md-icon> account_circle </md-icon>
   </button>
   <md-menu #menu="mdMenu">
-    <button md-menu-item>Item 1</button>
+    <button md-menu-item>
+      <md-icon> settings </md-icon>
+      <span> Profile </span>
+    </button>
     <button md-menu-item
-            (click)="signout()">Sign Out</button>
+            (click)="signout()">
+      <md-icon> settings_power </md-icon>
+      <span> Sign Out </span>
+    </button>
   </md-menu>
 </md-toolbar>

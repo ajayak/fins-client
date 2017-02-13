@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import { SideNavService } from '../sidenav';
 import { Store } from '../../shared';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'fs-navbar',
@@ -22,7 +23,8 @@ export class NavbarContainer implements OnInit {
   constructor(
     private sidenav: SideNavService,
     private store: Store,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   public toggleSidenav() {
     this.sidenav.toggle();
@@ -35,7 +37,6 @@ export class NavbarContainer implements OnInit {
   }
 
   public signout() {
-    this.store.purge();
-    this.router.navigate(['', 'auth']);
+    this.authService.signout();
   }
 }
