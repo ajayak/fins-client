@@ -58,7 +58,7 @@ export class AuthService {
     };
 
     return this.apiService.formEncodedPost(`/${authUrl}`, this.encodeObjectToParams(openIdRequest))
-      .do((res) => this.setJwt(res.id_token))
+      .do((res) => this.setJwt(res.access_token))
       .do((res) => {
         const user = this.jwtHelper.decodeToken(res.id_token);
         const authToken = new AuthTokenModel(user);
