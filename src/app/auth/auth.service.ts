@@ -21,7 +21,8 @@ import { config } from '../core';
 
 @Injectable()
 export class AuthService {
-  private JWT_KEY: string = config.appKeys.jwtKey;
+  private JWT_ID_KEY: string = config.appKeys.jwtIdKey;
+  private JWT_ACCESS_KEY: string = config.appKeys.jwtAccessKey;
   private JWT: string = '';
 
   constructor(
@@ -32,15 +33,17 @@ export class AuthService {
     private logger: LogService,
     private jwtHelper: JwtHelperService
   ) {
-    const token = window.localStorage.getItem(this.JWT_KEY);
+    const idToken = window.localStorage.getItem(this.JWT_ID_KEY);
+    const accessToken = window.localStorage.getItem(this.JWT_ACCESS_KEY);
     if (tokenNotExpired()) {
-      this.setJwt(token);
+      this.setJwt(accessToken, idToken);
     }
   }
 
-  public setJwt(jwt: string) {
-    window.localStorage.setItem(this.JWT_KEY, jwt);
-    this.apiService.setHeaders({ Authorization: `Bearer ${jwt}` });
+  public setJwt(accessToken: string, idToken: string) {
+    window.localStorage.setItem(this.JWT_ACCESS_KEY, accessToken);
+    window.localStorage.setItem(this.JWT_ID_KEY, idToken);
+    this.apiService.setHeaders({ Authorization: `Bearer ${accessToken}` });
   }
 
   public isAuthorized(): boolean {
@@ -58,7 +61,7 @@ export class AuthService {
     };
 
     return this.apiService.formEncodedPost(`/${authUrl}`, this.encodeObjectToParams(openIdRequest))
-      .do((res) => this.setJwt(res.access_token))
+      .do((res) => this.setJwt(res.access_token, res.id_token))
       .do((res) => {
         const user = this.jwtHelper.decodeToken(res.id_token);
         const authToken = new AuthTokenModel(user);
@@ -68,7 +71,8 @@ export class AuthService {
   }
 
   public signout() {
-    window.localStorage.removeItem(this.JWT_KEY);
+    window.localStorage.removeItem(this.JWT_ID_KEY);
+    window.localStorage.removeItem(this.JWT_ACCESS_KEY);
     this.store.purge();
     this.router.navigate(['', 'auth']);
   }

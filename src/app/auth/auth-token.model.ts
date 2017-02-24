@@ -31,7 +31,7 @@ export class AuthTokenModel {
     this.AccessLevel = convertStringToArray(decodedToken['fs:usertype']);
     this.userType = convertStringToArray(decodedToken['fs:usertype']);
     this.organizationId =
-      convertStringToArray(decodedToken['ar:organizationid'])
+      convertStringToArray(decodedToken['fs:organizationid'])
         .map(id => parseInt(id, 10));
   }
 }

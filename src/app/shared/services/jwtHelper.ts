@@ -99,7 +99,7 @@ export class JwtHelperService {
  * Checks for presence of token and that token hasn't expired.
  * For use with the @CanActivate router decorator and NgIf
  */
-export function tokenNotExpired(tokenName = config.appKeys.jwtKey, jwt?: string): boolean {
+export function tokenNotExpired(tokenName = config.appKeys.jwtIdKey, jwt?: string): boolean {
   const token: string = jwt || localStorage.getItem(tokenName);
   const jwtHelper = new JwtHelperService();
   return token != null && !jwtHelper.isTokenExpired(token);

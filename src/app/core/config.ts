@@ -6,7 +6,8 @@ export const config = {
     token: 'connect/token'
   },
   appKeys: {
-    jwtKey: 'fins_app'
+    jwtAccessKey: 'fins_app_access',
+    jwtIdKey: 'fins_app_id'
   },
   setBaseUrl: (url: string) => {
     config.urls.base = url;
