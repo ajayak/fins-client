@@ -1,15 +1,18 @@
 import { AuthTokenModel } from '../../auth/auth-token.model';
+import { AccountGroupModel } from '../../accounting/accountGroup';
 
 export interface State {
   showSpinner: boolean;
   openSideNav: boolean;
-  auth?: AuthTokenModel;
+  auth: AuthTokenModel;
+  accountGroups: AccountGroupModel[];
 }
 
 export const defaultState: State = {
   showSpinner: false,
   openSideNav: true,
-  auth: null
+  auth: null,
+  accountGroups: null
 };
 
 /*
@@ -19,5 +22,6 @@ export const defaultState: State = {
 export const StateHelper = {
   showSpinner: 'showSpinner',
   openSideNav: 'openSideNav',
-  auth: 'auth'
+  auth: 'auth',
+  accountGroups: 'accountGroups'
 };

@@ -13,6 +13,9 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
+// Ng Prime
+import { TreeModule } from 'primeng/components/tree/tree';
+
 import {
   Store,
   StoreHelper
@@ -45,6 +48,9 @@ import {
     RouterModule,
     ReactiveFormsModule,
     MaterialModule,
+
+    // Third party Modules
+    TreeModule,
 
     // App exports
     SpinnerComponent

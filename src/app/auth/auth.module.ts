@@ -6,6 +6,7 @@ import {
   routedComponents
 } from './auth.route.module';
 import { AuthService } from './auth.service';
+import { UserProfileService } from './userProfile.service';
 import { AuthGuard } from './auth.guard';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { AuthGuard } from './auth.guard';
   declarations: [routedComponents],
   providers: [
     AuthService,
+    UserProfileService,
     AuthGuard
   ],
 })

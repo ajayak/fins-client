@@ -26,7 +26,7 @@ export class ApiService {
 
   public get(path: string): Observable<any> {
     this.spinner.show();
-    return this.http.get(`${this.apiUrl}${path}`, this.headers)
+    return this.http.get(`${this.apiUrl}${path}`, { headers: this.headers })
       .map((res) => this.extractData(res))
       .catch((err) => this.catchBadResponse(err))
       .finally(() => this.spinner.hide());

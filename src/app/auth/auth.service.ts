@@ -60,7 +60,7 @@ export class AuthService {
       scope: 'openid email profiles roles offline_access'
     };
 
-    return this.apiService.formEncodedPost(`/${authUrl}`, this.encodeObjectToParams(openIdRequest))
+    return this.apiService.formEncodedPost(authUrl, this.encodeObjectToParams(openIdRequest))
       .do((res) => this.setJwt(res.access_token, res.id_token))
       .do((res) => {
         const user = this.jwtHelper.decodeToken(res.id_token);

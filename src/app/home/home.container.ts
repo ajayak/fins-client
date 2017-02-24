@@ -12,7 +12,9 @@ import { Store } from '../shared';
   selector: 'home',
   template: `
     <fs-navbar></fs-navbar>
-    <fs-sidenav [open]="isSideNavOpen"></fs-sidenav>
+    <fs-sidenav [open]="isSideNavOpen">
+      <router-outlet></router-outlet>
+    </fs-sidenav>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
