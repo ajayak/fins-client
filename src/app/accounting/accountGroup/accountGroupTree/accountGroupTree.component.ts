@@ -23,33 +23,24 @@ import { AccountGroupModel } from '../accountGroup.model';
 export class AccountGroupTreeComponent implements OnInit, OnChanges {
   @Input() public accountGroups: AccountGroupModel[];
   public accountGroupTreeItems: TreeNode = [];
-  public items: MenuItem[];
   public selectedNode: TreeNode;
+  public items: MenuItem[] = [
+    { label: 'View', icon: 'fa-search', command: (event) => console.log(this.selectedNode) },
+    { label: 'Unselect', icon: 'fa-close', command: () => this.selectedNode = null }
+  ];
 
-  public renderTree() {
-    this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
-  }
   public ngOnInit() {
     this.renderTree();
-    this.items = [
-      { label: 'View', icon: 'fa-search', command: (event) => console.log(this.selectedNode) },
-      { label: 'Unselect', icon: 'fa-close', command: () => this.selectedNode = null }
-    ];
   }
 
   public ngOnChanges() {
     this.renderTree();
   }
 
-  /**
-   * Convert AccountGroupModel[] to tree format
-   * that p-tree component accepts
-   * @private
-   * @param {AccountGroupModel[]} accountGroups
-   * @returns {TreeNode}
-   *
-   * @memberOf AccountGroupTreeComponent
-   */
+  public renderTree() {
+    this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
+  }
+
   private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode {
     if (isNull(accountGroups)) { return []; };
 

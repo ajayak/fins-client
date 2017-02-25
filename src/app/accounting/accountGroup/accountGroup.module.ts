@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
-import { routedComponents } from './accountGroup.route';
 import { AccountGroupService } from './accountGroup.service';
+import {
+  routedComponents,
+  entryComponents
+} from './accountGroup.route';
 
 @NgModule({
   imports: [
@@ -11,5 +14,6 @@ import { AccountGroupService } from './accountGroup.service';
   exports: [],
   declarations: [routedComponents],
   providers: [AccountGroupService],
+  entryComponents: [entryComponents]
 })
 export class AccountGroupModule { }

@@ -26,9 +26,10 @@
         <p md-line> {{note.updated | date}} </p>
       </md-list-item>
     </md-list>
-
   </md-sidenav>
 
-  <ng-content></ng-content>
+  <main id="fs-main-content">
+    <ng-content></ng-content>
+  </main>
 
 </md-sidenav-container>

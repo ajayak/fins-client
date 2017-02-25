@@ -12,7 +12,12 @@ import { AccountGroupModel } from './accountGroup.model';
 @Component({
   selector: 'fs-account-group',
   template: `
-    <fs-account-group-tree [accountGroups]="accountGroups"></fs-account-group-tree>
+    <fs-add-root-account-group 
+      (onRootAccountGroupAdd)="addRootAccountGroup()">
+    </fs-add-root-account-group>
+    <fs-account-group-tree 
+      [accountGroups]="accountGroups">
+    </fs-account-group-tree>
   `
 })
 // tslint:disable-next-line:component-class-suffix
@@ -31,6 +36,10 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
     this.storeSubscription = this.store.changes
       .map(store => store.accountGroups)
       .subscribe(accountGroups => this.accountGroups = accountGroups);
+  }
+
+  public addRootAccountGroup(accountGroup: AccountGroupModel) {
+    console.log('Added', accountGroup);
   }
 
   public ngOnDestroy() {
