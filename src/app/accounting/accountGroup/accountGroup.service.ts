@@ -25,6 +25,6 @@ export class AccountGroupService {
       url += `/${orgId}`;
     }
     return this.apiService.get(url)
-      .do(ag => this.storeHelper.update(StateHelper.accountGroups, ag));
+      .do(result => this.storeHelper.update(StateHelper.accountGroups, result));
   }
 }

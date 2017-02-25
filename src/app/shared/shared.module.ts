@@ -15,6 +15,7 @@ import 'hammerjs';
 
 // Ng Prime
 import { TreeModule } from 'primeng/components/tree/tree';
+import { ContextMenuModule } from 'primeng/components/contextmenu/contextmenu';
 
 import {
   Store,
@@ -53,7 +54,8 @@ import {
     TreeModule,
 
     // App exports
-    SpinnerComponent
+    SpinnerComponent,
+    ContextMenuModule
   ],
   providers: [SpinnerService]
 })

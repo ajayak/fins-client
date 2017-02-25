@@ -18,21 +18,23 @@ import { AccountGroupModel } from './accountGroup.model';
 // tslint:disable-next-line:component-class-suffix
 export class AccountGroupContainer implements OnInit, OnDestroy {
   public accountGroups: AccountGroupModel[] = [];
-  private subscription: Subscription;
+  private getAccountGroupSubscription: Subscription;
+  private storeSubscription: Subscription;
 
   constructor(
     private accountGroupService: AccountGroupService,
     private store: Store) { }
 
   public ngOnInit() {
-    this.subscription = this.accountGroupService.getAccountGroup().subscribe();
+    this.getAccountGroupSubscription = this.accountGroupService.getAccountGroup().subscribe();
 
-    this.store.changes
-      .map(c => c.accountGroups)
+    this.storeSubscription = this.store.changes
+      .map(store => store.accountGroups)
       .subscribe(accountGroups => this.accountGroups = accountGroups);
   }
 
   public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.storeSubscription.unsubscribe();
+    this.getAccountGroupSubscription.unsubscribe();
   }
 }

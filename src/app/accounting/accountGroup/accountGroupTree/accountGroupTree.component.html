@@ -1,5 +1,11 @@
 <h1>
   Account Group Tree
+</h1> {{accountGroups|json}}
 
-  {{accountGroups | json}}
-</h1>
+<p-tree [value]="accountGroupTreeItems"
+        selectionMode="single"
+        [(selection)]="selectedNode"
+        [contextMenu]="cm"></p-tree>
+
+<p-contextMenu #cm
+               [model]="items"></p-contextMenu>
