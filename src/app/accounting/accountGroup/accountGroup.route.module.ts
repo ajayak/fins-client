@@ -8,7 +8,7 @@ import { AccountGroupContainer } from './accountGroup.container';
 import { AccountGroupTreeComponent } from './accountGroupTree';
 
 const routes: Routes = [
-  { path: 'accountGroup', component: AccountGroupContainer },
+  { path: 'accountGroup', component: AccountGroupContainer }
 ];
 
 @NgModule({

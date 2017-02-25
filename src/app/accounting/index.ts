@@ -1,1 +1,1 @@
-export * from './accountGroup';
+export { AccountingModule } from './accounting.module';

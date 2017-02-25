@@ -10,23 +10,22 @@ import {
   createNewHosts,
   createInputTransfer
 } from '@angularclass/hmr';
-import {
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
-
 import './core/reactive-extensions';
 
 // App Modules
 import { SharedModule } from './shared';
 import { AuthModule } from './auth';
 import { HomeModule } from './home';
+import { AccountingModule } from './accounting';
 
 /*
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+import {
+  AppRoutingModule,
+  routedComponents
+} from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
@@ -34,7 +33,6 @@ import {
   State,
   Store
 } from './shared/store';
-import { NoContentComponent } from './no-content';
 
 import '../styles/material.scss';
 import '../styles/styles.scss';
@@ -58,19 +56,22 @@ type StoreType = {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    NoContentComponent
+    ...routedComponents
   ],
   imports: [
     // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
 
     // App Modules
     SharedModule.forRoot(),
     AuthModule,
-    HomeModule
+    HomeModule,
+    AccountingModule,
+
+    // 404 Route
+    AppRoutingModule
   ],
   providers: [
     // expose our Services and Providers into Angular's dependency injection
