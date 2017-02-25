@@ -6,6 +6,7 @@ import {
 import { MdDialog } from '@angular/material';
 
 import { AccountGroupCreatorDialogComponent } from './accountGroupCreator';
+import { AccountGroupModel } from './accountGroup.model';
 
 @Component({
   selector: 'fs-add-root-account-group',
@@ -25,13 +26,10 @@ export class AddAccountGroupComponent {
   constructor(public dialog: MdDialog) { }
 
   public openDialog() {
-    let dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      this.selectedOption = result;
-    });
-  }
+    const parent = { parentId: 0 };
+    const dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent, { data: parent });
 
-  public addRootAccountGroup() {
-    this.onRootAccountGroupAdd.emit();
+    dialogRef.afterClosed()
+      .subscribe(result => this.onRootAccountGroupAdd.emit(result));
   }
 }
