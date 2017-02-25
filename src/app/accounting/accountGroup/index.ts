@@ -1,3 +1,3 @@
 export { AccountGroupModule } from './accountGroup.module';
-export { AccountGroupRoutingModule } from './accountGroup.route.module';
+export { accountGroupRoutes, routedComponents } from './accountGroup.route';
 export { AccountGroupModel } from './accountGroup.model';

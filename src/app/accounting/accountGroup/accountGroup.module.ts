@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
-import {
-  AccountGroupRoutingModule,
-  routedComponents
-} from './accountGroup.route.module';
+import { routedComponents } from './accountGroup.route';
 import { AccountGroupService } from './accountGroup.service';
 
 @NgModule({
   imports: [
     SharedModule,
-    AccountGroupRoutingModule
   ],
   exports: [],
   declarations: [routedComponents],

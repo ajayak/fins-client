@@ -25,7 +25,7 @@ import { ENV_PROVIDERS } from './environment';
 import {
   AppRoutingModule,
   routedComponents
-} from './app.routes';
+} from './app.route.module';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
