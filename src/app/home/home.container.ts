@@ -1,8 +1,7 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy
+  OnDestroy
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -15,8 +14,7 @@ import { Store } from '../shared';
     <fs-sidenav [open]="isSideNavOpen">
       <router-outlet></router-outlet>
     </fs-sidenav>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  `
 })
 // tslint:disable-next-line:component-class-suffix
 export class HomeContainer implements OnInit, OnDestroy {

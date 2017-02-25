@@ -1,6 +1,16 @@
 <md-sidenav-container>
   <md-sidenav mode="side"
               [opened]="open">
+    <md-nav-list>
+      <h3 md-subheader>Accounting</h3>
+      <a md-list-item
+         [routerLink]="['', 'account-group']">
+        <md-icon md-list-icon>book</md-icon>
+        <span md-line>Account Group</span>
+      </a>
+      <md-divider></md-divider>
+    </md-nav-list>
+
     <md-list>
       <h3 md-subheader>Folders</h3>
       <md-list-item *ngFor="let folder of folders">

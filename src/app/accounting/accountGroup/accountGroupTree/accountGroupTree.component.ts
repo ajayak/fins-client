@@ -1,7 +1,9 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy
+  OnInit,
+  ChangeDetectionStrategy,
+  OnChanges
 } from '@angular/core';
 
 import { AccountGroupModel } from '../accountGroup.model';
@@ -11,6 +13,14 @@ import { AccountGroupModel } from '../accountGroup.model';
   templateUrl: 'accountGroupTree.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountGroupTreeComponent {
-  @Input() public accountGroups: AccountGroupModel[];
+export class AccountGroupTreeComponent implements OnInit, OnChanges {
+  @Input() public accountGroups: AccountGroupModel[] = [];
+
+  public ngOnInit() {
+    console.log('Initialized', this.accountGroups);
+  }
+
+  public ngOnChanges() {
+    console.log('On change', this.accountGroups);
+  }
 }
