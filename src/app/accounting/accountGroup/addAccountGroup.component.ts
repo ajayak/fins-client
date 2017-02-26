@@ -28,7 +28,7 @@ export class AddAccountGroupComponent {
   @Output() public onRootAccountGroupAdd = new EventEmitter();
   public dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>;
 
-  constructor(public dialog: MdDialog) { }
+  constructor(private dialog: MdDialog) { }
 
   public openDialog() {
     this.dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent, { data: this.parent });

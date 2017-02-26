@@ -4,14 +4,6 @@
       [formGroup]="accountGroupForm">
   <div style="height: 170px;"
        md-dialog-content>
-    <div *ngIf="parent.parentId">
-      <md-input-container class="full-width">
-        <input mdInput
-               disabled="true"
-               placeholder="Account Group Parent Name"
-               formControlName="parentName" />
-      </md-input-container>
-    </div>
     <md-input-container class="full-width top-20">
       <input mdInput
              placeholder="Account Group Name"

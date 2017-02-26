@@ -3,19 +3,29 @@ import {
   Input,
   ChangeDetectionStrategy,
   OnInit,
+  Output,
+  EventEmitter,
   OnChanges
 } from '@angular/core';
+import {
+  MdDialog,
+  MdDialogRef
+} from '@angular/material';
 
 import isNull from 'lodash/isNull.js';
 import sortBy from 'lodash/sortBy';
 
+import { AccountGroupCreatorDialogComponent } from '../accountGroupCreator';
 import {
   TreeNode,
   MenuItem
 } from 'primeng/components/common/api';
 
 import { transformToTree } from '../../../shared/helpers';
-import { AccountGroupModel } from '../accountGroup.model';
+import {
+  AccountGroupModel,
+  AccountGroupTreeNode
+} from '../accountGroup.model';
 
 @Component({
   selector: 'fs-account-group-tree',
@@ -24,12 +34,20 @@ import { AccountGroupModel } from '../accountGroup.model';
 })
 export class AccountGroupTreeComponent implements OnInit, OnChanges {
   @Input() public accountGroups: AccountGroupModel[];
+  @Output() public onAccountGroupUpdate = new EventEmitter();
+  @Output() public onAccountGroupAdd = new EventEmitter();
+
+  public dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>;
   public accountGroupTreeItems: TreeNode = [];
-  public selectedNode: TreeNode;
+  public selectedNode: AccountGroupTreeNode;
   public items: MenuItem[] = [
-    { label: 'View', icon: 'fa-search', command: (event) => console.log(this.selectedNode) },
-    { label: 'Unselect', icon: 'fa-close', command: () => this.selectedNode = null }
+    { label: 'View Details', icon: 'fa-search', command: () => console.log(this.selectedNode) },
+    { label: 'Add Child', icon: 'fa-plus', command: () => this.addChild() },
+    { label: 'Add Sibling', icon: 'fa-plus', command: () => this.addSibling() },
+    { label: 'Edit', icon: 'fa-edit', command: () => this.addChild() }
   ];
+
+  constructor(private dialog: MdDialog) { }
 
   public ngOnInit() {
     this.renderTree();
@@ -41,6 +59,32 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
 
   public renderTree() {
     this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
+  }
+
+  public addSibling() {
+    let parentNode = this.selectedNode.parent as any;
+    if (isNull(parentNode)) {
+      parentNode = { parentId: 0, id: 0 }
+    }
+    this.openDialog({ ...parentNode, mode: 'ADD' });
+  }
+
+  public addChild() {
+    this.openDialog({ ...this.selectedNode, mode: 'ADD' });
+  }
+
+  public openDialog(data: AccountGroupTreeNode) {
+    this.dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent, { data });
+
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        if (data.mode === 'ADD') {
+          this.onAccountGroupAdd.emit(result);
+        } else {
+          this.onAccountGroupUpdate.emit(result);
+        }
+        this.dialogRef = null;
+      });
   }
 
   private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode {

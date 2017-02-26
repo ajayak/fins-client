@@ -15,7 +15,7 @@ import { MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 
 import { AccountGroupService } from '../accountGroup.service';
-import { AccountGroupModel } from '../accountGroup.model';
+import { AccountGroupTreeNode } from '../accountGroup.model';
 import { GenericValidator } from '../../../shared';
 import { UserProfileService } from '../../../auth';
 
@@ -25,7 +25,7 @@ import { UserProfileService } from '../../../auth';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit {
-  public parent: AccountGroupModel;
+  public parent: AccountGroupTreeNode;
   public title: string = 'Add Root Account Group';
   public accountGroupForm: FormGroup;
   public displayMessage: { [key: string]: string } = {};
@@ -46,18 +46,17 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
 
   public ngOnInit() {
     const orgId = this.userProfileService.getOrgId();
-    this.parent = this.dialogRef.config.data as AccountGroupModel;
-    if (this.parent.parentId !== 0) {
-      this.title = `Add ${this.parent.displayName}'s Child Account Group`;
+    this.parent = this.dialogRef.config.data as AccountGroupTreeNode;
+    if (this.parent.id !== 0) {
+      this.title = `Add ${this.parent.label}'s Child Account Group`;
     }
 
     this.accountGroupForm = this.fb.group({
       name: ['',
         [Validators.required, Validators.maxLength(200)],
-        this.accountGroupAlreadyExistsValidator(orgId, this.parent.parentId)],
+        this.accountGroupAlreadyExistsValidator(orgId, this.parent.id)],
       displayName: ['', [Validators.required, Validators.maxLength(200)]],
-      parentId: [this.parent.parentId],
-      parentName: [this.parent.displayName]
+      parentId: [this.parent.id]
     });
   }
 
