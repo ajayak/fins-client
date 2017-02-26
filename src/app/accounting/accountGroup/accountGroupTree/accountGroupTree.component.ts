@@ -21,7 +21,10 @@ import {
   MenuItem
 } from 'primeng/components/common/api';
 
-import { transformToTree } from '../../../shared/helpers';
+import {
+  transformToTree,
+  ToastService
+} from '../../../shared';
 import {
   AccountGroupModel,
   AccountGroupTreeNode
@@ -36,6 +39,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   @Input() public accountGroups: AccountGroupModel[];
   @Output() public onAccountGroupUpdate = new EventEmitter();
   @Output() public onAccountGroupAdd = new EventEmitter();
+  @Output() public onAccountGroupDelete = new EventEmitter();
 
   public dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>;
   public accountGroupTreeItems: TreeNode = [];
@@ -44,10 +48,13 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
     { label: 'View Details', icon: 'fa-search', command: () => console.log(this.selectedNode) },
     { label: 'Add Child', icon: 'fa-plus', command: () => this.addChild() },
     { label: 'Add Sibling', icon: 'fa-plus', command: () => this.addSibling() },
-    { label: 'Edit', icon: 'fa-edit', command: () => this.addChild() }
+    { label: 'Edit', icon: 'fa-edit', command: () => this.addChild() },
+    { label: 'Delete', icon: 'fa-remove', command: () => this.deleteAccountGroup() }
   ];
 
-  constructor(private dialog: MdDialog) { }
+  constructor(
+    private dialog: MdDialog,
+    private toastr: ToastService) { }
 
   public ngOnInit() {
     this.renderTree();
@@ -59,6 +66,20 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
 
   public renderTree() {
     this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
+  }
+
+  public deleteAccountGroup(): void {
+    if (this.selectedNode.children.length > 0) {
+      this.toastr.error({
+        title: `Cannot delete ${this.selectedNode.label}`,
+        text: 'Account group has related child account groups.'
+      });
+      return;
+    }
+
+    this.toastr.confirm({
+      titleText: `Are you sure you want to delete ${this.selectedNode.label}?`
+    }).then(() => this.onAccountGroupDelete.emit(this.selectedNode.id));
   }
 
   public addSibling() {

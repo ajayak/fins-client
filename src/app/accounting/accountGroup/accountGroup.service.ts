@@ -52,4 +52,13 @@ export class AccountGroupService {
         this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, result);
       });
   }
+
+  public deleteAccountGroup
+    (orgId: number, accountGroupId: number): Observable<boolean> {
+    let url = config.urls.deleteAccountGroup
+      .replace(/accountGroupId/i, `${accountGroupId}`)
+      .replace(/orgId/i, `${orgId}`);
+    return this.apiService.delete(url)
+      .do(result => this.storeHelper.findAndDelete(StateHelper.accountGroups, accountGroupId));
+  }
 }

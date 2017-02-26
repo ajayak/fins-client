@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   AfterViewInit
 } from '@angular/core';
 import {
@@ -37,7 +36,6 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
     private fb: FormBuilder,
     private dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>,
     private accountGroupService: AccountGroupService,
-    private cd: ChangeDetectorRef,
     private userProfileService: UserProfileService
   ) {
     this.initializeErrorMessages();

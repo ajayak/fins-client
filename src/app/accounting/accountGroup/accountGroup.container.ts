@@ -7,7 +7,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 import isNil from 'lodash/isNil';
 
+import { UserProfileService } from '../../auth';
 import { Store } from '../../shared/store';
+import { ToastService } from '../../shared/services';
 import { AccountGroupService } from './accountGroup.service';
 import { AccountGroupModel } from './accountGroup.model';
 
@@ -21,7 +23,8 @@ import { AccountGroupModel } from './accountGroup.model';
     <fs-account-group-tree
       [accountGroups]="accountGroups"
       (onAccountGroupAdd)="addAccountGroup($event)"
-      (onAccountGroupUpdate)="updateAccountGroup($event)">
+      (onAccountGroupUpdate)="updateAccountGroup($event)"
+      (onAccountGroupDelete)="deleteAccountGroup($event)">
     </fs-account-group-tree>
   `
 })
@@ -34,7 +37,9 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   constructor(
     private accountGroupService: AccountGroupService,
     private store: Store,
-    private snackBar: MdSnackBar) { }
+    private snackBar: MdSnackBar,
+    private userProfile: UserProfileService,
+    private toastr: ToastService) { }
 
   public ngOnInit() {
     this.getAccountGroupSubscription = this.accountGroupService.getAccountGroup().subscribe();
@@ -54,6 +59,17 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
 
   public updateAccountGroup(accountGroup: AccountGroupModel) {
     console.log('Updated');
+  }
+
+  public deleteAccountGroup(accountGroupId: number) {
+    const orgId = this.userProfile.getOrgId();
+    this.accountGroupService.deleteAccountGroup(orgId, accountGroupId)
+      .subscribe(
+      () => this.snackBar.open(`Account Group deleted successfully`, 'Close', { duration: 2000 }),
+      (error) => this.toastr.error({
+        title: 'Unable to delete Account Group',
+        text: error.error_description
+      }));
   }
 
   public ngOnDestroy() {

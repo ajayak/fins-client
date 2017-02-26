@@ -13,6 +13,6 @@ export class AccountGroupTreeNode {
   public label: string;
   public parentId: number;
   public parent?: AccountGroupTreeNode;
-  public children?: AccountGroupTreeNode;
+  public children?: AccountGroupTreeNode[];
   public mode: 'ADD' | 'EDIT';
 }

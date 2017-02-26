@@ -56,7 +56,7 @@ export class ApiService {
 
   public delete(path: string): Observable<any> {
     this.spinner.show();
-    return this.http.delete(`${this.apiUrl}${path}`, this.headers)
+    return this.http.delete(`${this.apiUrl}${path}`, { headers: this.headers })
       .map((res) => this.extractData(res))
       .catch((err) => this.catchBadResponse(err))
       .finally(() => this.spinner.hide());
@@ -92,7 +92,15 @@ export class ApiService {
 
   private catchBadResponse: (errorResponse: any) => Observable<any> = (errorResponse: any) => {
     const res = <Response>errorResponse;
-    const err = res.json();
+    let err;
+    try {
+      err = res.json();
+    } catch (error) {
+      err = {
+        error: res['_body'],
+        error_description: res['_body']
+      };
+    }
     this.logger.error('Http Error', err);
     if (err.currentTarget && err.currentTarget.status === 0) {
       // Request not sent
