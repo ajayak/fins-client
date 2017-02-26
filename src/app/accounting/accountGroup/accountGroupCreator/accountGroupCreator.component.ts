@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  ChangeDetectionStrategy,
   AfterViewInit
 } from '@angular/core';
 import {
@@ -17,9 +18,11 @@ import { AccountGroupTreeNode } from '../accountGroup.model';
 import { GenericValidator } from '../../../shared';
 import { UserProfileService } from '../../../auth';
 
+// Change Detection onPush not used due to async validator on name field
 @Component({
   selector: 'fs-account-group-creator-dialog',
-  templateUrl: './accountGroupCreator.component.html'
+  templateUrl: './accountGroupCreator.component.html',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit {
   public parent: AccountGroupTreeNode;
