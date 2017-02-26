@@ -12,6 +12,7 @@ import {
   Validators
 } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
+import { Observable } from 'rxjs';
 
 import { AccountGroupService } from '../accountGroup.service';
 import { AccountGroupModel } from '../accountGroup.model';
@@ -61,19 +62,39 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   }
 
   public ngAfterViewInit(): void {
-    this.accountGroupForm.valueChanges.debounceTime(500).subscribe(() => {
+    Observable.merge(
+      this.accountGroupForm.valueChanges,
+      this.accountGroupForm.get('name').statusChanges
+    ).subscribe(() => {
       this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
     });
   }
 
   public accountGroupAlreadyExistsValidator(orgId: number, parentId: number) {
     return (control: AbstractControl) => {
-      return this.accountGroupService
-        .accountGroupExistsInOrganization(orgId, parentId, control.value)
-        .toPromise()
-        .then(result => {
-          return result === true ? { accountGroupAlreadyExists: true } : null;
-        });
+      return new Observable((obs: any) => {
+        // TODO: Stop extra network calls here!
+        control
+          .valueChanges
+          .debounceTime(500)
+          .filter(value => value.length > 0)
+          .distinctUntilChanged()
+          .flatMap(accountGroupName => {
+            return this.accountGroupService
+              .accountGroupExistsInOrganization(orgId, parentId, accountGroupName);
+          })
+          .subscribe(
+          result => {
+            result === true ?
+              obs.next({ accountGroupAlreadyExists: true }) : obs.next(null);
+            obs.complete();
+          },
+          error => {
+            obs.next(null);
+            obs.complete();
+          }
+          );
+      });
     };
   }
 
