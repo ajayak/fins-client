@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ChangeDetectionStrategy,
   AfterViewInit
 } from '@angular/core';
 import {
@@ -20,8 +19,7 @@ import { UserProfileService } from '../../../auth';
 
 @Component({
   selector: 'fs-account-group-creator-dialog',
-  templateUrl: './accountGroupCreator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './accountGroupCreator.component.html'
 })
 export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit {
   public parent: AccountGroupTreeNode;
@@ -59,10 +57,12 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   }
 
   public ngAfterViewInit(): void {
-    Observable.merge(
-      this.accountGroupForm.valueChanges,
-      this.accountGroupForm.get('name').statusChanges
-    ).subscribe(() => {
+    this.accountGroupForm.valueChanges.subscribe(() => {
+      this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
+    });
+
+    this.accountGroupForm.get('name').statusChanges.subscribe(() => {
+      console.log('Status Changed');
       this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
     });
   }

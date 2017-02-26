@@ -12,7 +12,7 @@ import {
   MdDialogRef
 } from '@angular/material';
 
-import isNull from 'lodash/isNull.js';
+import isNil from 'lodash/isNil.js';
 import sortBy from 'lodash/sortBy';
 
 import { AccountGroupCreatorDialogComponent } from '../accountGroupCreator';
@@ -84,7 +84,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
 
   public addSibling() {
     let parentNode = this.selectedNode.parent as any;
-    if (isNull(parentNode)) {
+    if (isNil(parentNode)) {
       parentNode = { parentId: 0, id: 0 };
     }
     this.openDialog({ ...parentNode, mode: 'ADD' });
@@ -109,7 +109,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   }
 
   private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode {
-    if (isNull(accountGroups)) { return []; };
+    if (isNil(accountGroups)) { return []; };
     accountGroups = sortBy(accountGroups, (ag: AccountGroupModel) => ag.name.toLowerCase());
     let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
       let treeNode: TreeNode = {
