@@ -1,6 +1,41 @@
 <h1 md-dialog-title>{{title}}</h1>
-<div md-dialog-content>What would you like to do?</div>
-<div md-dialog-actions>
-  <button md-button
-          (click)="addAccountGroup()">Add</button>
-</div>
+<form novalidate
+      (ngSubmit)="addAccountGroup($event)"
+      [formGroup]="accountGroupForm">
+  <div style="height: 140px;"
+       md-dialog-content>
+    <div *ngIf="parent.parentId">
+      <md-input-container class="full-width">
+        <input mdInput
+               disabled="true"
+               placeholder="Account Group Parent Name"
+               formControlName="parentName" />
+      </md-input-container>
+    </div>
+    <md-input-container class="full-width">
+      <input mdInput
+             placeholder="Account Group Name"
+             formControlName="name" />
+      <span class="input-error"
+            *ngFor="let error of getControlErrors(accountGroupForm, 'name')">
+        {{error}}
+      </span>
+    </md-input-container>
+    <md-input-container class="full-width">
+      <input mdInput
+             placeholder="Account Group Display Name"
+             formControlName="displayName" />
+      <span class="input-error"
+            *ngFor="let error of getControlErrors(accountGroupForm, 'displayName')">
+        {{error}}
+      </span>
+    </md-input-container>
+  </div>
+  <div md-dialog-actions
+       align="end">
+    <button md-raised-button
+            type="submit"
+            color="primary"
+            [disabled]="!accountGroupForm.valid">Add</button>
+  </div>
+</form>

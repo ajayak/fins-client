@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   Output,
   EventEmitter
 } from '@angular/core';
@@ -12,7 +13,7 @@ import { AccountGroupCreatorDialogComponent } from './accountGroupCreator';
 import { AccountGroupModel } from './accountGroup.model';
 
 @Component({
-  selector: 'fs-add-root-account-group',
+  selector: 'fs-add-account-group',
   template: `
   <button 
       md-raised-button
@@ -20,19 +21,17 @@ import { AccountGroupModel } from './accountGroup.model';
       [disabled]='dialogRef'
       (click)='openDialog()'
   >Add Root Account Group</button>
-  {{selectedOption}}
   `
 })
 export class AddAccountGroupComponent {
+  @Input() public parent: AccountGroupModel;
   @Output() public onRootAccountGroupAdd = new EventEmitter();
-  public selectedOption: string;
   public dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>;
 
   constructor(public dialog: MdDialog) { }
 
   public openDialog() {
-    let parent = { parentId: 0 };
-    this.dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent, { data: parent });
+    this.dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent, { data: this.parent });
 
     this.dialogRef.afterClosed()
       .subscribe(result => {

@@ -26,11 +26,11 @@
 
 md-input-container.ng-invalid.ng-touched,
 md-input-container.ng-invalid.ng-dirty {
-  .md-input-placeholder.md-focused,
+  .mat-input-placeholder.mat-focused,
   label {
     color: $error-color;
   }
-  .md-input-ripple.md-focused {
+  .mat-input-ripple.mat-focused {
     background-color: $error-color;
   }
 }
