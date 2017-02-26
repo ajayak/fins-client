@@ -25,6 +25,9 @@ const generateErrorMessages = (errorType: string, info: any): string => {
       return `This field should contain atleast ${info.requiredLength} characters`;
     case 'maxlength':
       return `This field should contain maximum ${info.requiredLength} characters`;
+
+    case 'accountGroupAlreadyExists':
+      return `Account group with same name already exists under this parent`;
     default:
       console.info(errorType, info);
       return 'Unknown Error. Added this error to error list';

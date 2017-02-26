@@ -4,11 +4,13 @@ export const config = {
   urls: {
     base: defaultBaseUrl,
     token: '/connect/token',
-    accountGroup: '/api/accountGroup'
+    accountGroup: '/api/accountGroup',
+    accountGroupExistsInOrg: '/api/accountGroup/parentId/accountGroupName/organization/orgId'
   },
   appKeys: {
     jwtAccessKey: 'fins_app_access',
-    jwtIdKey: 'fins_app_id'
+    jwtIdKey: 'fins_app_id',
+    storeKey: 'fins_store_state'
   }
 };
 

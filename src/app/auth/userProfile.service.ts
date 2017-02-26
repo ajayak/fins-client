@@ -15,4 +15,8 @@ export class UserProfileService {
 
     return userTypes.indexOf(UserTypes.siteAdmin) !== -1;
   }
+
+  public getOrgId(): number {
+    return this.store.getState().auth.organizationId[0] || 0;
+  }
 }

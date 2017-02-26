@@ -46,7 +46,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
 
     let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
       let treeNode: TreeNode = {
-        label: accountGroup.displayName,
+        label: accountGroup.name,
         data: accountGroup.displayName,
         expandedIcon: 'fa-folder-open',
         collapsedIcon: 'fa-folder'

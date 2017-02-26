@@ -2,7 +2,7 @@
 <form novalidate
       (ngSubmit)="addAccountGroup($event)"
       [formGroup]="accountGroupForm">
-  <div style="height: 140px;"
+  <div style="height: 170px;"
        md-dialog-content>
     <div *ngIf="parent.parentId">
       <md-input-container class="full-width">
@@ -12,7 +12,7 @@
                formControlName="parentName" />
       </md-input-container>
     </div>
-    <md-input-container class="full-width">
+    <md-input-container class="full-width top-20">
       <input mdInput
              placeholder="Account Group Name"
              formControlName="name" />
@@ -21,7 +21,7 @@
         {{error}}
       </span>
     </md-input-container>
-    <md-input-container class="full-width">
+    <md-input-container class="full-width top-20">
       <input mdInput
              placeholder="Account Group Display Name"
              formControlName="displayName" />

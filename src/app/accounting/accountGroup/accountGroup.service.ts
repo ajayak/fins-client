@@ -27,4 +27,13 @@ export class AccountGroupService {
     return this.apiService.get(url)
       .do(result => this.storeHelper.update(StateHelper.accountGroups, result));
   }
+
+  public accountGroupExistsInOrganization
+    (orgId: number, parentAccountGroupId: number, name: string): Observable<boolean> {
+    let url = config.urls.accountGroupExistsInOrg
+      .replace(/parentId/i, `${parentAccountGroupId}`)
+      .replace(/accountGroupName/i, name)
+      .replace(/orgId/i, `${orgId}`);
+    return this.apiService.get(url);
+  }
 }
