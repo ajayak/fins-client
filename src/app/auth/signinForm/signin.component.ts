@@ -3,7 +3,8 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  AfterViewInit
 } from '@angular/core';
 import {
   FormGroup,
@@ -11,7 +12,7 @@ import {
   Validators
 } from '@angular/forms';
 
-import { getControlErrors } from '../../shared';
+import { GenericValidator } from '../../shared';
 
 @Component({
   selector: 'signin-form',
@@ -19,21 +20,20 @@ import { getControlErrors } from '../../shared';
   styleUrls: ['./signin.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, AfterViewInit {
   @Output() public onSubmit = new EventEmitter();
   @Output() public onForgotPassword = new EventEmitter();
   public signinForm: FormGroup;
-  public getControlErrors = getControlErrors;
+  public displayMessage: { [key: string]: string } = {};
+
+  private genericValidator: GenericValidator;
+  private validationMessages: { [key: string]: { [key: string]: string } };
 
   constructor(
     private fb: FormBuilder
-  ) { }
-
-  public signIn($event): void {
-    $event.preventDefault();
-    if (this.signinForm.valid) {
-      this.onSubmit.emit(this.signinForm.value);
-    }
+  ) {
+    this.initializeErrorMessages();
+    this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
   public ngOnInit(): void {
@@ -42,5 +42,34 @@ export class SigninComponent implements OnInit {
       username: ['organization@example.com', [Validators.required, Validators.maxLength(250)]],
       password: ['YouShouldChangeThisPassword1!', [Validators.required]]
     });
+  }
+
+  public ngAfterViewInit(): void {
+    this.signinForm.valueChanges.debounceTime(500).subscribe(() => {
+      this.displayMessage = this.genericValidator.processMessages(this.signinForm);
+    });
+  }
+
+  public signIn($event): void {
+    $event.preventDefault();
+    if (this.signinForm.valid) {
+      this.onSubmit.emit(this.signinForm.value);
+    }
+  }
+
+  private initializeErrorMessages() {
+    this.validationMessages = {
+      organization: {
+        required: 'Organization name is required.',
+        maxlength: 'Organization name cannot exceed 50 characters.'
+      },
+      username: {
+        required: 'User Name name is required.',
+        maxlength: 'User Name name cannot exceed 50 characters.'
+      },
+      password: {
+        required: 'Password name is required.'
+      }
+    };
   }
 }

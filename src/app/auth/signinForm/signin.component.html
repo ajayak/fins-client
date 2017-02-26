@@ -11,8 +11,8 @@
                placeholder="Organization"
                formControlName="organization" />
         <span class="input-error"
-              *ngFor="let error of getControlErrors(signinForm, 'organization')">
-          {{error}}
+              *ngIf="displayMessage.organization">
+          {{displayMessage.organization}}
         </span>
       </md-input-container>
       <md-input-container class="full-width top-20">
@@ -20,8 +20,8 @@
                placeholder="Username/Email"
                formControlName="username" />
         <span class="input-error"
-              *ngFor="let error of getControlErrors(signinForm, 'username')">
-          {{error}}
+              *ngIf="displayMessage.username">
+          {{displayMessage.username}}
         </span>
       </md-input-container>
       <md-input-container class="full-width top-20">
@@ -30,8 +30,8 @@
                type="password"
                formControlName="password" />
         <span class="input-error"
-              *ngFor="let error of getControlErrors(signinForm, 'password')">
-          {{error}}
+              *ngIf="displayMessage.password">
+          {{displayMessage.password}}
         </span>
       </md-input-container>
     </md-card-content>

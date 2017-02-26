@@ -1,5 +1,2 @@
-export {
-  controlIsValid,
-  getControlErrors
-} from './formHelper';
+export { GenericValidator } from './formHelper';
 export { transformToTree } from './util';

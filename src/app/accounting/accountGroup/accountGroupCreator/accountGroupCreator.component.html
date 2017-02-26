@@ -17,8 +17,8 @@
              placeholder="Account Group Name"
              formControlName="name" />
       <span class="input-error"
-            *ngFor="let error of getControlErrors(accountGroupForm, 'name')">
-        {{error}}
+            *ngIf="displayMessage.name">
+        {{displayMessage.name}}
       </span>
     </md-input-container>
     <md-input-container class="full-width top-20">
@@ -26,8 +26,8 @@
              placeholder="Account Group Display Name"
              formControlName="displayName" />
       <span class="input-error"
-            *ngFor="let error of getControlErrors(accountGroupForm, 'displayName')">
-        {{error}}
+            *ngIf="displayMessage.displayName">
+        {{displayMessage.displayName}}
       </span>
     </md-input-container>
   </div>

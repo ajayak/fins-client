@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  AfterViewInit
 } from '@angular/core';
 import {
   FormGroup,
@@ -14,7 +15,7 @@ import { MdDialogRef } from '@angular/material';
 
 import { AccountGroupService } from '../accountGroup.service';
 import { AccountGroupModel } from '../accountGroup.model';
-import { getControlErrors } from '../../../shared';
+import { GenericValidator } from '../../../shared';
 import { UserProfileService } from '../../../auth';
 
 @Component({
@@ -22,11 +23,14 @@ import { UserProfileService } from '../../../auth';
   templateUrl: './accountGroupCreator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountGroupCreatorDialogComponent implements OnInit {
+export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit {
   public parent: AccountGroupModel;
   public title: string = 'Add Root Account Group';
   public accountGroupForm: FormGroup;
-  public getControlErrors = getControlErrors;
+  public displayMessage: { [key: string]: string } = {};
+
+  private validationMessages: { [key: string]: { [key: string]: string } };
+  private genericValidator: GenericValidator;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +38,10 @@ export class AccountGroupCreatorDialogComponent implements OnInit {
     private accountGroupService: AccountGroupService,
     private cd: ChangeDetectorRef,
     private userProfileService: UserProfileService
-  ) { }
+  ) {
+    this.initializeErrorMessages();
+    this.genericValidator = new GenericValidator(this.validationMessages);
+  }
 
   public ngOnInit() {
     const orgId = this.userProfileService.getOrgId();
@@ -53,16 +60,19 @@ export class AccountGroupCreatorDialogComponent implements OnInit {
     });
   }
 
+  public ngAfterViewInit(): void {
+    this.accountGroupForm.valueChanges.debounceTime(500).subscribe(() => {
+      this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
+    });
+  }
+
   public accountGroupAlreadyExistsValidator(orgId: number, parentId: number) {
     return (control: AbstractControl) => {
       return this.accountGroupService
         .accountGroupExistsInOrganization(orgId, parentId, control.value)
         .toPromise()
         .then(result => {
-          if (result === true) {
-            return { accountGroupAlreadyExists: true };
-          }
-          return null;
+          return result === true ? { accountGroupAlreadyExists: true } : null;
         });
     };
   }
@@ -72,5 +82,19 @@ export class AccountGroupCreatorDialogComponent implements OnInit {
     if (this.accountGroupForm.valid) {
       this.dialogRef.close(this.accountGroupForm.value);
     }
+  }
+
+  private initializeErrorMessages() {
+    this.validationMessages = {
+      name: {
+        required: 'Name is required.',
+        maxlength: 'Name cannot exceed 200 characters.',
+        accountGroupAlreadyExists: 'Account Group with same name already exists under this parent'
+      },
+      displayName: {
+        required: 'Display Name name is required.',
+        maxlength: 'Display Name name cannot exceed 200 characters.'
+      }
+    };
   }
 }
