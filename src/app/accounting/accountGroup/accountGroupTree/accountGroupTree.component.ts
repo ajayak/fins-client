@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 
 import isNull from 'lodash/isNull.js';
+import sortBy from 'lodash/sortBy';
+
 import {
   TreeNode,
   MenuItem
@@ -43,7 +45,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
 
   private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode {
     if (isNull(accountGroups)) { return []; };
-
+    accountGroups = sortBy(accountGroups, (ag: AccountGroupModel) => ag.name.toLowerCase());
     let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
       let treeNode: TreeNode = {
         label: accountGroup.name,

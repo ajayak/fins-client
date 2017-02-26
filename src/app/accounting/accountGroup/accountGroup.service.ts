@@ -36,4 +36,10 @@ export class AccountGroupService {
       .replace(/orgId/i, `${orgId}`);
     return this.apiService.get(url);
   }
+
+  public addAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
+    return this.apiService
+      .post(config.urls.accountGroup, accountGroup)
+      .do(result => this.storeHelper.findAndAddInArray(StateHelper.accountGroups, result));
+  }
 }

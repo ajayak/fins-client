@@ -4,6 +4,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { MdSnackBar } from '@angular/material';
 
 import { Store } from '../../shared/store';
 import { AccountGroupService } from './accountGroup.service';
@@ -29,7 +30,8 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
 
   constructor(
     private accountGroupService: AccountGroupService,
-    private store: Store) { }
+    private store: Store,
+    private snackBar: MdSnackBar) { }
 
   public ngOnInit() {
     this.getAccountGroupSubscription = this.accountGroupService.getAccountGroup().subscribe();
@@ -40,7 +42,10 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   }
 
   public addRootAccountGroup(accountGroup: AccountGroupModel) {
-    console.log('Added', accountGroup);
+    this.accountGroupService.addAccountGroup(accountGroup)
+      .subscribe(() => {
+        this.snackBar.open(`${accountGroup.name} added successfully`, 'Close', { duration: 2000 });
+      });
   }
 
   public ngOnDestroy() {

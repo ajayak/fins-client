@@ -29,6 +29,18 @@ export class StoreHelper {
         }));
     }
 
+    public findAndAddInArray(prop, state) {
+        const currentState = this.store.getState();
+        const newState = {
+            ...currentState,
+            [prop]: [
+                ...currentState[prop],
+                state
+            ]
+        };
+        this.store.setState(newState);
+    }
+
     public findAndDelete(prop, id) {
         const currentState = this.store.getState();
         const collection = currentState[prop];

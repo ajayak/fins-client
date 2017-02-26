@@ -73,16 +73,15 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   public accountGroupAlreadyExistsValidator(orgId: number, parentId: number) {
     return (control: AbstractControl) => {
       return new Observable((obs: any) => {
-        // TODO: Stop extra network calls here!
+        // TODO: ISSUE: Stop extra network calls here!
         control
           .valueChanges
           .debounceTime(500)
           .filter(value => value.length > 0)
           .distinctUntilChanged()
-          .flatMap(accountGroupName => {
-            return this.accountGroupService
-              .accountGroupExistsInOrganization(orgId, parentId, accountGroupName);
-          })
+          .flatMap(accountGroupName => this.accountGroupService
+            .accountGroupExistsInOrganization(orgId, parentId, accountGroupName)
+          )
           .subscribe(
           result => {
             result === true ?
