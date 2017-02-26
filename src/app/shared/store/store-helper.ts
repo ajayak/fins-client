@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from './store';
 
+import isNil from 'lodash/isNil';
+
 @Injectable()
 export class StoreHelper {
     constructor(private store: Store) { }
@@ -29,12 +31,14 @@ export class StoreHelper {
         }));
     }
 
-    public findAndAddInArray(prop, state) {
+    public findAndAddOrUpdateInArray(prop, state) {
         const currentState = this.store.getState();
+        const collection = [...currentState[prop]];
+        const updatedCollection = collection.filter(c => c.id !== state.id);
         const newState = {
             ...currentState,
             [prop]: [
-                ...currentState[prop],
+                ...updatedCollection,
                 state
             ]
         };

@@ -7,7 +7,8 @@ import { config } from '../../core';
 import { UserProfileService } from '../../auth/userProfile.service';
 import {
   StoreHelper,
-  StateHelper
+  StateHelper,
+  Store
 } from '../../shared';
 
 @Injectable()
@@ -17,7 +18,8 @@ export class AccountGroupService {
   constructor(
     private apiService: ApiService,
     private user: UserProfileService,
-    private storeHelper: StoreHelper) { }
+    private storeHelper: StoreHelper,
+    private store: Store) { }
 
   public getAccountGroup(orgId?: number): Observable<AccountGroupModel[]> {
     let url = config.urls.accountGroup;
@@ -40,6 +42,14 @@ export class AccountGroupService {
   public addAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
     return this.apiService
       .post(config.urls.accountGroup, accountGroup)
-      .do(result => this.storeHelper.findAndAddInArray(StateHelper.accountGroups, result));
+      .do(result => {
+        if (accountGroup.parentId !== 0) {
+          const state = this.store.getState();
+          const parent = state.accountGroups.filter(c => c.id === accountGroup.parentId);
+          const updatedParent = { ...parent[0], isPrimary: false };
+          this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, updatedParent);
+        }
+        this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, result);
+      });
   }
 }

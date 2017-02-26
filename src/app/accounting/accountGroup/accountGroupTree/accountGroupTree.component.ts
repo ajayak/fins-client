@@ -64,7 +64,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   public addSibling() {
     let parentNode = this.selectedNode.parent as any;
     if (isNull(parentNode)) {
-      parentNode = { parentId: 0, id: 0 }
+      parentNode = { parentId: 0, id: 0 };
     }
     this.openDialog({ ...parentNode, mode: 'ADD' });
   }
