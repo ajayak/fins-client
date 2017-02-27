@@ -6,6 +6,7 @@ interface TokenModel {
   'ar:organizationid': string | string[];
   'fs:usertype': string | string[];
   'fs:accessLevel': string | string[];
+  'fs:accounting': string | string[];
 }
 
 const convertStringToArray = (value: string | string[]): string[] => {
@@ -23,13 +24,15 @@ export class AuthTokenModel {
   public role: string[];
   public organizationId: number[];
   public userType: string[];
-  public AccessLevel: string[];
+  public accessLevel: string[];
+  public accounting: string[];
 
   constructor(decodedToken: TokenModel) {
     this.username = decodedToken.unique_name;
     this.role = convertStringToArray(decodedToken.role);
-    this.AccessLevel = convertStringToArray(decodedToken['fs:usertype']);
+    this.accessLevel = convertStringToArray(decodedToken['fs:usertype']);
     this.userType = convertStringToArray(decodedToken['fs:usertype']);
+    this.accounting = convertStringToArray(decodedToken['fs:accounting']);
     this.organizationId =
       convertStringToArray(decodedToken['fs:organizationid'])
         .map(id => parseInt(id, 10));
