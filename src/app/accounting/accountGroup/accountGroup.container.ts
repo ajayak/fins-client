@@ -17,7 +17,7 @@ import { AccountGroupModel } from './accountGroup.model';
   selector: 'fs-account-group',
   template: `
     <fs-add-account-group 
-      [parent]="{id: 0, parentId: 0}"
+      [parent]="rootAccountGroup"
       (onRootAccountGroupAdd)="addAccountGroup($event)">
     </fs-add-account-group>
     <fs-account-group-tree
@@ -31,6 +31,7 @@ import { AccountGroupModel } from './accountGroup.model';
 // tslint:disable-next-line:component-class-suffix
 export class AccountGroupContainer implements OnInit, OnDestroy {
   public accountGroups: AccountGroupModel[] = [];
+  public rootAccountGroup = { id: 0, parentId: 0, mode: 'Add' };
   private getAccountGroupSubscription: Subscription;
   private storeSubscription: Subscription;
 

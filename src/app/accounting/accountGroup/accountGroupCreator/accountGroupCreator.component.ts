@@ -12,9 +12,13 @@ import {
 } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
+import isUndefined from 'lodash';
 
+import {
+  AccountGroupTreeNode,
+  AccountGroupModel
+} from '../accountGroup.model';
 import { AccountGroupService } from '../accountGroup.service';
-import { AccountGroupTreeNode } from '../accountGroup.model';
 import { GenericValidator } from '../../../shared';
 import { UserProfileService } from '../../../auth';
 
@@ -32,6 +36,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
 
   private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
+  private validationTimeout;
 
   constructor(
     private fb: FormBuilder,
@@ -44,18 +49,18 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   }
 
   public ngOnInit() {
-    const orgId = this.userProfileService.getOrgId();
+    // In edit mode, parent is the account group to edit
     this.parent = this.dialogRef.config.data as AccountGroupTreeNode;
-    if (this.parent.id !== 0) {
-      this.title = `Add ${this.parent.label}'s Child Account Group`;
-    }
+    this.setDialogTitle();
+
+    const accountGroup = this.getAddUpdateAccountGroup();
 
     this.accountGroupForm = this.fb.group({
-      name: ['',
-        [Validators.required, Validators.maxLength(200)],
-        this.accountGroupAlreadyExistsValidator(orgId, this.parent.id)],
-      displayName: ['', [Validators.required, Validators.maxLength(200)]],
-      parentId: [this.parent.id]
+      name: [accountGroup.name,
+      [Validators.required, Validators.maxLength(200)],
+      this.accountGroupAlreadyExistsValidator(accountGroup.parentId, accountGroup.name).bind(this)],
+      displayName: [accountGroup.displayName, [Validators.required, Validators.maxLength(200)]],
+      parentId: [accountGroup.parentId]
     });
   }
 
@@ -64,36 +69,22 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
       this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
     });
 
-    // TODO: Check without this!
     this.accountGroupForm.get('name').statusChanges.subscribe(() => {
-      console.log('Status Changed');
       this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
     });
   }
 
-  public accountGroupAlreadyExistsValidator(orgId: number, parentId: number) {
+  public accountGroupAlreadyExistsValidator(parentId: number, originalName: string) {
     return (control: AbstractControl) => {
-      return new Observable((obs: any) => {
-        // TODO: ISSUE: Stop extra network calls here!
-        control
-          .valueChanges
-          .debounceTime(500)
-          .filter(value => value.length > 0)
-          .distinctUntilChanged()
-          .flatMap(accountGroupName => this.accountGroupService
-            .accountGroupExistsInOrganization(orgId, parentId, accountGroupName)
-          )
-          .subscribe(
-          result => {
-            result === true ?
-              obs.next({ accountGroupAlreadyExists: true }) : obs.next(null);
-            obs.complete();
-          },
-          error => {
-            obs.next(null);
-            obs.complete();
-          }
-          );
+      clearTimeout(this.validationTimeout);
+      return new Promise(resolve => {
+        this.validationTimeout = setTimeout(() => {
+          console.log('name', originalName);
+          const accountGroupName = control.value;
+          const exists = this.accountGroupService
+            .accountGroupExistsInOrganization(parentId, accountGroupName, originalName);
+          return exists ? resolve({ accountGroupAlreadyExists: true }) : resolve(null);
+        }, 600);
       });
     };
   }
@@ -103,6 +94,38 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
     if (this.accountGroupForm.valid) {
       this.dialogRef.close(this.accountGroupForm.value);
     }
+  }
+
+  private getAddUpdateAccountGroup(): AccountGroupModel {
+    if (this.isEditMode()) {
+      return {
+        name: this.parent.label,
+        displayName: this.parent.data,
+        id: this.parent.id,
+        isPrimary: this.parent.children.length === 0,
+        parentId: this.parent.parentId
+      };
+    } else {
+      let accountGroup = new AccountGroupModel();
+      accountGroup.parentId = this.parent.id;
+      return accountGroup;
+    }
+  }
+
+  private setDialogTitle() {
+    if (this.isEditMode()) {
+      this.title = `Edit ${this.parent.label}'s Child Account Group`;
+    } else {
+      if (this.parent.id !== 0) {
+        this.title = `Add ${this.parent.label}'s Child Account Group`;
+      } else {
+        this.title = `Add Root Account Group`;
+      }
+    }
+  }
+
+  private isEditMode(): boolean {
+    return this.parent.mode === 'Edit';
   }
 
   private initializeErrorMessages() {

@@ -48,7 +48,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
     { label: 'View Details', icon: 'fa-search', command: () => console.log(this.selectedNode) },
     { label: 'Add Child', icon: 'fa-plus', command: () => this.addChild() },
     { label: 'Add Sibling', icon: 'fa-plus', command: () => this.addSibling() },
-    { label: 'Edit', icon: 'fa-edit', command: () => this.addChild() },
+    { label: 'Edit', icon: 'fa-edit', command: () => this.editAccountGroup() },
     { label: 'Delete', icon: 'fa-remove', command: () => this.deleteAccountGroup() }
   ];
 
@@ -68,6 +68,22 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
     this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
   }
 
+  public addSibling(): void {
+    let parentNode = this.selectedNode.parent as any;
+    if (isNil(parentNode)) {
+      parentNode = { parentId: 0, id: 0 };
+    }
+    this.openDialog({ ...parentNode, mode: 'ADD' });
+  }
+
+  public addChild(): void {
+    this.openDialog({ ...this.selectedNode, mode: 'Add' });
+  }
+
+  public editAccountGroup(): void {
+    this.openDialog({ ...this.selectedNode, mode: 'Edit' });
+  }
+
   public deleteAccountGroup(): void {
     if (this.selectedNode.children.length > 0) {
       this.toastr.error({
@@ -82,24 +98,12 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
     }).then(() => this.onAccountGroupDelete.emit(this.selectedNode.id));
   }
 
-  public addSibling() {
-    let parentNode = this.selectedNode.parent as any;
-    if (isNil(parentNode)) {
-      parentNode = { parentId: 0, id: 0 };
-    }
-    this.openDialog({ ...parentNode, mode: 'ADD' });
-  }
-
-  public addChild() {
-    this.openDialog({ ...this.selectedNode, mode: 'ADD' });
-  }
-
   public openDialog(data: AccountGroupTreeNode) {
     this.dialogRef = this.dialog.open(AccountGroupCreatorDialogComponent, { data });
 
     this.dialogRef.afterClosed()
       .subscribe(result => {
-        if (data.mode === 'ADD') {
+        if (data.mode === 'Add') {
           this.onAccountGroupAdd.emit(result);
         } else {
           this.onAccountGroupUpdate.emit(result);

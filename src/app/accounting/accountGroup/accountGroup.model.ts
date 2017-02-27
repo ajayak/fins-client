@@ -4,6 +4,14 @@ export class AccountGroupModel {
   public displayName: string;
   public parentId: number;
   public isPrimary: boolean;
+
+  constructor() {
+    this.id = 0;
+    this.name = '';
+    this.displayName = '';
+    this.isPrimary = true;
+    this.parentId = 0;
+  }
 }
 
 // tslint:disable-next-line:max-classes-per-file
@@ -14,5 +22,5 @@ export class AccountGroupTreeNode {
   public parentId: number;
   public parent?: AccountGroupTreeNode;
   public children?: AccountGroupTreeNode[];
-  public mode: 'ADD' | 'EDIT';
+  public mode: 'Add' | 'Edit';
 }

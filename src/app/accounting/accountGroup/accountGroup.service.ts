@@ -32,12 +32,13 @@ export class AccountGroupService {
   }
 
   public accountGroupExistsInOrganization
-    (orgId: number, parentAccountGroupId: number, name: string): Observable<boolean> {
-    let url = config.urls.accountGroupExistsInOrg
-      .replace(/parentId/i, `${parentAccountGroupId}`)
-      .replace(/accountGroupName/i, name)
-      .replace(/orgId/i, `${orgId}`);
-    return this.apiService.get(url);
+    (parentAccountGroupId: number, name: string, originalName: string): boolean {
+    const accountGroups = this.store.getState().accountGroups;
+    const items = accountGroups
+      .filter(item => item.parentId === parentAccountGroupId &&
+        item.name.toLowerCase() === name.toLowerCase() &&
+        item.name.toLowerCase() !== originalName.toLowerCase());
+    return items.length > 0;
   }
 
   public addAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
