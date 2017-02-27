@@ -64,6 +64,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
       this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);
     });
 
+    // TODO: Check without this!
     this.accountGroupForm.get('name').statusChanges.subscribe(() => {
       console.log('Status Changed');
       this.displayMessage = this.genericValidator.processMessages(this.accountGroupForm);

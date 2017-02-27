@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import isNil from 'lodash/isNil';
 
 import { ApiService } from '../../shared/services';
 import { AccountGroupModel } from './accountGroup.model';
@@ -42,15 +43,7 @@ export class AccountGroupService {
   public addAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
     return this.apiService
       .post(config.urls.accountGroup, accountGroup)
-      .do(result => {
-        if (accountGroup.parentId !== 0) {
-          const state = this.store.getState();
-          const parent = state.accountGroups.filter(c => c.id === accountGroup.parentId);
-          const updatedParent = { ...parent[0], isPrimary: false };
-          this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, updatedParent);
-        }
-        this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, result);
-      });
+      .do(result => this.addAccountGroupInState(accountGroup, result));
   }
 
   public deleteAccountGroup
@@ -59,6 +52,37 @@ export class AccountGroupService {
       .replace(/accountGroupId/i, `${accountGroupId}`)
       .replace(/orgId/i, `${orgId}`);
     return this.apiService.delete(url)
-      .do(result => this.storeHelper.findAndDelete(StateHelper.accountGroups, accountGroupId));
+      .do(result => {
+        if (result === true) { this.deleteAccountGroupFromState(accountGroupId); }
+      });
+  }
+
+  private addAccountGroupInState
+    (accountGroup: AccountGroupModel, updatedAccountGroup: AccountGroupModel) {
+    if (accountGroup.parentId !== 0) {
+      const state = this.store.getState();
+      const parent = state.accountGroups.filter(c => c.id === accountGroup.parentId);
+      const updatedParent = { ...parent[0], isPrimary: false };
+      this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, updatedParent);
+    }
+    this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, updatedAccountGroup);
+  }
+
+  private deleteAccountGroupFromState(accountGroupId: number) {
+    const accountGroups = this.store.getState().accountGroups;
+    const accountGroup = accountGroups.filter(ag => ag.id === accountGroupId)[0];
+    const parentAccountGroup = accountGroups.filter(ag => ag.id === accountGroup.parentId)[0];
+    if (!isNil(parentAccountGroup)) {
+      const childAccountGroups = accountGroups.filter(ag => ag.parentId === parentAccountGroup.id);
+      if (childAccountGroups.length === 1) {
+        const updatedParentAccountGroup = {
+          ...parentAccountGroup,
+          isPrimary: true
+        };
+        this.storeHelper
+          .findAndAddOrUpdateInArray(StateHelper.accountGroups, updatedParentAccountGroup);
+      }
+    }
+    this.storeHelper.findAndDelete(StateHelper.accountGroups, accountGroupId);
   }
 }

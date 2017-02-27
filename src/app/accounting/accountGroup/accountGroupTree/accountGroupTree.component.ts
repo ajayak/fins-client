@@ -108,7 +108,16 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
       });
   }
 
-  private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode {
+  private expandRecursive(node: TreeNode, isExpand: boolean) {
+    if (node.children && node.children.length > 0) {
+      node.expanded = isExpand;
+      node.children.forEach(childNode => {
+        this.expandRecursive(childNode, isExpand);
+      });
+    }
+  }
+
+  private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode[] {
     if (isNil(accountGroups)) { return []; };
     accountGroups = sortBy(accountGroups, (ag: AccountGroupModel) => ag.name.toLowerCase());
     let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
@@ -122,6 +131,8 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
       treeNode['parentId'] = accountGroup.parentId;
       return treeNode;
     });
-    return transformToTree(treeNodes) as TreeNode;
+    let tree = transformToTree(treeNodes) as TreeNode[];
+    tree.forEach(node => this.expandRecursive(node, true));
+    return tree;
   }
 }
