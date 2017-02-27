@@ -28,6 +28,8 @@
     <button md-raised-button
             type="submit"
             color="primary"
-            [disabled]="!accountGroupForm.valid">{{parent.mode}}</button>
+            [disabled]="!accountGroupForm.valid">
+      {{ isReadonly ? 'Close' : parent.mode }}
+    </button>
   </div>
 </form>

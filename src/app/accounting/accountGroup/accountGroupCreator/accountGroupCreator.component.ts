@@ -33,6 +33,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   public title: string = 'Add Root Account Group';
   public accountGroupForm: FormGroup;
   public displayMessage: { [key: string]: string } = {};
+  public isReadonly: boolean;
 
   private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
@@ -51,15 +52,21 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   public ngOnInit() {
     // In edit mode, parent is the account group to edit
     this.parent = this.dialogRef.config.data as AccountGroupTreeNode;
+    this.isReadonly = this.parent.mode === 'View';
     this.setDialogTitle();
 
     const accountGroup = this.getAddUpdateAccountGroup();
 
     this.accountGroupForm = this.fb.group({
-      name: [accountGroup.name,
-      [Validators.required, Validators.maxLength(200)],
-      this.accountGroupAlreadyExistsValidator(accountGroup.parentId, accountGroup.name).bind(this)],
-      displayName: [accountGroup.displayName, [Validators.required, Validators.maxLength(200)]],
+      name: [
+        { value: accountGroup.name, disabled: this.isReadonly },
+        [Validators.required, Validators.maxLength(200)],
+        this.accountGroupAlreadyExistsValidator(accountGroup.parentId, accountGroup.name).bind(this)
+      ],
+      displayName: [
+        { value: accountGroup.displayName, disabled: this.isReadonly },
+        [Validators.required, Validators.maxLength(200)]
+      ],
       parentId: [accountGroup.parentId],
       id: [accountGroup.id]
     });
@@ -98,7 +105,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
 
   // Create object that is to be add/update
   private getAddUpdateAccountGroup(): AccountGroupModel {
-    if (this.isEditMode()) {
+    if (this.isEditMode() || this.isReadonly) {
       return {
         name: this.parent.label,
         displayName: this.parent.data,
@@ -114,7 +121,9 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   }
 
   private setDialogTitle() {
-    if (this.isEditMode()) {
+    if (this.isReadonly) {
+      this.title = `Account Group details`;
+    } else if (this.isEditMode()) {
       this.title = `Edit ${this.parent.label}'s Child Account Group`;
     } else {
       if (this.parent.id !== 0) {
@@ -125,9 +134,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
     }
   }
 
-  private isEditMode(): boolean {
-    return this.parent.mode === 'Update';
-  }
+  private isEditMode = (): boolean => this.parent.mode === 'Update';
 
   private initializeErrorMessages() {
     this.validationMessages = {

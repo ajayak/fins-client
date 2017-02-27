@@ -22,5 +22,5 @@ export class AccountGroupTreeNode {
   public parentId: number;
   public parent?: AccountGroupTreeNode;
   public children?: AccountGroupTreeNode[];
-  public mode: 'Add' | 'Update';
+  public mode: 'Add' | 'Update' | 'View';
 }

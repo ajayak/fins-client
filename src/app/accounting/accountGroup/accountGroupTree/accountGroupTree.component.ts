@@ -45,7 +45,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   public accountGroupTreeItems: TreeNode = [];
   public selectedNode: AccountGroupTreeNode;
   public items: MenuItem[] = [
-    { label: 'View Details', icon: 'fa-search', command: () => console.log(this.selectedNode) },
+    { label: 'View Details', icon: 'fa-search', command: () => this.viewAccountGroupDetails() },
     { label: 'Add Child', icon: 'fa-plus', command: () => this.addChild() },
     { label: 'Add Sibling', icon: 'fa-plus', command: () => this.addSibling() },
     { label: 'Edit', icon: 'fa-edit', command: () => this.editAccountGroup() },
@@ -68,12 +68,16 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
     this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
   }
 
+  public viewAccountGroupDetails() {
+    this.openDialog({ ...this.selectedNode, mode: 'View' });
+  }
+
   public addSibling(): void {
     let parentNode = this.selectedNode.parent as any;
     if (isNil(parentNode)) {
       parentNode = { parentId: 0, id: 0 };
     }
-    this.openDialog({ ...parentNode, mode: 'ADD' });
+    this.openDialog({ ...parentNode, mode: 'Add' });
   }
 
   public addChild(): void {
@@ -105,7 +109,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
       .subscribe(result => {
         if (data.mode === 'Add') {
           this.onAccountGroupAdd.emit(result);
-        } else {
+        } else if (data.mode === 'Update') {
           this.onAccountGroupUpdate.emit(result);
         }
         this.dialogRef = null;
