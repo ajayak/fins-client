@@ -47,6 +47,14 @@ export class AccountGroupService {
       .do(result => this.addAccountGroupInState(accountGroup, result));
   }
 
+  public updateAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
+    return this.apiService
+      .put(config.urls.accountGroup, accountGroup)
+      .do(result => {
+        this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, result);
+      });
+  }
+
   public deleteAccountGroup
     (orgId: number, accountGroupId: number): Observable<boolean> {
     let url = config.urls.deleteAccountGroup

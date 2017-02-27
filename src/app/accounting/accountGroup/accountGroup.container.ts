@@ -43,7 +43,8 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
     private toastr: ToastService) { }
 
   public ngOnInit() {
-    this.getAccountGroupSubscription = this.accountGroupService.getAccountGroup().subscribe();
+    this.getAccountGroupSubscription = this.accountGroupService.getAccountGroup()
+      .subscribe(null, error => this.onError(error));
 
     this.storeSubscription = this.store.changes
       .map(store => store.accountGroups)
@@ -53,13 +54,17 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   public addAccountGroup(accountGroup: AccountGroupModel): void {
     if (isNil(accountGroup)) { return; };
     this.accountGroupService.addAccountGroup(accountGroup)
-      .subscribe(() => {
-        this.snackBar.open(`${accountGroup.name} added successfully`, 'Close', { duration: 2000 });
-      });
+      .subscribe(
+      () => this.onAddUpdateSuccess(accountGroup.name, 'updated'),
+      error => this.onError(error));
   }
 
   public updateAccountGroup(accountGroup: AccountGroupModel) {
-    console.log('Updated');
+    if (isNil(accountGroup)) { return; };
+    this.accountGroupService.updateAccountGroup(accountGroup)
+      .subscribe(
+      () => this.onAddUpdateSuccess(accountGroup.name, 'updated'),
+      error => this.onError(error));
   }
 
   public deleteAccountGroup(accountGroupId: number) {
@@ -76,5 +81,13 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.storeSubscription.unsubscribe();
     this.getAccountGroupSubscription.unsubscribe();
+  }
+
+  private onAddUpdateSuccess(name: string, operation: string) {
+    this.snackBar.open(`${name} ${operation} successfully`, 'Close', { duration: 2000 });
+  }
+
+  private onError(error) {
+    this.toastr.error({ titleText: error.error_description });
   }
 }

@@ -60,7 +60,8 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
       [Validators.required, Validators.maxLength(200)],
       this.accountGroupAlreadyExistsValidator(accountGroup.parentId, accountGroup.name).bind(this)],
       displayName: [accountGroup.displayName, [Validators.required, Validators.maxLength(200)]],
-      parentId: [accountGroup.parentId]
+      parentId: [accountGroup.parentId],
+      id: [accountGroup.id]
     });
   }
 
@@ -79,7 +80,6 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
       clearTimeout(this.validationTimeout);
       return new Promise(resolve => {
         this.validationTimeout = setTimeout(() => {
-          console.log('name', originalName);
           const accountGroupName = control.value;
           const exists = this.accountGroupService
             .accountGroupExistsInOrganization(parentId, accountGroupName, originalName);
@@ -89,13 +89,14 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
     };
   }
 
-  public addAccountGroup($event) {
+  public addUpdateAccountGroup($event) {
     $event.preventDefault();
     if (this.accountGroupForm.valid) {
       this.dialogRef.close(this.accountGroupForm.value);
     }
   }
 
+  // Create object that is to be add/update
   private getAddUpdateAccountGroup(): AccountGroupModel {
     if (this.isEditMode()) {
       return {
@@ -125,7 +126,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   }
 
   private isEditMode(): boolean {
-    return this.parent.mode === 'Edit';
+    return this.parent.mode === 'Update';
   }
 
   private initializeErrorMessages() {
@@ -133,7 +134,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
       name: {
         required: 'Name is required.',
         maxlength: 'Name cannot exceed 200 characters.',
-        accountGroupAlreadyExists: 'Account Group with same name already exists under this parent'
+        accountGroupAlreadyExists: 'Account Group with same name already exists under this parent.'
       },
       displayName: {
         required: 'Display Name name is required.',

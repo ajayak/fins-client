@@ -81,7 +81,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   }
 
   public editAccountGroup(): void {
-    this.openDialog({ ...this.selectedNode, mode: 'Edit' });
+    this.openDialog({ ...this.selectedNode, mode: 'Update' });
   }
 
   public deleteAccountGroup(): void {

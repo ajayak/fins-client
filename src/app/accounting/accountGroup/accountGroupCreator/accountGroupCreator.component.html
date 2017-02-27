@@ -1,6 +1,6 @@
 <h1 md-dialog-title>{{title}}</h1>
 <form novalidate
-      (ngSubmit)="addAccountGroup($event)"
+      (ngSubmit)="addUpdateAccountGroup($event)"
       [formGroup]="accountGroupForm">
   <div style="height: 170px;"
        md-dialog-content>
@@ -28,6 +28,6 @@
     <button md-raised-button
             type="submit"
             color="primary"
-            [disabled]="!accountGroupForm.valid">Add</button>
+            [disabled]="!accountGroupForm.valid">{{parent.mode}}</button>
   </div>
 </form>
