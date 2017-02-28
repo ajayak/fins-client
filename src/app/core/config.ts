@@ -19,3 +19,7 @@ export const UserTypes = {
   orgAdmin: 'OrgAdmin',
   basicUser: 'BasicUser'
 };
+
+export const Accounting = {
+  accountGroupManager: 'AccountGroupManager'
+};

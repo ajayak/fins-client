@@ -4,9 +4,10 @@ import { AccountGroupContainer } from './accountGroup.container';
 import { AccountGroupTreeComponent } from './accountGroupTree';
 import { AddAccountGroupComponent } from './addAccountGroup.component';
 import { AccountGroupCreatorDialogComponent } from './accountGroupCreator';
+import { AccountGroupGuard } from './accountGroup.guard';
 
 export const accountGroupRoutes: Routes = [
-  { path: 'account-group', component: AccountGroupContainer }
+  { path: 'account-group', component: AccountGroupContainer, canActivate: [AccountGroupGuard] }
 ];
 
 export const routedComponents = [

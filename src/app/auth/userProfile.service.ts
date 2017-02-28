@@ -2,21 +2,31 @@ import { Injectable } from '@angular/core';
 import isNil from 'lodash/isNil';
 
 import { Store } from '../shared/store';
-import { UserTypes } from '../core';
+import {
+  UserTypes,
+  Accounting
+} from '../core';
 
 @Injectable()
 export class UserProfileService {
   constructor(private store: Store) { }
 
   public isSiteAdmin(): boolean {
-    let auth = this.store.getState().auth;
-    if (isNil) { return false; }
-    let userTypes = auth.userType;
+    const auth = this.store.getState().auth;
+    if (isNil(auth)) { return false; }
+    const userTypes = auth.userType;
 
     return userTypes.indexOf(UserTypes.siteAdmin) !== -1;
   }
 
   public getOrgId(): number {
     return this.store.getState().auth.organizationId[0] || 0;
+  }
+
+  public isAccountGroupManager(): boolean {
+    const auth = this.store.getState().auth;
+    if (isNil(auth) || isNil(auth.accounting)) { return false; }
+
+    return auth.accounting.indexOf(Accounting.accountGroupManager) !== -1;
   }
 }

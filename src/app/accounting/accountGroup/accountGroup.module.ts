@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 import { AccountGroupService } from './accountGroup.service';
+import { AccountGroupGuard } from './accountGroup.guard';
 import {
   routedComponents,
   entryComponents
@@ -13,7 +14,10 @@ import {
   ],
   exports: [],
   declarations: [routedComponents],
-  providers: [AccountGroupService],
+  providers: [
+    AccountGroupService,
+    AccountGroupGuard
+  ],
   entryComponents: [entryComponents]
 })
 export class AccountGroupModule { }
