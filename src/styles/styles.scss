@@ -43,3 +43,8 @@ md-input-container.ng-invalid.ng-dirty {
   bottom: -.5em;
   top: 2.4em;
 }
+
+.fins-sidebar,
+.fins-sidebar.mat-sidenav-opened {
+  box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}

@@ -1,6 +1,7 @@
-<md-sidenav-container style="background: #fafafa">
+<md-sidenav-container>
   <md-sidenav mode="side"
-              [opened]="open">
+              [opened]="open"
+              class="fins-sidebar">
     <md-nav-list>
       <h3 md-subheader>Accounting</h3>
       <a md-list-item
@@ -33,7 +34,8 @@
     </md-list>
   </md-sidenav>
 
-  <main id="fs-main-content">
+  <main id="fs-main-content"
+        class="mat-sidenav-content">
     <ng-content></ng-content>
   </main>
 

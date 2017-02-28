@@ -6,7 +6,7 @@
 
 /* Covalent Theme */
 
-@import '~@covalent/core/theming/all-theme';
+//@import '~@covalent/core/theming/all-theme';
 // Plus imports for other components in your app.
 // Include the base styles for Angular Material core. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -24,4 +24,27 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($candy-app-theme);
-@include covalent-theme($candy-app-theme);
+//@include covalent-theme($candy-app-theme);
+@import '../../node_modules/@covalent/core/data-table/data-table-theme';
+// @import '../data-table/data-table-theme';
+// @import '../layout/layout-theme';
+// @import '../steps/steps-theme';
+// @import '../expansion-panel/expansion-panel-theme';
+// @import '../file/file-theme';
+// @import '../loading/loading-theme';
+// @import '../json-formatter/json-formatter-theme';
+// @import '../paging/paging-bar-theme';
+// @import '../notifications/notification-count-theme';
+// Create a theme.
+@mixin covalent-theme($candy-app-theme) {
+  // @include td-layout-theme($theme);
+  // @include td-steps-theme($theme);
+  // @include td-expansion-panel-theme($theme);
+  // @include td-chips-theme($theme);
+  // @include td-file-theme($theme);
+  // @include td-json-formatter-theme($theme);
+  // @include td-paging-bar-theme($theme);
+  // @include td-loading-theme($theme);
+  @include td-data-table-theme($candy-app-theme);
+  // @include td-notification-count-theme($theme);
+}

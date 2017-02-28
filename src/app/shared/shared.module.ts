@@ -11,8 +11,10 @@ import { RouterModule } from '@angular/router';
 
 // Material 2
 import { MaterialModule } from '@angular/material';
-import { CovalentCoreModule } from '@covalent/core';
 import 'hammerjs';
+
+// Covalent
+import { CovalentDataTableModule } from '@covalent/core/data-table/data-table.module';
 
 // Ng Prime
 import { TreeModule } from 'primeng/components/tree/tree';
@@ -41,8 +43,7 @@ import {
   imports: [
     CommonModule,
     RouterModule,
-    MaterialModule.forRoot(),
-    CovalentCoreModule.forRoot()
+    MaterialModule.forRoot()
   ],
   declarations: [SpinnerComponent],
   exports: [
@@ -54,6 +55,7 @@ import {
 
     // Third party Modules
     TreeModule,
+    CovalentDataTableModule,
 
     // App exports
     SpinnerComponent,
