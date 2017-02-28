@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { AccountGroupModule } from './accountGroup';
+import { AccountModule } from './account';
 
 @NgModule({
   imports: [
-    AccountGroupModule
+    AccountGroupModule,
+    AccountModule
   ],
   exports: [],
   declarations: [],
