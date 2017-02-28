@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 
 // Material 2
 import { MaterialModule } from '@angular/material';
+import { CovalentCoreModule } from '@covalent/core';
 import 'hammerjs';
 
 // Ng Prime
@@ -40,7 +41,8 @@ import {
   imports: [
     CommonModule,
     RouterModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    CovalentCoreModule.forRoot()
   ],
   declarations: [SpinnerComponent],
   exports: [

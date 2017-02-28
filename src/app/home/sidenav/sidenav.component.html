@@ -1,4 +1,4 @@
-<md-sidenav-container>
+<md-sidenav-container style="background: #fafafa">
   <md-sidenav mode="side"
               [opened]="open">
     <md-nav-list>
@@ -7,6 +7,11 @@
          [routerLink]="['', 'account-group']">
         <md-icon md-list-icon>book</md-icon>
         <span md-line>Account Group</span>
+      </a>
+      <a md-list-item
+         [routerLink]="['', 'account']">
+        <md-icon md-list-icon>assessment</md-icon>
+        <span md-line>Account</span>
       </a>
       <md-divider></md-divider>
     </md-nav-list>
