@@ -34,6 +34,8 @@ export class AccountGroupService {
   public accountGroupExistsInOrganization
     (parentAccountGroupId: number, name: string, originalName: string): boolean {
     const accountGroups = this.store.getState().accountGroups;
+    if (isNil(accountGroups)) { return false; }
+
     const items = accountGroups
       .filter(item => item.parentId === parentAccountGroupId &&
         item.name.toLowerCase() === name.toLowerCase() &&
