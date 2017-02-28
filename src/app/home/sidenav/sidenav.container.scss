@@ -1,11 +1,8 @@
-md-sidenav-container {
+md-sidenav-container,
+#fs-main-content {
   position: fixed;
   height: 100%;
   min-height: 100%;
   width: 100%;
   min-width: 100%;
-}
-
-#fs-main-content {
-  padding: 15px;
 }
