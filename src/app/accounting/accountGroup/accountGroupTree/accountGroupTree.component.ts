@@ -15,16 +15,14 @@ import {
 import isNil from 'lodash/isNil.js';
 import sortBy from 'lodash/sortBy';
 
+import { AccountGroupService } from '../accountGroup.service';
 import { AccountGroupCreatorDialogComponent } from '../accountGroupCreator';
 import {
   TreeNode,
   MenuItem
 } from 'primeng/components/common/api';
 
-import {
-  transformToTree,
-  ToastService
-} from '../../../shared';
+import { ToastService } from '../../../shared';
 import {
   AccountGroupModel,
   AccountGroupTreeNode
@@ -54,7 +52,8 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
 
   constructor(
     private dialog: MdDialog,
-    private toastr: ToastService) { }
+    private toastr: ToastService,
+    private accountGroupService: AccountGroupService) { }
 
   public ngOnInit() {
     this.renderTree();
@@ -65,7 +64,9 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   }
 
   public renderTree() {
-    this.accountGroupTreeItems = this.convertAccountGroupsToTreeNode(this.accountGroups);
+    let tree = this.accountGroupService.convertAccountGroupsToTreeNode(this.accountGroups);
+    tree.forEach(node => this.expandRecursive(node, true));
+    this.accountGroupTreeItems = tree;
   }
 
   public viewAccountGroupDetails() {
@@ -123,24 +124,5 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
         this.expandRecursive(childNode, isExpand);
       });
     }
-  }
-
-  private convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode[] {
-    if (isNil(accountGroups)) { return []; };
-    accountGroups = sortBy(accountGroups, (ag: AccountGroupModel) => ag.name.toLowerCase());
-    let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
-      let treeNode: TreeNode = {
-        label: accountGroup.name,
-        data: accountGroup.displayName,
-        expandedIcon: 'fa-folder-open',
-        collapsedIcon: 'fa-folder'
-      };
-      treeNode['id'] = accountGroup.id;
-      treeNode['parentId'] = accountGroup.parentId;
-      return treeNode;
-    });
-    let tree = transformToTree(treeNodes) as TreeNode[];
-    tree.forEach(node => this.expandRecursive(node, true));
-    return tree;
   }
 }

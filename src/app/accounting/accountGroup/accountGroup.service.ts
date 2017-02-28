@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import isNil from 'lodash/isNil';
+import sortBy from 'lodash/sortBy';
+import { TreeNode } from 'primeng/components/common/api';
 
 import { ApiService } from '../../shared/services';
 import { AccountGroupModel } from './accountGroup.model';
 import { config } from '../../core';
 import { UserProfileService } from '../../auth/userProfile.service';
+import { transformToTree } from '../../shared';
 import {
   StoreHelper,
   StateHelper,
@@ -66,6 +69,23 @@ export class AccountGroupService {
       .do(result => {
         if (result === true) { this.deleteAccountGroupFromState(accountGroupId); }
       });
+  }
+
+  public convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode[] {
+    if (isNil(accountGroups)) { return []; };
+    accountGroups = sortBy(accountGroups, (ag: AccountGroupModel) => ag.name.toLowerCase());
+    let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
+      let treeNode: TreeNode = {
+        label: accountGroup.name,
+        data: accountGroup.displayName,
+        expandedIcon: 'fa-folder-open',
+        collapsedIcon: 'fa-folder'
+      };
+      treeNode['id'] = accountGroup.id;
+      treeNode['parentId'] = accountGroup.parentId;
+      return treeNode;
+    });
+    return transformToTree(treeNodes) as TreeNode[];
   }
 
   private addAccountGroupInState
