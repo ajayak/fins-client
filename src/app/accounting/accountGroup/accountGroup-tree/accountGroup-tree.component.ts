@@ -30,7 +30,7 @@ import {
 
 @Component({
   selector: 'fs-account-group-tree',
-  templateUrl: 'accountGroupTree.component.html',
+  templateUrl: 'accountGroup-tree.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountGroupTreeComponent implements OnInit, OnChanges {
