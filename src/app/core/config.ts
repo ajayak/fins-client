@@ -5,7 +5,8 @@ export const config = {
     base: defaultBaseUrl,
     token: '/connect/token',
     accountGroup: '/api/accountGroup',
-    deleteAccountGroup: '/api/accountGroup/accountGroupId/organization/orgId'
+    deleteAccountGroup: '/api/accountGroup/accountGroupId/organization/orgId',
+    account: '/api/account'
   },
   appKeys: {
     jwtAccessKey: 'fins_app_access',

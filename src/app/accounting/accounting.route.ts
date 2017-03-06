@@ -1,5 +1,5 @@
 import { accountGroupRoutes } from './accountGroup';
-import { accountRoutes } from './account';
+import { accountRoutes } from './accounts';
 
 export const accountingRoutes = [
   ...accountGroupRoutes,

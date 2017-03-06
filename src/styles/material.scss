@@ -26,6 +26,7 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 @include angular-material-theme($candy-app-theme);
 //@include covalent-theme($candy-app-theme);
 @import '../../node_modules/@covalent/core/data-table/data-table-theme';
+@import '../../node_modules/@covalent/core/paging/paging-bar-theme';
 // @import '../data-table/data-table-theme';
 // @import '../layout/layout-theme';
 // @import '../steps/steps-theme';
@@ -33,18 +34,17 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 // @import '../file/file-theme';
 // @import '../loading/loading-theme';
 // @import '../json-formatter/json-formatter-theme';
-// @import '../paging/paging-bar-theme';
 // @import '../notifications/notification-count-theme';
 // Create a theme.
 @mixin covalent-theme($candy-app-theme) {
-  // @include td-layout-theme($theme);
-  // @include td-steps-theme($theme);
-  // @include td-expansion-panel-theme($theme);
-  // @include td-chips-theme($theme);
-  // @include td-file-theme($theme);
-  // @include td-json-formatter-theme($theme);
-  // @include td-paging-bar-theme($theme);
-  // @include td-loading-theme($theme);
+  // @include td-layout-theme($candy-app-theme);
+  // @include td-steps-theme($candy-app-theme);
+  // @include td-expansion-panel-theme($candy-app-theme);
+  // @include td-chips-theme($candy-app-theme);
+  // @include td-file-theme($candy-app-theme);
+  // @include td-json-formatter-theme($candy-app-theme);
+  @include td-paging-bar-theme($candy-app-theme);
+  // @include td-loading-theme($candy-app-theme);
   @include td-data-table-theme($candy-app-theme);
-  // @include td-notification-count-theme($theme);
+  // @include td-notification-count-theme($candy-app-theme);
 }

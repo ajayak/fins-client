@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { AccountGroupModule } from './accountGroup';
-import { AccountModule } from './account';
+import { AccountModule } from './accounts';
 
 @NgModule({
   imports: [

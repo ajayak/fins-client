@@ -14,7 +14,11 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 
 // Covalent
-import { CovalentDataTableModule } from '@covalent/core/data-table/data-table.module';
+import {
+  CovalentDataTableModule,
+  TdDataTableService
+} from '@covalent/core/data-table/data-table.module';
+import { CovalentPagingModule } from '@covalent/core/paging/paging.module';
 
 // Ng Prime
 import { TreeModule } from 'primeng/components/tree/tree';
@@ -56,12 +60,19 @@ import {
     // Third party Modules
     TreeModule,
     CovalentDataTableModule,
+    CovalentPagingModule,
 
     // App exports
     SpinnerComponent,
     ContextMenuModule
   ],
-  providers: [SpinnerService]
+  providers: [
+    // Third party services
+    TdDataTableService,
+
+    // App services
+    SpinnerService
+  ]
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {
