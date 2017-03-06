@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 import { SideNavService } from '../sidenav';
 import { Store } from '../../shared';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/shared';
 
 @Component({
   selector: 'fs-navbar',

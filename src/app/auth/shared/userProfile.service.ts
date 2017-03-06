@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import isNil from 'lodash/isNil';
 
-import { Store } from '../shared/store';
+import { Store } from '../../shared/store';
 import {
   UserTypes,
   Accounting
-} from '../core';
+} from '../../core';
 
 @Injectable()
 export class UserProfileService {

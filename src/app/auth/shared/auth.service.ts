@@ -2,22 +2,21 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { tokenNotExpired } from '../shared';
-
 import {
   Store,
   StoreHelper,
   StateHelper,
-  JwtHelperService
-} from '../shared';
+  tokenNotExpired
+} from '../../shared';
 import {
+  JwtHelperService,
   ApiService,
   LogService
-} from '../shared';
-import { SigninModel } from './signinForm';
+} from '../../shared/services';
+import { SigninModel } from '../signinForm';
 import { AuthTokenModel } from './auth-token.model';
 
-import { config } from '../core';
+import { config } from '../../core';
 
 @Injectable()
 export class AuthService {

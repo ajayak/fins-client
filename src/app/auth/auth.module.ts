@@ -5,9 +5,11 @@ import {
   AuthRoutingModule,
   routedComponents
 } from './auth.route.module';
-import { AuthService } from './auth.service';
-import { UserProfileService } from './userProfile.service';
-import { AuthGuard } from './auth.guard';
+import {
+  AuthService,
+  UserProfileService,
+  AuthGuard
+} from './shared';
 
 @NgModule({
   imports: [

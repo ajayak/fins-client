@@ -7,7 +7,7 @@ import { TreeNode } from 'primeng/components/common/api';
 import { ApiService } from '../../../shared/services';
 import { AccountGroupModel } from './accountGroup.model';
 import { config } from '../../../core';
-import { UserProfileService } from '../../../auth/userProfile.service';
+import { UserProfileService } from '../../../auth/shared';
 import { transformToTree } from '../../../shared';
 import {
   StoreHelper,

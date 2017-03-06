@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SigninModel } from './signinForm';
-import { AuthService } from './auth.service';
+import { AuthService } from './shared';
 import { ToastService } from '../shared';
 
 @Component({

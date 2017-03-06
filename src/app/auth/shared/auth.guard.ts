@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 
-import { tokenNotExpired } from '../shared';
+import { tokenNotExpired } from '../../shared';
 import { AuthService } from './auth.service';
 
 @Injectable()

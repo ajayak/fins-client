@@ -1,4 +1,4 @@
-import { AuthTokenModel } from '../../auth/auth-token.model';
+import { AuthTokenModel } from '../../auth/shared';
 import { AccountGroupModel } from '../../accounting/accountGroup';
 
 export interface State {
