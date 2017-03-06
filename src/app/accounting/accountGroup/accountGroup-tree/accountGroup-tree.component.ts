@@ -15,18 +15,18 @@ import {
 import isNil from 'lodash/isNil.js';
 import sortBy from 'lodash/sortBy';
 
-import { AccountGroupService } from '../accountGroup.service';
-import { AccountGroupCreatorDialogComponent } from '../accountGroupCreator';
 import {
   TreeNode,
   MenuItem
 } from 'primeng/components/common/api';
 
+import { AccountGroupCreatorDialogComponent } from '../accountGroup-creator';
 import { ToastService } from '../../../shared';
 import {
   AccountGroupModel,
-  AccountGroupTreeNode
-} from '../accountGroup.model';
+  AccountGroupTreeNode,
+  AccountGroupService
+} from '../shared';
 
 @Component({
   selector: 'fs-account-group-tree',

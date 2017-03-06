@@ -16,16 +16,16 @@ import isUndefined from 'lodash';
 
 import {
   AccountGroupTreeNode,
-  AccountGroupModel
-} from '../accountGroup.model';
-import { AccountGroupService } from '../accountGroup.service';
+  AccountGroupModel,
+  AccountGroupService
+} from '../shared';
 import { GenericValidator } from '../../../shared';
 import { UserProfileService } from '../../../auth';
 
 // Change Detection onPush not used due to async validator on name field
 @Component({
   selector: 'fs-account-group-creator-dialog',
-  templateUrl: './accountGroupCreator.component.html',
+  templateUrl: './accountGroup-creator.component.html',
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit {

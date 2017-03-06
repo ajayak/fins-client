@@ -10,8 +10,8 @@ import isNil from 'lodash/isNil';
 import { UserProfileService } from '../../auth';
 import { Store } from '../../shared/store';
 import { ToastService } from '../../shared/services';
-import { AccountGroupService } from './accountGroup.service';
-import { AccountGroupModel } from './accountGroup.model';
+import { AccountGroupService } from './shared';
+import { AccountGroupModel } from './shared';
 
 @Component({
   selector: 'fs-account-group',

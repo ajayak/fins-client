@@ -4,16 +4,16 @@ import isNil from 'lodash/isNil';
 import sortBy from 'lodash/sortBy';
 import { TreeNode } from 'primeng/components/common/api';
 
-import { ApiService } from '../../shared/services';
+import { ApiService } from '../../../shared/services';
 import { AccountGroupModel } from './accountGroup.model';
-import { config } from '../../core';
-import { UserProfileService } from '../../auth/userProfile.service';
-import { transformToTree } from '../../shared';
+import { config } from '../../../core';
+import { UserProfileService } from '../../../auth/userProfile.service';
+import { transformToTree } from '../../../shared';
 import {
   StoreHelper,
   StateHelper,
   Store
-} from '../../shared';
+} from '../../../shared';
 
 @Injectable()
 export class AccountGroupService {

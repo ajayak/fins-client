@@ -9,8 +9,8 @@ import {
   MdDialogRef
 } from '@angular/material';
 
-import { AccountGroupCreatorDialogComponent } from './accountGroupCreator';
-import { AccountGroupModel } from './accountGroup.model';
+import { AccountGroupCreatorDialogComponent } from '../accountGroup-creator';
+import { AccountGroupModel } from '../shared';
 
 @Component({
   selector: 'fs-add-account-group',

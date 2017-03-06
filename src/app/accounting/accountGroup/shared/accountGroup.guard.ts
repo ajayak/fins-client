@@ -4,8 +4,8 @@ import { CanActivate } from '@angular/router';
 import {
   tokenNotExpired,
   ToastService
-} from '../../shared/services';
-import { UserProfileService } from '../../auth';
+} from '../../../shared/services';
+import { UserProfileService } from '../../../auth';
 
 @Injectable()
 export class AccountGroupGuard implements CanActivate {

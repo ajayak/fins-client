@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
-import { AccountGroupService } from './accountGroup.service';
-import { AccountGroupGuard } from './accountGroup.guard';
+import {
+  AccountGroupService,
+  AccountGroupGuard
+} from './shared';
 import {
   routedComponents,
   entryComponents
