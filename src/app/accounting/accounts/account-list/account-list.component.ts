@@ -20,7 +20,7 @@ import { IPageChangeEvent } from '@covalent/core/paging/paging.module';
 import {
   AccountDtoPageList,
   AccountDto
-} from '../account.model';
+} from '../shared';
 
 @Component({
   selector: 'fs-account-list',

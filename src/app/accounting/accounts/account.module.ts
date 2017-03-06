@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared';
 
 import { routedComponents } from './account.route';
-import { AccountService } from './account.service';
+import { AccountService } from './shared';
 
 @NgModule({
   imports: [SharedModule],

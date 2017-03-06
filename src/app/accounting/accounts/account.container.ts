@@ -6,8 +6,10 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import isNil from 'lodash/isNil';
 
-import { AccountService } from './account.service';
-import { AccountDtoPageList } from './account.model';
+import {
+  AccountService,
+  AccountDtoPageList
+} from './shared';
 import { PagingModel } from '../../shared/models';
 
 @Component({
