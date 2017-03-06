@@ -23,7 +23,7 @@ import {
 import { AccountGroupCreatorDialogComponent } from '../accountGroup-creator';
 import { ToastService } from '../../../shared';
 import {
-  AccountGroupModel,
+  AccountGroup,
   AccountGroupTreeNode,
   AccountGroupService
 } from '../shared';
@@ -34,7 +34,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountGroupTreeComponent implements OnInit, OnChanges {
-  @Input() public accountGroups: AccountGroupModel[];
+  @Input() public accountGroups: AccountGroup[];
   @Output() public onAccountGroupUpdate = new EventEmitter();
   @Output() public onAccountGroupAdd = new EventEmitter();
   @Output() public onAccountGroupDelete = new EventEmitter();

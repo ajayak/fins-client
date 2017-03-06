@@ -1,5 +1,5 @@
 export {
-  AccountGroupModel,
+  AccountGroup,
   AccountGroupTreeNode
 } from './accountGroup.model';
 export { AccountGroupGuard } from './accountGroup.guard';

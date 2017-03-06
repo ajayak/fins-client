@@ -5,7 +5,7 @@ import sortBy from 'lodash/sortBy';
 import { TreeNode } from 'primeng/components/common/api';
 
 import { ApiService } from '../../../shared/services';
-import { AccountGroupModel } from './accountGroup.model';
+import { AccountGroup } from './accountGroup.model';
 import { config } from '../../../core';
 import { UserProfileService } from '../../../auth/shared';
 import { transformToTree } from '../../../shared';
@@ -25,7 +25,7 @@ export class AccountGroupService {
     private storeHelper: StoreHelper,
     private store: Store) { }
 
-  public getAccountGroup(orgId?: number): Observable<AccountGroupModel[]> {
+  public getAccountGroup(orgId?: number): Observable<AccountGroup[]> {
     let url = config.urls.accountGroup;
     if (this.user.isSiteAdmin()) {
       url += `/${orgId}`;
@@ -46,13 +46,13 @@ export class AccountGroupService {
     return items.length > 0;
   }
 
-  public addAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
+  public addAccountGroup(accountGroup: AccountGroup): Observable<AccountGroup> {
     return this.apiService
       .post(config.urls.accountGroup, accountGroup)
       .do(result => this.addAccountGroupInState(accountGroup, result));
   }
 
-  public updateAccountGroup(accountGroup: AccountGroupModel): Observable<AccountGroupModel> {
+  public updateAccountGroup(accountGroup: AccountGroup): Observable<AccountGroup> {
     return this.apiService
       .put(config.urls.accountGroup, accountGroup)
       .do(result => {
@@ -71,9 +71,9 @@ export class AccountGroupService {
       });
   }
 
-  public convertAccountGroupsToTreeNode(accountGroups: AccountGroupModel[]): TreeNode[] {
+  public convertAccountGroupsToTreeNode(accountGroups: AccountGroup[]): TreeNode[] {
     if (isNil(accountGroups)) { return []; };
-    accountGroups = sortBy(accountGroups, (ag: AccountGroupModel) => ag.name.toLowerCase());
+    accountGroups = sortBy(accountGroups, (ag: AccountGroup) => ag.name.toLowerCase());
     let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
       let treeNode: TreeNode = {
         label: accountGroup.name,
@@ -89,7 +89,7 @@ export class AccountGroupService {
   }
 
   private addAccountGroupInState
-    (accountGroup: AccountGroupModel, updatedAccountGroup: AccountGroupModel) {
+    (accountGroup: AccountGroup, updatedAccountGroup: AccountGroup) {
     if (accountGroup.parentId !== 0) {
       const state = this.store.getState();
       const parent = state.accountGroups.filter(c => c.id === accountGroup.parentId);

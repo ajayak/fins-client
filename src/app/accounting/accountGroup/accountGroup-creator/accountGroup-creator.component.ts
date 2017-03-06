@@ -16,7 +16,7 @@ import isUndefined from 'lodash';
 
 import {
   AccountGroupTreeNode,
-  AccountGroupModel,
+  AccountGroup,
   AccountGroupService
 } from '../shared';
 import { GenericValidator } from '../../../shared';
@@ -104,7 +104,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   }
 
   // Create object that is to be add/update
-  private getAddUpdateAccountGroup(): AccountGroupModel {
+  private getAddUpdateAccountGroup(): AccountGroup {
     if (this.isEditMode() || this.isReadonly) {
       return {
         name: this.parent.label,
@@ -114,7 +114,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
         parentId: this.parent.parentId
       };
     } else {
-      let accountGroup = new AccountGroupModel();
+      let accountGroup = new AccountGroup();
       accountGroup.parentId = this.parent.id;
       return accountGroup;
     }

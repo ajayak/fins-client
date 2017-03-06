@@ -10,7 +10,7 @@ import {
 } from '@angular/material';
 
 import { AccountGroupCreatorDialogComponent } from '../accountGroup-creator';
-import { AccountGroupModel } from '../shared';
+import { AccountGroup } from '../shared';
 
 @Component({
   selector: 'fs-add-account-group',
@@ -24,7 +24,7 @@ import { AccountGroupModel } from '../shared';
   `
 })
 export class AddAccountGroupComponent {
-  @Input() public parent: AccountGroupModel;
+  @Input() public parent: AccountGroup;
   @Output() public onRootAccountGroupAdd = new EventEmitter();
   public dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>;
 

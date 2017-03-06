@@ -1,11 +1,11 @@
 import { AuthTokenModel } from '../../auth/shared';
-import { AccountGroupModel } from '../../accounting/accountGroup';
+import { AccountGroup } from '../../accounting/accountGroup';
 
 export interface State {
   showSpinner: boolean;
   openSideNav: boolean;
   auth: AuthTokenModel;
-  accountGroups: AccountGroupModel[];
+  accountGroups: AccountGroup[];
 }
 
 export const defaultState: State = {

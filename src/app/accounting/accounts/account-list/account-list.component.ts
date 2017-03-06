@@ -18,8 +18,8 @@ import {
 import { IPageChangeEvent } from '@covalent/core/paging/paging.module';
 
 import {
-  AccountDtoPageList,
-  AccountDto
+  AccountPageList,
+  AccountList
 } from '../shared';
 
 @Component({
@@ -28,7 +28,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountListComponent implements OnInit, OnChanges {
-  @Input() public accountList: AccountDtoPageList = new AccountDtoPageList();
+  @Input() public accountList: AccountPageList = new AccountPageList();
   @Output() public onChange = new EventEmitter();
 
   public columns: ITdDataTableColumn[] = [
@@ -38,7 +38,7 @@ export class AccountListComponent implements OnInit, OnChanges {
     { name: 'accountGroupName', label: 'Account Group' },
   ];
 
-  public accounts: AccountDto[] = [];
+  public accounts: AccountList[] = [];
   public totalRecordCount: number;
   public searchTerm: string;
   public pageNo: number;

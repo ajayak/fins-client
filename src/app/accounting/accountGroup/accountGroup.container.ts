@@ -11,7 +11,7 @@ import { UserProfileService } from '../../auth';
 import { Store } from '../../shared/store';
 import { ToastService } from '../../shared/services';
 import { AccountGroupService } from './shared';
-import { AccountGroupModel } from './shared';
+import { AccountGroup } from './shared';
 
 @Component({
   selector: 'fs-account-group',
@@ -30,7 +30,7 @@ import { AccountGroupModel } from './shared';
 })
 // tslint:disable-next-line:component-class-suffix
 export class AccountGroupContainer implements OnInit, OnDestroy {
-  public accountGroups: AccountGroupModel[] = [];
+  public accountGroups: AccountGroup[] = [];
   public rootAccountGroup = { id: 0, parentId: 0, mode: 'Add' };
   private getAccountGroupSubscription: Subscription;
   private storeSubscription: Subscription;
@@ -51,7 +51,7 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
       .subscribe(accountGroups => this.accountGroups = accountGroups);
   }
 
-  public addAccountGroup(accountGroup: AccountGroupModel): void {
+  public addAccountGroup(accountGroup: AccountGroup): void {
     if (isNil(accountGroup)) { return; };
     this.accountGroupService.addAccountGroup(accountGroup)
       .subscribe(
@@ -59,7 +59,7 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
       error => this.onError(error));
   }
 
-  public updateAccountGroup(accountGroup: AccountGroupModel) {
+  public updateAccountGroup(accountGroup: AccountGroup) {
     if (isNil(accountGroup)) { return; };
     this.accountGroupService.updateAccountGroup(accountGroup)
       .subscribe(

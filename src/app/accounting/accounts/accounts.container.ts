@@ -8,7 +8,7 @@ import isNil from 'lodash/isNil';
 
 import {
   AccountService,
-  AccountDtoPageList
+  AccountPageList
 } from './shared';
 import { PagingModel } from '../../shared/models';
 
@@ -23,8 +23,8 @@ import { PagingModel } from '../../shared/models';
   `
 })
 // tslint:disable-next-line:component-class-suffix
-export class AccountContainer implements OnInit, OnDestroy {
-  public accountList: AccountDtoPageList = new AccountDtoPageList();
+export class AccountsContainer implements OnInit, OnDestroy {
+  public accountList: AccountPageList = new AccountPageList();
   private subscription: Subscription;
 
   constructor(private AccountService: AccountService) { }

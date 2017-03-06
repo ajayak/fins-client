@@ -1,4 +1,4 @@
-export class AccountGroupModel {
+export class AccountGroup {
   public id: number;
   public name: string;
   public displayName: string;
