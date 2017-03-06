@@ -29,9 +29,7 @@ export class SigninComponent implements OnInit, AfterViewInit {
   private genericValidator: GenericValidator;
   private validationMessages: { [key: string]: { [key: string]: string } };
 
-  constructor(
-    private fb: FormBuilder
-  ) {
+  constructor(private fb: FormBuilder) {
     this.initializeErrorMessages();
     this.genericValidator = new GenericValidator(this.validationMessages);
   }

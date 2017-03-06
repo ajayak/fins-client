@@ -8,11 +8,11 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import { LogService } from '../../../shared/services';
-import { AccountList } from './account-list.model';
+import { Account } from './account.model';
 import { AccountService } from './account.service';
 
 @Injectable()
-export class AccountResolver implements Resolve<AccountList> {
+export class AccountResolver implements Resolve<Account> {
   constructor(
     private accountService: AccountService,
     private router: Router,
@@ -23,7 +23,7 @@ export class AccountResolver implements Resolve<AccountList> {
     const id = +route.params['id'];
 
     if (id === 0) {
-      return new AccountList();
+      return new Account();
     }
 
     return this.accountService.getAccount(id)
