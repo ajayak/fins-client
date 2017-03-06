@@ -9,7 +9,37 @@
         <input mdInput
                placeholder="Account Name"
                formControlName="name" />
+        <span class="input-error"
+              *ngIf="displayMessage.name">
+          {{displayMessage.name}}
+        </span>
       </md-input-container>
+      <md-input-container class="full-width top-20">
+        <input mdInput
+               placeholder="Display Name"
+               formControlName="displayName" />
+        <span class="input-error"
+              *ngIf="displayMessage.displayName">
+          {{displayMessage.displayName}}
+        </span>
+      </md-input-container>
+      <md-input-container class="full-width top-20">
+        <input mdInput
+               placeholder="Account code"
+               formControlName="code" />
+        <span class="input-error"
+              *ngIf="displayMessage.code">
+          {{displayMessage.code}}
+        </span>
+      </md-input-container>
+      <md-select class="full-width top-20"
+                 placeholder="Account Group"
+                 formControlNname="accountGroupId">
+        <md-option *ngFor="let accountGroup of accountGroups"
+                   [value]="accountGroup.id">
+          {{accountGroup.value}}
+        </md-option>
+      </md-select>
     </md-card-content>
     <md-card-actions align="end">
       <button md-raised-button

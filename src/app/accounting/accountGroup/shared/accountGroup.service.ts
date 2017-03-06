@@ -34,6 +34,14 @@ export class AccountGroupService {
       .do(result => this.storeHelper.update(StateHelper.accountGroups, result));
   }
 
+  public getAccountGroupDictionary(orgId?: number): Observable<{ [key: string]: string }> {
+    let url = config.urls.accountGroupDictionary;
+    if (this.user.isSiteAdmin()) {
+      url += `/${orgId}`;
+    }
+    return this.apiService.get(url);
+  }
+
   public accountGroupExistsInOrganization
     (parentAccountGroupId: number, name: string, originalName: string): boolean {
     const accountGroups = this.store.getState().accountGroups;

@@ -5,6 +5,7 @@ export const config = {
     base: defaultBaseUrl,
     token: '/connect/token',
     accountGroup: '/api/accountGroup',
+    accountGroupDictionary: '/api/accountGroup/list',
     deleteAccountGroup: '/api/accountGroup/accountGroupId/organization/orgId',
     account: '/api/account'
   },
