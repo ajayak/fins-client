@@ -19,6 +19,8 @@ import {
   TdDataTableService
 } from '@covalent/core/data-table/data-table.module';
 import { CovalentPagingModule } from '@covalent/core/paging/paging.module';
+import { CovalentStepsModule } from '@covalent/core/steps/steps.module';
+import { CovalentJsonFormatterModule } from '@covalent/core/json-formatter/json-formatter.module';
 
 // Ng Prime
 import { TreeModule } from 'primeng/components/tree/tree';
@@ -61,6 +63,8 @@ import {
     TreeModule,
     CovalentDataTableModule,
     CovalentPagingModule,
+    CovalentStepsModule,
+    CovalentJsonFormatterModule,
 
     // App exports
     SpinnerComponent,
