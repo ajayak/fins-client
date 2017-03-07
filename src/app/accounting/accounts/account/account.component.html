@@ -1,5 +1,6 @@
 <md-card>
   <form novalidate
+        (ngSubmit)="saveAccount()"
         [formGroup]="accountForm">
     <md-card-header>
       <md-card-title> Account Form </md-card-title>
@@ -34,11 +35,16 @@
       </md-input-container>
       <md-select class="full-width top-20"
                  placeholder="Account Group"
-                 formControlNname="accountGroupId">
+                 formControlName="accountGroupId">
         <md-option *ngFor="let accountGroup of accountGroups"
                    [value]="accountGroup.id">
           {{accountGroup.value}}
         </md-option>
+        <!--BUG: Error message not visible-->
+        <span class="inspanut-error"
+              *ngIf="displayMessage.accountGroupId">
+          {{displayMessage.accountGroupId}}
+        </span>
       </md-select>
     </md-card-content>
     <md-card-actions align="end">

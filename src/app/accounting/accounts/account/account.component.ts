@@ -37,7 +37,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     const account = this.getAccount();
     this.setAccountForm(account);
   }
@@ -48,19 +48,22 @@ export class AccountComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public saveAccount(): void {
+    console.log(this.accountForm.value);
+  }
+
   private setAccountForm(account: Account) {
     this.accountForm = this.fb.group({
       id: [account.id],
       name: [account.name, [Validators.required, Validators.maxLength(200)]],
       displayName: [account.displayName, [Validators.required, Validators.maxLength(200)]],
       code: [account.code, [Validators.required, Validators.maxLength(200)]],
-      openingBalance: [account.openingBalance,
-      [Validators.required, Validators.maxLength(200)]],
-      accountGroupId: [account.accountGroupId]
+      openingBalance: [account.openingBalance, [Validators.maxLength(200)]],
+      accountGroupId: [account.accountGroupId, [Validators.required]]
     });
   }
 
-  private getAccount() {
+  private getAccount(): Account {
     if (this.account) { return { ...this.account }; }
     return new Account();
   }
@@ -78,6 +81,9 @@ export class AccountComponent implements OnInit, AfterViewInit {
       code: {
         required: 'Account code is required.',
         maxlength: 'Account code cannot exceed 50 characters.'
+      },
+      accountGroupId: {
+        required: 'Account group is required.'
       }
     };
   }
