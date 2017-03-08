@@ -15,15 +15,19 @@ import {
 
 import { Account } from '../shared';
 import { GenericValidator } from '../../../shared';
-import { StepState } from '@covalent/core/steps/steps.module';
+import {
+  StepState,
+  StepMode
+} from '@covalent/core/steps/steps.module';
 
 @Component({
   selector: 'fs-account-form',
   templateUrl: 'account.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AccountComponent implements OnInit, AfterViewInit {
   @Input() public account: Account;
+  @Input() public orientation: StepMode = StepMode.Horizontal;
   @Input() public accountGroups: Array<{}> = [];
   @Output() public onAccountAdd = new EventEmitter();
   @Output() public onAccountUpdate = new EventEmitter();
@@ -39,7 +43,8 @@ export class AccountComponent implements OnInit, AfterViewInit {
   private genericValidator: GenericValidator;
   private validationMessages: { [key: string]: { [key: string]: string } };
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder) {
     this.initializeErrorMessages();
     this.genericValidator = new GenericValidator(this.validationMessages);
   }

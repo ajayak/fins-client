@@ -21,6 +21,11 @@ import {
 import { CovalentPagingModule } from '@covalent/core/paging/paging.module';
 import { CovalentStepsModule } from '@covalent/core/steps/steps.module';
 import { CovalentJsonFormatterModule } from '@covalent/core/json-formatter/json-formatter.module';
+import {
+  CovalentMediaModule,
+  TdMediaService
+} from '@covalent/core/media/media.module';
+// import { TdMediaService } from '../../../node_modules/@covalent/core/media/media.module';
 
 // Ng Prime
 import { TreeModule } from 'primeng/components/tree/tree';
@@ -65,6 +70,7 @@ import {
     CovalentPagingModule,
     CovalentStepsModule,
     CovalentJsonFormatterModule,
+    CovalentMediaModule,
 
     // App exports
     SpinnerComponent,
@@ -73,6 +79,7 @@ import {
   providers: [
     // Third party services
     TdDataTableService,
+    TdMediaService,
 
     // App services
     SpinnerService
