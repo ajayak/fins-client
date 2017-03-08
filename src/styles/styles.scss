@@ -1,3 +1,4 @@
+
 /* this file will be extracted to main dist folder and is imported in index.html */
 
 
@@ -21,6 +22,10 @@
 @import '../../node_modules/primeng/components/breadcrumb/breadcrumb.css';
 @import '../../node_modules/primeng/components/menu/menu.css';
 @import '../../node_modules/primeng/components/tree/tree.css';
+
+/* Covalent */
+
+@import '../../node_modules/@covalent/core/common/platform.css';
 
 /* App Styles */
 
@@ -52,4 +57,8 @@ md-input-container.ng-invalid.ng-dirty {
 .fins-sidebar,
 .fins-sidebar.mat-sidenav-opened {
   box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+md-card {
+  min-height: 87.5%;
 }

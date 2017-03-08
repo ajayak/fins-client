@@ -16,16 +16,22 @@ import { AccountGroup } from './shared';
 @Component({
   selector: 'fs-account-group',
   template: `
-    <fs-add-account-group 
-      [parent]="rootAccountGroup"
-      (onRootAccountGroupAdd)="addAccountGroup($event)">
-    </fs-add-account-group>
-    <fs-account-group-tree
-      [accountGroups]="accountGroups"
-      (onAccountGroupAdd)="addAccountGroup($event)"
-      (onAccountGroupUpdate)="updateAccountGroup($event)"
-      (onAccountGroupDelete)="deleteAccountGroup($event)">
-    </fs-account-group-tree>
+  <md-card>
+    <md-card-title> Account Groups </md-card-title>
+    <md-card-subtitle> Manage Account Groups </md-card-subtitle>
+    <md-card-content>
+      <fs-add-account-group 
+        [parent]="rootAccountGroup"
+        (onRootAccountGroupAdd)="addAccountGroup($event)">
+      </fs-add-account-group>
+      <fs-account-group-tree
+        [accountGroups]="accountGroups"
+        (onAccountGroupAdd)="addAccountGroup($event)"
+        (onAccountGroupUpdate)="updateAccountGroup($event)"
+        (onAccountGroupDelete)="deleteAccountGroup($event)">
+      </fs-account-group-tree>
+    </md-card-content>
+  </md-card>
   `
 })
 // tslint:disable-next-line:component-class-suffix

@@ -1,10 +1,10 @@
 <md-card>
+  <md-card-title> {{mode}} Account </md-card-title>
+  <md-card-subtitle> This page allows to manage account </md-card-subtitle>
+
   <form novalidate
         (ngSubmit)="saveAccount()"
         [formGroup]="accountForm">
-    <md-card-header>
-      <md-card-title> Account Form </md-card-title>
-    </md-card-header>
     <md-card-content>
       <md-input-container class="full-width">
         <input mdInput
@@ -54,4 +54,58 @@
               [disabled]="!accountForm.valid">Add Account</button>
     </md-card-actions>
   </form>
+</md-card>
+
+<md-card>
+  <md-card-content>
+    <td-steps>
+      <td-step #step1
+               label="Basic Usage"
+               sublabel="Toggle between active and inactive and emit events."
+               [active]="true"
+               [disabled]="disabled"
+               (activated)="activeStep1Event()"
+               (deactivated)="deactiveStep1Event()">
+        <template td-step-label>
+          <span>Basic Usage (template)</span>
+        </template>
+        Include any content you like for an active stepper
+      </td-step>
+      <td-step #step2
+               label="Required State"
+               sublabel="Toggle between active and inactive while in required state."
+               [state]="stateStep2"
+               [disabled]="disabled">
+        This step is required!
+        <template td-step-actions>
+          <button md-raised-button
+                  color="primary"
+                  (click)="toggleRequiredStep2()"
+                  class="text-upper">Toggle Require</button>
+          <button md-button
+                  (click)="step2.active = false"
+                  class="text-upper">Cancel</button>
+        </template>
+      </td-step>
+      <td-step #step3
+               label="Complete State"
+               sublabel="Toggle between active and inactive while in complete state."
+               [state]="stateStep3"
+               [disabled]="disabled">
+        Mark this step complete and get a summary
+        <template td-step-summary>
+          Use an optional step summary to summarize the info in this step
+        </template>
+        <template td-step-actions>
+          <button md-raised-button
+                  color="primary"
+                  (click)="toggleCompleteStep3()"
+                  class="text-upper">Toggle Complete</button>
+          <button md-button
+                  (click)="step3.active = false"
+                  class="text-upper">Cancel</button>
+        </template>
+      </td-step>
+    </td-steps>
+  </md-card-content>
 </md-card>

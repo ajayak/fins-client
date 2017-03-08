@@ -1,4 +1,5 @@
-const defaultBaseUrl = 'http://localhost:54976';
+// const defaultBaseUrl = 'http://localhost:54976';
+const defaultBaseUrl = 'http://localhost:5000';
 
 export const config = {
   urls: {

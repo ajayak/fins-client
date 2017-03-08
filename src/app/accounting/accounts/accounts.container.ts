@@ -16,13 +16,19 @@ import { PagingModel } from '../../shared/models';
 @Component({
   selector: 'fs-account',
   template: `
-    <a md-raised-button
-      color='primary'
-      [routerLink]="['','account', '0']">Add Account</a>
-    <fs-account-list
-      [accountList]="accountList"
-      (onChange)="onPagingAction($event)">
-    </fs-account-list>
+  <md-card>
+    <md-card-title> Account Listing </md-card-title>
+    <md-card-subtitle> Manage Accounts </md-card-subtitle>
+    <md-card-content>
+      <a md-raised-button
+        color='primary'
+        [routerLink]="['','account', '0']">Add Account</a>
+      <fs-account-list
+        [accountList]="accountList"
+        (onChange)="onPagingAction($event)">
+      </fs-account-list>
+    </md-card-content>
+  </md-card>
   `
 })
 // tslint:disable-next-line:component-class-suffix
