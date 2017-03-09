@@ -19,6 +19,7 @@ import { PagingModel } from '../../shared/models';
   <md-card>
     <md-card-title> Account Listing </md-card-title>
     <md-card-subtitle> Manage Accounts </md-card-subtitle>
+    <md-divider></md-divider>
     <md-card-content>
       <a md-raised-button
         color='primary'

@@ -19,6 +19,7 @@ import { AccountGroup } from './shared';
   <md-card>
     <md-card-title> Account Groups </md-card-title>
     <md-card-subtitle> Manage Account Groups </md-card-subtitle>
+    <md-divider></md-divider>
     <md-card-content>
       <fs-add-account-group 
         [parent]="rootAccountGroup"
