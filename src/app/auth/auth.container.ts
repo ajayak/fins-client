@@ -33,14 +33,7 @@ export class AuthContainer {
     console.log('forgot password');
   }
 
-  private onLoginSuccess(success) {
-    this.toastr.success({
-      titleText: 'Success',
-      timer: 1500,
-      showCloseButton: true,
-      onClose: () => this.router.navigate(['', 'home'])
-    });
-  }
+  private onLoginSuccess = (success) => this.router.navigate(['', 'home']);
 
   private onLoginError(error) {
     this.toastr.error({ titleText: error.error_description });

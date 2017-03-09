@@ -10,24 +10,27 @@ import {
 import {
   FormGroup,
   FormBuilder,
+  FormArray,
   Validators
 } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Account } from '../shared';
 import { GenericValidator } from '../../../shared';
-import {
-  StepState,
-  StepMode
-} from '@covalent/core/steps/steps.module';
 
 @Component({
   selector: 'fs-account-form',
   templateUrl: 'account.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  styles: [`
+    #account-card {
+      padding-bottom: 60px !important;
+      min-height: 87.5% !important;
+    }
+  `],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent implements OnInit, AfterViewInit {
   @Input() public account: Account;
-  @Input() public orientation: StepMode = StepMode.Horizontal;
   @Input() public accountGroups: Array<{}> = [];
   @Output() public onAccountAdd = new EventEmitter();
   @Output() public onAccountUpdate = new EventEmitter();
@@ -35,36 +38,16 @@ export class AccountComponent implements OnInit, AfterViewInit {
   public accountForm: FormGroup;
   public mode: string = 'Add';
 
-  public activeDeactiveStep1Msg: string = 'No select/deselect detected yet';
-  public stateStep2: StepState = StepState.Required;
-  public stateStep3: StepState = StepState.Complete;
-  public disabled: boolean = false;
+  get persons(): FormArray {
+    return <FormArray>this.accountForm.get('persons');
+  }
 
   private genericValidator: GenericValidator;
   private validationMessages: { [key: string]: { [key: string]: string } };
 
-  constructor(
-    private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.initializeErrorMessages();
     this.genericValidator = new GenericValidator(this.validationMessages);
-  }
-
-  public toggleRequiredStep2(): void {
-    this.stateStep2 =
-      (this.stateStep2 === StepState.Required ? StepState.None : StepState.Required);
-  }
-
-  public toggleCompleteStep3(): void {
-    this.stateStep3 =
-      (this.stateStep3 === StepState.Complete ? StepState.None : StepState.Complete);
-  }
-
-  public activeStep1Event(): void {
-    this.activeDeactiveStep1Msg = 'Active event emitted.';
-  }
-
-  public deactiveStep1Event(): void {
-    this.activeDeactiveStep1Msg = 'Deactive event emitted.';
   }
 
   public ngOnInit(): void {
@@ -90,11 +73,33 @@ export class AccountComponent implements OnInit, AfterViewInit {
       displayName: [account.displayName, [Validators.required, Validators.maxLength(200)]],
       code: [account.code, [Validators.required, Validators.maxLength(200)]],
       openingBalance: [account.openingBalance, [Validators.maxLength(200)]],
-      accountGroupId: [account.accountGroupId, [Validators.required]]
+      accountGroupId: [account.accountGroupId, [Validators.required]],
+      address: ['', [Validators.maxLength(1000)]],
+      stateId: ['', []],
+      ward: ['', [Validators.maxLength(50)]],
+      itPanNumber: ['', [Validators.maxLength(15)]],
+      lstNumber: ['', [Validators.maxLength(15)]],
+      cstNumber: ['', [Validators.maxLength(15)]],
+      tinNumber: ['', [Validators.maxLength(15)]],
+      serviceTaxNumber: ['', [Validators.maxLength(15)]],
+      persons: this.fb.array([this.buildPerson()])
     });
   }
 
-  private isEdit = () => this.account.id === 0;
+  private buildPerson(): FormGroup {
+    return this.fb.group({
+      id: [''],
+      firstname: ['', [Validators.required, Validators.maxLength(50)]],
+      lastname: ['', [Validators.required, Validators.maxLength(50)]],
+      emailId: ['', [
+        Validators.maxLength(250), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]
+      ],
+      telephone: ['', [Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]],
+      mobile: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]]
+    });
+  }
+
+  private isEdit = () => this.account.id !== 0;
 
   private getAccount(): Account {
     if (this.account) { return { ...this.account }; }
@@ -117,6 +122,27 @@ export class AccountComponent implements OnInit, AfterViewInit {
       },
       accountGroupId: {
         required: 'Account group is required.'
+      },
+      address: {
+        maxlength: 'Address cannot exceed 1000 characters.'
+      },
+      ward: {
+        maxlength: 'Ward cannot exceed 50 characters.'
+      },
+      itPanNumber: {
+        maxlength: 'IT PAN Number cannot exceed 50 characters.'
+      },
+      lstNumber: {
+        maxlength: 'LST Number cannot exceed 50 characters.'
+      },
+      cstNumber: {
+        maxlength: 'CST Number cannot exceed 50 characters.'
+      },
+      tinNumber: {
+        maxlength: 'TIN Number cannot exceed 50 characters.'
+      },
+      serviceTaxNumber: {
+        maxlength: 'Service Tax Number cannot exceed 50 characters.'
       }
     };
   }

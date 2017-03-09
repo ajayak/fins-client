@@ -1,0 +1,56 @@
+<div [formGroup]="personForm">
+  <div layout="row"
+       layout-margin>
+    <md-input-container flex>
+      <input mdInput
+             placeholder="First Name"
+             formControlName="firstname" />
+      <span class="input-error"
+            *ngIf="displayMessage.firstname">
+        {{displayMessage.firstname}}
+      </span>
+    </md-input-container>
+    <md-input-container flex>
+      <input mdInput
+             placeholder="Last Name"
+             formControlName="lastname" />
+      <span class="input-error"
+            *ngIf="displayMessage.lastname">
+        {{displayMessage.lastname}}
+      </span>
+    </md-input-container>
+  </div>
+  <div layout="row"
+       layout-margin>
+    <md-input-container flex>
+      <input mdInput
+             placeholder="Email"
+             formControlName="emailId" />
+      <span class="input-error"
+            *ngIf="displayMessage.emailId">
+        {{displayMessage.emailId}}
+      </span>
+    </md-input-container>
+  </div>
+  <div layout="row"
+       layout-margin>
+    <md-input-container flex>
+      <input mdInput
+             placeholder="Telephone No"
+             formControlName="telephone" />
+      <span class="input-error"
+            *ngIf="displayMessage.telephone">
+        {{displayMessage.telephone}}
+      </span>
+    </md-input-container>
+    <md-input-container flex>
+      <input mdInput
+             placeholder="Mobile No"
+             formControlName="mobile" />
+      <span class="input-error"
+            *ngIf="displayMessage.mobile">
+        {{displayMessage.mobile}}
+      </span>
+    </md-input-container>
+  </div>
+</div>

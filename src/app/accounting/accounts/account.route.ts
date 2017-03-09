@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
 
 import { AccountsContainer } from './accounts.container';
-import {
-  AccountContainer,
-  AccountComponent
-} from './account';
-import { AccountListComponent } from './account-list';
+import { AccountContainer } from './account';
 import { AccountResolver } from './shared';
 
 export const accountRoutes: Routes = [
-  { path: 'accounts', component: AccountsContainer },
+  {
+    path: 'accounts',
+    component: AccountsContainer
+  },
   {
     path: 'account/:id',
     component: AccountContainer,
@@ -21,7 +20,5 @@ export const accountRoutes: Routes = [
 
 export const routedComponents = [
   AccountsContainer,
-  AccountContainer,
-  AccountListComponent,
-  AccountComponent
+  AccountContainer
 ];

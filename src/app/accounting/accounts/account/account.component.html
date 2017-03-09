@@ -1,52 +1,147 @@
-<md-card>
+<md-card id="account-card">
   <md-card-title> {{mode}} Account </md-card-title>
   <md-card-subtitle> This page allows to manage account </md-card-subtitle>
+  <md-divider></md-divider>
 
   <form novalidate
         (ngSubmit)="saveAccount()"
         [formGroup]="accountForm">
     <md-card-content>
-      <md-input-container class="full-width">
-        <input mdInput
-               placeholder="Account Name"
-               formControlName="name" />
-        <span class="input-error"
-              *ngIf="displayMessage.name">
-          {{displayMessage.name}}
-        </span>
-      </md-input-container>
-      <md-input-container class="full-width top-20">
-        <input mdInput
-               placeholder="Display Name"
-               formControlName="displayName" />
-        <span class="input-error"
-              *ngIf="displayMessage.displayName">
-          {{displayMessage.displayName}}
-        </span>
-      </md-input-container>
-      <md-input-container class="full-width top-20">
-        <input mdInput
-               placeholder="Account code"
-               formControlName="code" />
-        <span class="input-error"
-              *ngIf="displayMessage.code">
-          {{displayMessage.code}}
-        </span>
-      </md-input-container>
-      <md-select class="full-width top-20"
-                 placeholder="Account Group"
-                 formControlName="accountGroupId">
-        <md-option *ngFor="let accountGroup of accountGroups"
-                   [value]="accountGroup.id">
-          {{accountGroup.value}}
-        </md-option>
-        <!--BUG: Error message not visible-->
-        <span class="inspanut-error"
-              *ngIf="displayMessage.accountGroupId">
-          {{displayMessage.accountGroupId}}
-        </span>
-      </md-select>
+      <div layout="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Account Name"
+                 formControlName="name" />
+          <span class="input-error"
+                *ngIf="displayMessage.name">
+            {{displayMessage.name}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Display Name"
+                 formControlName="displayName" />
+          <span class="input-error"
+                *ngIf="displayMessage.displayName">
+            {{displayMessage.displayName}}
+          </span>
+        </md-input-container>
+      </div>
+      <div layout="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Account code"
+                 formControlName="code" />
+          <span class="input-error"
+                *ngIf="displayMessage.code">
+            {{displayMessage.code}}
+          </span>
+        </md-input-container>
+        <md-select flex
+                   placeholder="Account Group"
+                   formControlName="accountGroupId">
+          <md-option *ngFor="let accountGroup of accountGroups"
+                     [value]="accountGroup.id">
+            {{accountGroup.value}}
+          </md-option>
+          <!--BUG: Error message not visible-->
+          <span class="inspanut-error"
+                *ngIf="displayMessage.accountGroupId">
+            {{displayMessage.accountGroupId}}
+          </span>
+        </md-select>
+      </div>
+      <div layout="row"
+           layout-margin>
+        <md-input-container flex>
+          <textarea mdInput
+                    placeholder="Address"
+                    formControlName="address">
+          </textarea>
+          <span class="input-error"
+                *ngIf="displayMessage.address">
+            {{displayMessage.address}}
+          </span>
+        </md-input-container>
+      </div>
+      <div layout="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="State"
+                 formControlName="stateId" />
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Ward"
+                 formControlName="ward" />
+          <span class="input-error"
+                *ngIf="displayMessage.ward">
+            {{displayMessage.ward}}
+          </span>
+        </md-input-container>
+      </div>
+      <div layout="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="IT Pan Number"
+                 formControlName="itPanNumber" />
+          <span class="input-error"
+                *ngIf="displayMessage.itPanNumber">
+            {{displayMessage.itPanNumber}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="LST Number"
+                 formControlName="lstNumber" />
+          <span class="input-error"
+                *ngIf="displayMessage.lstNumber">
+            {{displayMessage.lstNumber}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="CST Number"
+                 formControlName="cstNumber" />
+          <span class="input-error"
+                *ngIf="displayMessage.cstNumber">
+            {{displayMessage.cstNumber}}
+          </span>
+        </md-input-container>
+      </div>
+      <div layout="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="TIN Number"
+                 formControlName="tinNumber" />
+          <span class="input-error"
+                *ngIf="displayMessage.tinNumber">
+            {{displayMessage.tinNumber}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Service Tax Number"
+                 formControlName="serviceTaxNumber" />
+          <span class="input-error"
+                *ngIf="displayMessage.serviceTaxNumber">
+            {{displayMessage.serviceTaxNumber}}
+          </span>
+        </md-input-container>
+      </div>
+      <div formArrayName="persons"
+           *ngFor="let person of persons.controls; let i=index">
+        <div [formGroupName]="i">
+          <fs-person [personForm]="persons.controls[i]"></fs-person>
+        </div>
+      </div>
     </md-card-content>
+    <md-divider></md-divider>
     <md-card-actions align="end">
       <button md-raised-button
               type="submit"
@@ -54,58 +149,4 @@
               [disabled]="!accountForm.valid">Add Account</button>
     </md-card-actions>
   </form>
-</md-card>
-
-<md-card>
-  <md-card-content>
-    <td-steps [mode]="orientation">
-      <td-step #step1
-               label="Basic Usage"
-               sublabel="Toggle between active and inactive and emit events."
-               [active]="true"
-               [disabled]="disabled"
-               (activated)="activeStep1Event()"
-               (deactivated)="deactiveStep1Event()">
-        <template td-step-label>
-          <span>Basic Usage (template)</span>
-        </template>
-        Include any content you like for an active stepper
-      </td-step>
-      <td-step #step2
-               label="Required State"
-               sublabel="Toggle between active and inactive while in required state."
-               [state]="stateStep2"
-               [disabled]="disabled">
-        This step is required!
-        <template td-step-actions>
-          <button md-raised-button
-                  color="primary"
-                  (click)="toggleRequiredStep2()"
-                  class="text-upper">Toggle Require</button>
-          <button md-button
-                  (click)="step2.active = false"
-                  class="text-upper">Cancel</button>
-        </template>
-      </td-step>
-      <td-step #step3
-               label="Complete State"
-               sublabel="Toggle between active and inactive while in complete state."
-               [state]="stateStep3"
-               [disabled]="disabled">
-        Mark this step complete and get a summary
-        <template td-step-summary>
-          Use an optional step summary to summarize the info in this step
-        </template>
-        <template td-step-actions>
-          <button md-raised-button
-                  color="primary"
-                  (click)="toggleCompleteStep3()"
-                  class="text-upper">Toggle Complete</button>
-          <button md-button
-                  (click)="step3.active = false"
-                  class="text-upper">Cancel</button>
-        </template>
-      </td-step>
-    </td-steps>
-  </md-card-content>
 </md-card>
