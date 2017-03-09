@@ -8,6 +8,14 @@ export class Account {
   public accountGroupId: number;
   public openingBalance?: number;
   public OpeningBalanceType: string;
+  public address: string;
+  public stateId: number;
+  public ward: string;
+  public itPanNumber: string;
+  public lstNumber: string;
+  public cstNumber: string;
+  public tinNumber: string;
+  public serviceTaxNumber: string;
 
   public persons: Person[];
 
