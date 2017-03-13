@@ -1,5 +1,6 @@
 <div [formGroup]="personForm">
-  <div layout="row"
+  <div layout="column"
+       layout-gt-xs="row"
        layout-margin>
     <md-input-container flex>
       <input mdInput
@@ -20,7 +21,8 @@
       </span>
     </md-input-container>
   </div>
-  <div layout="row"
+  <div layout="column"
+       layout-gt-xs="row"
        layout-margin>
     <md-input-container flex>
       <input mdInput
@@ -32,7 +34,22 @@
       </span>
     </md-input-container>
   </div>
-  <div layout="row"
+  <div layout="column"
+       layout-gt-xs="row"
+       layout-margin>
+    <md-input-container flex>
+      <textarea mdInput
+                placeholder="Description"
+                formControlName="description">
+      </textarea>
+      <span class="input-error"
+            *ngIf="displayMessage.description">
+        {{displayMessage.description}}
+      </span>
+    </md-input-container>
+  </div>
+  <div layout="column"
+       layout-gt-xs="row"
        layout-margin>
     <md-input-container flex>
       <input mdInput

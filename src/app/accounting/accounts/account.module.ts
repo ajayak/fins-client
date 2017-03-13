@@ -4,7 +4,10 @@ import { SharedModule } from '../../shared';
 import { routedComponents } from './account.route';
 import { AccountListComponent } from './account-list';
 import { AccountComponent } from './account';
-import { PersonComponent } from './account/person';
+import {
+  PersonComponent,
+  PersonSummaryComponent
+} from './account/person';
 
 import {
   AccountService,
@@ -17,8 +20,9 @@ import {
   declarations: [
     routedComponents,
     AccountComponent,
+    AccountListComponent,
     PersonComponent,
-    AccountListComponent
+    PersonSummaryComponent
   ],
   providers: [
     AccountService,

@@ -70,3 +70,11 @@ md-input-container.ng-invalid.ng-dirty {
     min-height: 87.5%;
   }
 }
+
+
+/* Used to highlight required fields*/
+
+md-input-container.ng-invalid .mat-input-wrapper,
+md-select.ng-invalid .mat-select-trigger {
+  border-right: 2px solid $error-color;
+}

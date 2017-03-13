@@ -7,7 +7,8 @@
         (ngSubmit)="saveAccount()"
         [formGroup]="accountForm">
     <md-card-content>
-      <div layout="row"
+      <div layout="column"
+           layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
           <input mdInput
@@ -28,7 +29,8 @@
           </span>
         </md-input-container>
       </div>
-      <div layout="row"
+      <div layout="column"
+           layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
           <input mdInput
@@ -53,7 +55,8 @@
           </span>
         </md-select>
       </div>
-      <div layout="row"
+      <div layout="column"
+           layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
           <textarea mdInput
@@ -66,7 +69,8 @@
           </span>
         </md-input-container>
       </div>
-      <div layout="row"
+      <div layout="column"
+           layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
           <input mdInput
@@ -83,7 +87,8 @@
           </span>
         </md-input-container>
       </div>
-      <div layout="row"
+      <div layout="column"
+           layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
           <input mdInput
@@ -113,7 +118,8 @@
           </span>
         </md-input-container>
       </div>
-      <div layout="row"
+      <div layout="column"
+           layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
           <input mdInput
@@ -134,15 +140,35 @@
           </span>
         </md-input-container>
       </div>
+
       <div formArrayName="persons"
            *ngFor="let person of persons.controls; let i=index">
         <div [formGroupName]="i">
-          <fs-person [personForm]="persons.controls[i]"></fs-person>
+          <td-expansion-panel label="Contact Person {{i+1}}"
+                              sublabel="Person associated with account">
+            <td-expansion-summary>
+              <md-list>
+                <fs-person-summary [personForm]="person"
+                                   (onPersonDelete)="deleteContact(i)"></fs-person-summary>
+              </md-list>
+            </td-expansion-summary>
+            <fs-person [personForm]="person"></fs-person>
+          </td-expansion-panel>
         </div>
       </div>
+
     </md-card-content>
     <md-divider></md-divider>
     <md-card-actions align="end">
+      <a md-raised-button
+         color="accent"
+         [routerLink]="['', 'accounts']">Back</a>
+
+      <button md-raised-button
+              type="button"
+              color="primary"
+              (click)="addPerson()">Add Contact</button>
+
       <button md-raised-button
               type="submit"
               color="primary"

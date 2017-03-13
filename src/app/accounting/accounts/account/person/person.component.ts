@@ -40,6 +40,9 @@ export class PersonComponent implements AfterViewInit {
         required: 'Last Name is required.',
         maxlength: 'Last Name cannot exceed 50 characters.'
       },
+      description: {
+        maxlength: 'Description cannot exceed 1000 characters.'
+      },
       emailId: {
         pattern: 'Email is not in valid format',
         maxlength: 'Email cannot exceed 250 characters.'

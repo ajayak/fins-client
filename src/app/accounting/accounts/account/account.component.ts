@@ -14,6 +14,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { MdSnackBar } from '@angular/material';
 
 import { Account } from '../shared';
 import { GenericValidator } from '../../../shared';
@@ -24,7 +25,6 @@ import { GenericValidator } from '../../../shared';
   styles: [`
     #account-card {
       padding-bottom: 60px !important;
-      min-height: 87.5% !important;
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -45,7 +45,10 @@ export class AccountComponent implements OnInit, AfterViewInit {
   private genericValidator: GenericValidator;
   private validationMessages: { [key: string]: { [key: string]: string } };
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MdSnackBar
+  ) {
     this.initializeErrorMessages();
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
@@ -63,7 +66,19 @@ export class AccountComponent implements OnInit, AfterViewInit {
   }
 
   public saveAccount(): void {
+    if (this.persons.length === 0) {
+      this.snackBar.open(`Please add atleast 1 contact person`, 'Close', { duration: 2000 });
+      return;
+    }
     console.log(this.accountForm.value);
+  }
+
+  public addPerson(): void {
+    this.persons.push(this.buildPerson());
+  }
+
+  public deleteContact(index) {
+    this.persons.removeAt(index);
   }
 
   private setAccountForm(account: Account) {
@@ -74,14 +89,14 @@ export class AccountComponent implements OnInit, AfterViewInit {
       code: [account.code, [Validators.required, Validators.maxLength(200)]],
       openingBalance: [account.openingBalance, [Validators.maxLength(200)]],
       accountGroupId: [account.accountGroupId, [Validators.required]],
-      address: ['', [Validators.maxLength(1000)]],
-      stateId: ['', []],
-      ward: ['', [Validators.maxLength(50)]],
-      itPanNumber: ['', [Validators.maxLength(15)]],
-      lstNumber: ['', [Validators.maxLength(15)]],
-      cstNumber: ['', [Validators.maxLength(15)]],
-      tinNumber: ['', [Validators.maxLength(15)]],
-      serviceTaxNumber: ['', [Validators.maxLength(15)]],
+      address: [account.address, [Validators.maxLength(1000)]],
+      stateId: [account.stateId, []],
+      ward: [account.ward, [Validators.maxLength(50)]],
+      itPanNumber: [account.itPanNumber, [Validators.maxLength(15)]],
+      lstNumber: [account.lstNumber, [Validators.maxLength(15)]],
+      cstNumber: [account.cstNumber, [Validators.maxLength(15)]],
+      tinNumber: [account.tinNumber, [Validators.maxLength(15)]],
+      serviceTaxNumber: [account.serviceTaxNumber, [Validators.maxLength(15)]],
       persons: this.fb.array([this.buildPerson()])
     });
   }
@@ -91,6 +106,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
       id: [''],
       firstname: ['', [Validators.required, Validators.maxLength(50)]],
       lastname: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.maxLength(1000)]],
       emailId: ['', [
         Validators.maxLength(250), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]
       ],

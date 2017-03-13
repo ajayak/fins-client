@@ -3,6 +3,7 @@ export class Person {
   public firstname: string;
   public lastname: string;
   public emailId: string;
+  public description: string;
   public telephone?: number;
   public mobile: number;
   public accountid: number;

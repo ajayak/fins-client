@@ -19,7 +19,9 @@ import {
   TdDataTableService
 } from '@covalent/core/data-table/data-table.module';
 import { CovalentPagingModule } from '@covalent/core/paging/paging.module';
-import { CovalentStepsModule } from '@covalent/core/steps/steps.module';
+import {
+  CovalentExpansionPanelModule
+} from '@covalent/core/expansion-panel/expansion-panel.module';
 import { CovalentJsonFormatterModule } from '@covalent/core/json-formatter/json-formatter.module';
 import {
   CovalentMediaModule,
@@ -56,7 +58,9 @@ import {
     RouterModule,
     MaterialModule.forRoot()
   ],
-  declarations: [SpinnerComponent],
+  declarations: [
+    SpinnerComponent
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -68,13 +72,13 @@ import {
     TreeModule,
     CovalentDataTableModule,
     CovalentPagingModule,
-    CovalentStepsModule,
+    CovalentExpansionPanelModule,
     CovalentJsonFormatterModule,
     CovalentMediaModule,
+    ContextMenuModule,
 
     // App exports
-    SpinnerComponent,
-    ContextMenuModule
+    SpinnerComponent
   ],
   providers: [
     // Third party services
@@ -97,7 +101,7 @@ export class SharedModule {
         StoreHelper,
         ToastService,
         LogService
-      ]
+      ],
     };
   }
 }
