@@ -17,6 +17,7 @@ import { SharedModule } from './shared';
 import { AuthModule } from './auth';
 import { HomeModule } from './home';
 import { AccountingModule } from './accounting';
+import { StatesModule } from './states';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -68,6 +69,7 @@ type StoreType = {
     SharedModule.forRoot(),
     AuthModule,
     HomeModule,
+    StatesModule,
     AccountingModule,
 
     // 404 Route

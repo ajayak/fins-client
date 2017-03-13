@@ -21,10 +21,10 @@ import { Person } from '../../shared';
       <p md-line *ngIf="person.telephone">{{person.telephone}}</p>
       <p md-line *ngIf="person.mobile">{{person.mobile}}</p>
 
-      <button md-mini-fab
+      <button md-raised-button
               color="warn"
               (click)="deletePerson()">
-        <md-icon>clear</md-icon>
+        Remove
       </button>
     </md-list-item>
   `

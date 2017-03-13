@@ -8,7 +8,8 @@ export const config = {
     accountGroup: '/api/accountGroup',
     accountGroupDictionary: '/api/accountGroup/list',
     deleteAccountGroup: '/api/accountGroup/accountGroupId/organization/orgId',
-    account: '/api/account'
+    account: '/api/account',
+    states: '/api/state'
   },
   appKeys: {
     jwtAccessKey: 'fins_app_access',
