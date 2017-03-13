@@ -101,7 +101,7 @@ export class SharedModule {
         StoreHelper,
         ToastService,
         LogService
-      ],
+      ]
     };
   }
 }

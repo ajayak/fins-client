@@ -2,7 +2,10 @@ import { Routes } from '@angular/router';
 
 import { AccountsContainer } from './accounts.container';
 import { AccountContainer } from './account';
-import { AccountResolver } from './shared';
+import {
+  AccountResolver,
+  AccountGroupResolver
+} from './shared';
 
 export const accountRoutes: Routes = [
   {
@@ -13,7 +16,8 @@ export const accountRoutes: Routes = [
     path: 'account/:id',
     component: AccountContainer,
     resolve: {
-      account: AccountResolver
+      account: AccountResolver,
+      accountGroups: AccountGroupResolver
     }
   }
 ];

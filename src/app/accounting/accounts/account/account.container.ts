@@ -8,8 +8,7 @@ import {
   Account,
   AccountService
 } from '../shared';
-import { AccountGroupService } from '../../accountGroup';
-import { UserProfileService } from '../../../auth';
+// import { StatesService } from '../../../states/shared';
 
 @Component({
   selector: 'fs-account',
@@ -29,22 +28,13 @@ export class AccountContainer implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private accountGroupService: AccountGroupService,
-    private accountService: AccountService,
-    private profile: UserProfileService) { }
+    private accountService: AccountService) { }
 
   public ngOnInit(): void {
-    this.route.data.subscribe((data: { account: Account }) => {
+    this.route.data.subscribe(data => {
       this.account = data.account;
+      this.accountGroupDictionary = data.accountGroups;
     });
-    const orgId = this.profile.getOrgId();
-    this.accountGroupService.getAccountGroupDictionary(orgId)
-      .subscribe(dict => this.accountGroupDictionary = this.mapObjectToArray(dict));
-  }
-
-  public mapObjectToArray(obj): Array<{}> {
-    return Object.keys(obj)
-      .map(id => ({ id, value: obj[id] }));
   }
 
   public onAccountAdd(account: Account) {

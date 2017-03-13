@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared';
-import { StatesService } from './shared';
 
 @NgModule({
   imports: [SharedModule],
-  exports: [StatesService],
+  exports: [],
   declarations: [],
-  providers: [StatesService],
+  providers: []
 })
 export class StatesModule { }
