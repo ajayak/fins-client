@@ -21,6 +21,7 @@ import {
   Person
 } from '../shared';
 import { GenericValidator } from '../../../shared';
+import { States } from '../../../states/shared';
 
 @Component({
   selector: 'fs-account-form',
@@ -35,6 +36,7 @@ import { GenericValidator } from '../../../shared';
 export class AccountComponent implements OnInit, AfterViewInit {
   @Input() public account: Account;
   @Input() public accountGroups: Array<{}> = [];
+  @Input() public states: States[] = [];
   @Output() public onAccountAdd = new EventEmitter();
   @Output() public onAccountUpdate = new EventEmitter();
   public displayMessage: { [key: string]: string } = {};

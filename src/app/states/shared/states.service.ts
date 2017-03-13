@@ -7,7 +7,6 @@ import { States } from './states.model';
 
 @Injectable()
 export class StatesService {
-
   constructor(private apiService: ApiService) { }
 
   public getAllStates(): Observable<States[]> {

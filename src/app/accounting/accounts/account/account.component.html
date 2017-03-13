@@ -98,11 +98,14 @@
       <div layout="column"
            layout-gt-xs="row"
            layout-margin>
-        <md-input-container flex>
-          <input mdInput
-                 placeholder="State"
-                 formControlName="stateId" />
-        </md-input-container>
+        <md-select flex
+                   placeholder="State"
+                   formControlName="stateId">
+          <md-option *ngFor="let state of states"
+                     [value]="state.id">
+            {{state.name}}
+          </md-option>
+        </md-select>
         <md-input-container flex>
           <input mdInput
                  placeholder="Ward"

@@ -8,7 +8,7 @@ import {
   Account,
   AccountService
 } from '../shared';
-// import { StatesService } from '../../../states/shared';
+import { States } from '../../../states/shared';
 
 @Component({
   selector: 'fs-account',
@@ -16,6 +16,7 @@ import {
     <fs-account-form
       [account]="account"
       [accountGroups]="accountGroupDictionary"
+      [states]="states"
       (onAccountAdd)="onAccountAdd($event)"
       (onAccountUpdate)="onAccountUpdate($event)"
     ></fs-account-form>
@@ -25,6 +26,7 @@ import {
 export class AccountContainer implements OnInit {
   public account: Account;
   public accountGroupDictionary: Array<{}> = [];
+  public states: States[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,7 @@ export class AccountContainer implements OnInit {
     this.route.data.subscribe(data => {
       this.account = data.account;
       this.accountGroupDictionary = data.accountGroups;
+      this.states = data.states;
     });
   }
 

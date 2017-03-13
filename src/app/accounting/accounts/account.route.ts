@@ -4,7 +4,8 @@ import { AccountsContainer } from './accounts.container';
 import { AccountContainer } from './account';
 import {
   AccountResolver,
-  AccountGroupResolver
+  AccountGroupResolver,
+  StatesResolver
 } from './shared';
 
 export const accountRoutes: Routes = [
@@ -17,7 +18,8 @@ export const accountRoutes: Routes = [
     component: AccountContainer,
     resolve: {
       account: AccountResolver,
-      accountGroups: AccountGroupResolver
+      accountGroups: AccountGroupResolver,
+      states: StatesResolver
     }
   }
 ];

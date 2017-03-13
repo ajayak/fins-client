@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
-// import { StatesModule } from '../../states';
+import { StatesModule } from '../../states';
 import { routedComponents } from './account.route';
 import { AccountListComponent } from './account-list';
 import { AccountComponent } from './account';
@@ -13,12 +13,14 @@ import {
 import {
   AccountService,
   AccountResolver,
-  AccountGroupResolver
+  AccountGroupResolver,
+  StatesResolver
 } from './shared';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    StatesModule
   ],
   exports: [],
   declarations: [
@@ -31,7 +33,8 @@ import {
   providers: [
     AccountService,
     AccountResolver,
-    AccountGroupResolver
+    AccountGroupResolver,
+    StatesResolver
   ]
 })
 export class AccountModule { }
