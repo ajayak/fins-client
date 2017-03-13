@@ -4,7 +4,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Account } from '../shared';
+import {
+  Account,
+  AccountService
+} from '../shared';
 import { AccountGroupService } from '../../accountGroup';
 import { UserProfileService } from '../../../auth';
 
@@ -27,6 +30,7 @@ export class AccountContainer implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private accountGroupService: AccountGroupService,
+    private accountService: AccountService,
     private profile: UserProfileService) { }
 
   public ngOnInit(): void {
@@ -43,11 +47,21 @@ export class AccountContainer implements OnInit {
       .map(id => ({ id, value: obj[id] }));
   }
 
-  public onAccountAdd($event) {
-    console.log($event);
+  public onAccountAdd(account: Account) {
+    console.log(account);
+    this.accountService.addAccount(account)
+      .subscribe(this.onSuccess, this.onError);
   }
 
-  public onAccountUpdate($event) {
-    console.log($event);
+  public onAccountUpdate(account: Account) {
+    console.log(account);
+  }
+
+  private onSuccess(result) {
+    console.log(result);
+  }
+
+  private onError(error) {
+    console.log(error);
   }
 }

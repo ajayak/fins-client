@@ -16,7 +16,10 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 
-import { Account } from '../shared';
+import {
+  Account,
+  Person
+} from '../shared';
 import { GenericValidator } from '../../../shared';
 
 @Component({
@@ -38,8 +41,8 @@ export class AccountComponent implements OnInit, AfterViewInit {
   public accountForm: FormGroup;
   public mode: string = 'Add';
 
-  get persons(): FormArray {
-    return <FormArray>this.accountForm.get('persons');
+  get contactPersons(): FormArray {
+    return <FormArray>this.accountForm.get('contactPersons');
   }
 
   private genericValidator: GenericValidator;
@@ -55,30 +58,50 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     const account = this.getAccount();
-    this.mode = this.isEdit() ? 'Edit' : 'Add';
+    this.mode = this.isEditMode() ? 'Edit' : 'Add';
     this.setAccountForm(account);
   }
 
   public ngAfterViewInit(): void {
+    this.toggleOpeningBalance({ checked: !!this.account.openingBalance });
     this.accountForm.valueChanges.subscribe(() => {
       this.displayMessage = this.genericValidator.processMessages(this.accountForm);
     });
   }
 
   public saveAccount(): void {
-    if (this.persons.length === 0) {
+    if (this.contactPersons.length === 0) {
       this.snackBar.open(`Please add atleast 1 contact person`, 'Close', { duration: 2000 });
       return;
     }
-    console.log(this.accountForm.value);
+    const value = this.accountForm.value;
+    this.isEditMode() ? this.onAccountUpdate.emit(value) : this.onAccountAdd.emit(value);
+  }
+
+  public toggleOpeningBalance({ checked }: { checked: boolean }) {
+    const openingBalance = this.accountForm.get('openingBalance');
+    const openingBalanceType = this.accountForm.get('openingBalanceType');
+    if (checked) {
+      openingBalance.enable();
+      openingBalanceType.enable();
+      openingBalance.setValidators([
+        Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]*$')
+      ]);
+      openingBalance.updateValueAndValidity();
+    } else {
+      openingBalance.setValue(0);
+      openingBalance.clearValidators();
+      openingBalance.disable();
+      openingBalanceType.disable();
+    }
   }
 
   public addPerson(): void {
-    this.persons.push(this.buildPerson());
+    this.contactPersons.push(this.buildPerson(new Person()));
   }
 
   public deleteContact(index) {
-    this.persons.removeAt(index);
+    this.contactPersons.removeAt(index);
   }
 
   private setAccountForm(account: Account) {
@@ -87,7 +110,8 @@ export class AccountComponent implements OnInit, AfterViewInit {
       name: [account.name, [Validators.required, Validators.maxLength(200)]],
       displayName: [account.displayName, [Validators.required, Validators.maxLength(200)]],
       code: [account.code, [Validators.required, Validators.maxLength(200)]],
-      openingBalance: [account.openingBalance, [Validators.maxLength(200)]],
+      openingBalance: [account.openingBalance, [Validators.maxLength(10)]],
+      openingBalanceType: [account.openingBalanceType.toString()],
       accountGroupId: [account.accountGroupId, [Validators.required]],
       address: [account.address, [Validators.maxLength(1000)]],
       stateId: [account.stateId, []],
@@ -97,25 +121,35 @@ export class AccountComponent implements OnInit, AfterViewInit {
       cstNumber: [account.cstNumber, [Validators.maxLength(15)]],
       tinNumber: [account.tinNumber, [Validators.maxLength(15)]],
       serviceTaxNumber: [account.serviceTaxNumber, [Validators.maxLength(15)]],
-      persons: this.fb.array([this.buildPerson()])
+      contactPersons: this.fb.array(this.buildPersons(account.contactPersons))
     });
   }
 
-  private buildPerson(): FormGroup {
+  private buildPersons(persons: Person[]): FormGroup[] {
+    if (persons.length === 0) {
+      const person = new Person();
+      persons.push(person);
+    }
+    return persons.map(person => this.buildPerson(person));
+  }
+
+  private buildPerson(person: Person): FormGroup {
     return this.fb.group({
-      id: [''],
-      firstname: ['', [Validators.required, Validators.maxLength(50)]],
-      lastname: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.maxLength(1000)]],
-      emailId: ['', [
-        Validators.maxLength(250), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]
+      id: [person.id],
+      firstname: [person.firstName, [Validators.required, Validators.maxLength(50)]],
+      lastname: [person.lastName, [Validators.required, Validators.maxLength(50)]],
+      description: [person.description, [Validators.maxLength(1000)]],
+      emailId: [person.emailId, [
+        Validators.maxLength(250),
+        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]
       ],
-      telephone: ['', [Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]],
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]]
+      telephone: [person.telephone, [Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]],
+      mobile: [person.mobile,
+      [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]]
     });
   }
 
-  private isEdit = () => this.account.id !== 0;
+  private isEditMode = () => this.account.id !== 0;
 
   private getAccount(): Account {
     if (this.account) { return { ...this.account }; }
@@ -138,6 +172,11 @@ export class AccountComponent implements OnInit, AfterViewInit {
       },
       accountGroupId: {
         required: 'Account group is required.'
+      },
+      openingBalance: {
+        required: 'Opening Balance is required.',
+        maxlength: 'Opening Balance cannot exceed 10 characters.',
+        pattern: 'Opening Balance is not in valid format',
       },
       address: {
         maxlength: 'Address cannot exceed 1000 characters.'

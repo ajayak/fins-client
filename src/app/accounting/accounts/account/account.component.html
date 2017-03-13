@@ -58,6 +58,32 @@
       <div layout="column"
            layout-gt-xs="row"
            layout-margin>
+        <md-slide-toggle flex
+                         color="primary"
+                         [checked]="!!account.openingBalance"
+                         (change)="toggleOpeningBalance($event)">
+          Opening Balance
+        </md-slide-toggle>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Opening Balance Amount"
+                 formControlName="openingBalance" />
+          <span class="input-error"
+                *ngIf="displayMessage.openingBalance">
+            {{displayMessage.openingBalance}}
+          </span>
+        </md-input-container>
+        <md-radio-group flex
+                        formControlName="openingBalanceType">
+          <md-radio-button name="Debit"
+                           value="0">Debit </md-radio-button>
+          <md-radio-button name="Credit"
+                           value="1">Credit </md-radio-button>
+        </md-radio-group>
+      </div>
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
         <md-input-container flex>
           <textarea mdInput
                     placeholder="Address"
@@ -141,8 +167,8 @@
         </md-input-container>
       </div>
 
-      <div formArrayName="persons"
-           *ngFor="let person of persons.controls; let i=index">
+      <div formArrayName="contactPersons"
+           *ngFor="let person of contactPersons.controls; let i=index">
         <div [formGroupName]="i">
           <td-expansion-panel label="Contact Person {{i+1}}"
                               sublabel="Person associated with account">

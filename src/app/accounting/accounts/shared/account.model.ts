@@ -7,7 +7,7 @@ export class Account {
   public code: string;
   public accountGroupId: number;
   public openingBalance?: number;
-  public OpeningBalanceType: string;
+  public openingBalanceType: string;
   public address: string;
   public stateId: number;
   public ward: string;
@@ -17,10 +17,12 @@ export class Account {
   public tinNumber: string;
   public serviceTaxNumber: string;
 
-  public persons: Person[];
+  public contactPersons: Person[];
 
   constructor() {
     this.id = 0;
-    this.persons = [];
+    this.openingBalance = 0;
+    this.openingBalanceType = '0';
+    this.contactPersons = [];
   }
 }
