@@ -18,7 +18,6 @@ import { Person } from '../../shared';
       <md-icon md-list-avatar>person</md-icon>
       <h3 md-line>{{person.firstname}} {{person.lastname}}</h3>
       <h4 md-line *ngIf="person.emailId" >{{person.emailId}}</h4>
-      <p md-line *ngIf="person.telephone">{{person.telephone}}</p>
       <p md-line *ngIf="person.mobile">{{person.mobile}}</p>
 
       <button md-raised-button

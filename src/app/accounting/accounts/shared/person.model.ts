@@ -4,7 +4,6 @@ export class Person {
   public lastName: string;
   public emailId: string;
   public description: string;
-  public telephone?: number;
   public mobile: number;
   public accountid: number;
 

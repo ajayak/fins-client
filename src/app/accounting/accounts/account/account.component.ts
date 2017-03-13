@@ -145,7 +145,6 @@ export class AccountComponent implements OnInit, AfterViewInit {
         Validators.maxLength(250),
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]
       ],
-      telephone: [person.telephone, [Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]],
       mobile: [person.mobile,
       [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(12)]]
     });

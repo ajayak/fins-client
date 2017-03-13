@@ -47,10 +47,6 @@ export class PersonComponent implements AfterViewInit {
         pattern: 'Email is not in valid format',
         maxlength: 'Email cannot exceed 250 characters.'
       },
-      telephone: {
-        pattern: 'Telephone No is not in valid format',
-        maxlength: 'Telephone No cannot exceed 12 characters.'
-      },
       mobile: {
         required: 'Mobile No is required.',
         pattern: 'Mobile No is not in valid format',
