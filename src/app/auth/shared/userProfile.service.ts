@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import isNil from 'lodash/isNil';
+import { isNil } from 'lodash';
 
 import { Store } from '../../shared/store';
 import {

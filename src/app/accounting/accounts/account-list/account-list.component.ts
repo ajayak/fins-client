@@ -32,6 +32,7 @@ export class AccountListComponent implements OnInit, OnChanges {
   @Output() public onChange = new EventEmitter();
 
   public columns: ITdDataTableColumn[] = [
+    { name: 'id', label: '' },
     { name: 'name', label: 'Name' },
     { name: 'displayName', label: 'Display Name', tooltip: 'Used in printing' },
     { name: 'code', label: 'Account Code' },

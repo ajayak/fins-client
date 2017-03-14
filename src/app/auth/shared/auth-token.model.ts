@@ -1,4 +1,4 @@
-import isNil from 'lodash/isNil';
+import { isNil } from 'lodash';
 
 interface TokenModel {
   'unique_name': string;

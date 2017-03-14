@@ -11,9 +11,10 @@ import {
   MdDialog,
   MdDialogRef
 } from '@angular/material';
-
-import isNil from 'lodash/isNil.js';
-import { sortBy } from 'lodash';
+import {
+  sortBy,
+  isNil
+} from 'lodash';
 
 import {
   TreeNode,
