@@ -47,6 +47,7 @@ export class AccountContainer implements OnInit {
   }
 
   public onAccountUpdate(account: Account) {
+    this.account = account;
     console.log(account);
   }
 

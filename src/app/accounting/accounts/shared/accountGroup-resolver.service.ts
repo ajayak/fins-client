@@ -28,6 +28,6 @@ export class AccountGroupResolver implements Resolve<{ [key: string]: string }> 
 
   private mapObjectToArray(obj): Array<{}> {
     return Object.keys(obj)
-      .map(id => ({ id, value: obj[id] }));
+      .map(id => ({ id: `${id}`, value: obj[id] }));
   }
 }

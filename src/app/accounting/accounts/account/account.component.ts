@@ -55,7 +55,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     const account = this.getAccount();
-    this.mode = this.isEditMode() ? 'Edit' : 'Add';
+    this.mode = this.isEditMode() ? 'Update' : 'Add';
     this.setAccountForm(account);
   }
 
@@ -82,7 +82,9 @@ export class AccountComponent implements OnInit, AfterViewInit {
       openingBalance.enable();
       openingBalanceType.enable();
       openingBalance.setValidators([
-        Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]*$')
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')
       ]);
       openingBalance.updateValueAndValidity();
     } else {
@@ -107,9 +109,9 @@ export class AccountComponent implements OnInit, AfterViewInit {
       name: [account.name, [Validators.required, Validators.maxLength(200)]],
       displayName: [account.displayName, [Validators.required, Validators.maxLength(200)]],
       code: [account.code, [Validators.required, Validators.maxLength(200)]],
-      openingBalance: [account.openingBalance, [Validators.maxLength(10)]],
+      openingBalance: [account.openingBalance],
       openingBalanceType: [account.openingBalanceType.toString()],
-      accountGroupId: [account.accountGroupId, [Validators.required]],
+      accountGroupId: [account.accountGroupId.toString(), [Validators.required]],
       address: [account.address, [Validators.maxLength(1000)]],
       stateId: [account.stateId, []],
       ward: [account.ward, [Validators.maxLength(50)]],

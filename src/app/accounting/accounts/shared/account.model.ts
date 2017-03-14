@@ -23,6 +23,7 @@ export class Account {
     this.id = 0;
     this.openingBalance = 0;
     this.stateId = 0;
+    this.accountGroupId = 0;
     this.openingBalanceType = '0';
     this.contactPersons = [];
   }
