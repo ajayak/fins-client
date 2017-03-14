@@ -27,10 +27,10 @@
                [sortOrder]="sortOrder"
                (sortChange)="sort($event)">
   <template tdDataTableTemplate="id"
-            let-value="id">
+            let-value="value">
     <div layout="row">
-      <span flex>{{id}}</span>
-      <md-icon>star</md-icon>
+      <span flex>{{value}}</span>
+      <md-icon>edit</md-icon>
     </div>
   </template>
 </td-data-table>

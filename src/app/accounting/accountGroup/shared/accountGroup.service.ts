@@ -72,7 +72,7 @@ export class AccountGroupService {
 
   public deleteAccountGroup
     (orgId: number, accountGroupId: number): Observable<boolean> {
-    let url = config.urls.deleteAccountGroup
+    const url = config.urls.deleteAccountGroup
       .replace(/accountGroupId/i, `${accountGroupId}`)
       .replace(/orgId/i, `${orgId}`);
     return this.apiService.delete(url)
@@ -84,7 +84,7 @@ export class AccountGroupService {
   public convertAccountGroupsToTreeNode(accountGroups: AccountGroup[]): TreeNode[] {
     if (isNil(accountGroups)) { return []; };
     accountGroups = sortBy(accountGroups, (ag: AccountGroup) => ag.name.toLowerCase());
-    let treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
+    const treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
       let treeNode: TreeNode = {
         label: accountGroup.name,
         data: accountGroup.displayName,

@@ -13,7 +13,7 @@ import { Store } from './shared';
  * Top Level Component
  */
 @Component({
-  selector: 'app',
+  selector: 'fs-app',
   encapsulation: ViewEncapsulation.None,
   template: `
     <fs-spinner></fs-spinner>
