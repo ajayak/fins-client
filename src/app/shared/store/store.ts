@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import isNull from 'lodash/isNull';
+import { isNull } from 'lodash';
 
 import {
   defaultState,

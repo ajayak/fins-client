@@ -3,13 +3,19 @@
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
+  Ajay Kumar -- Software Engineer -- @ajayak731
 
 # THANKS
 
   <name>
-  PatrickJS -- @gdi2290
-  AngularClass -- @AngularClass
+  Sushil Bansal
+
+# Domain
+
+  Financial System
+  Financial Suite
+  Financial Software
+  FINS
 
 # TECHNOLOGY COLOPHON
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Store } from './store';
+import { isNil } from 'lodash';
 
-import isNil from 'lodash/isNil';
+import { Store } from './store';
 
 @Injectable()
 export class StoreHelper {

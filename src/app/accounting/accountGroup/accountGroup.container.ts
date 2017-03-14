@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
-import isNil from 'lodash/isNil';
+import { isNil } from 'lodash';
 
 import { UserProfileService } from '../../auth';
 import { Store } from '../../shared/store';

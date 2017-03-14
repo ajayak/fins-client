@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy,
   OnChanges
 } from '@angular/core';
-import isUndefined from 'lodash/isUndefined';
+import { isUndefined } from 'lodash';
 
 import { PagingModel } from '../../../shared/models';
 import {

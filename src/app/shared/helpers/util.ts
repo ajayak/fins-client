@@ -1,4 +1,4 @@
-import defaults from 'lodash/defaults';
+import { defaults } from 'lodash';
 
 export const transformToTree =
   (arr: any[], uniqueKey = 'id', parentKey = 'parentId', children = 'children') => {

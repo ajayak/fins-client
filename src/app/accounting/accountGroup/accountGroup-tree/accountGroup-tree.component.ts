@@ -13,7 +13,7 @@ import {
 } from '@angular/material';
 
 import isNil from 'lodash/isNil.js';
-import sortBy from 'lodash/sortBy';
+import { sortBy } from 'lodash';
 
 import {
   TreeNode,

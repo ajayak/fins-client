@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
-import isUndefined from 'lodash';
+import { isUndefined } from 'lodash';
 
 import {
   AccountGroupTreeNode,

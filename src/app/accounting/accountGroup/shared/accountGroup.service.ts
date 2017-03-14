@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import isNil from 'lodash/isNil';
-import sortBy from 'lodash/sortBy';
+import {
+  isNil,
+  sortBy
+} from 'lodash';
 import { TreeNode } from 'primeng/components/common/api';
 
 import { ApiService } from '../../../shared/services';

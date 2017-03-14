@@ -13,8 +13,8 @@
       "node_modules/@types"
     ],
     "types": [
-      "lodash",
       "node",
+      "lodash",
       "jasmine"
     ],
     "lib": [
