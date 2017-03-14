@@ -26,11 +26,6 @@ import { States } from '../../../states/shared';
 @Component({
   selector: 'fs-account-form',
   templateUrl: 'account.component.html',
-  styles: [`
-    #account-card {
-      padding-bottom: 60px !important;
-    }
-  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent implements OnInit, AfterViewInit {

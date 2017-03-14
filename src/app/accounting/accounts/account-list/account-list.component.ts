@@ -42,7 +42,7 @@ export class AccountListComponent implements OnInit, OnChanges {
   public totalRecordCount: number;
   public searchTerm: string;
   public pageNo: number;
-  public pageSize: number;
+  public pageSize: number = 10;
   public sortBy: string = 'name';
   public sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
