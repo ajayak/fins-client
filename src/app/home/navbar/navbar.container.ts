@@ -18,7 +18,7 @@ import { AuthService } from '../../auth/shared';
 // tslint:disable-next-line:component-class-suffix
 export class NavbarContainer implements OnInit {
   public sideNavSubscription: Subscription;
-  public openSideNav: boolean = false;
+  public openSideNav = false;
 
   constructor(
     private sidenav: SideNavService,

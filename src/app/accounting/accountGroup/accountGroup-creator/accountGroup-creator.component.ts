@@ -11,7 +11,7 @@ import {
   Validators
 } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { isUndefined } from 'lodash';
 
 import {
@@ -30,7 +30,7 @@ import { UserProfileService } from '../../../auth';
 })
 export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit {
   public parent: AccountGroupTreeNode;
-  public title: string = 'Add Root Account Group';
+  public title = 'Add Root Account Group';
   public accountGroupForm: FormGroup;
   public displayMessage: { [key: string]: string } = {};
   public isReadonly: boolean;
@@ -114,7 +114,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
         parentId: this.parent.parentId
       };
     } else {
-      let accountGroup = new AccountGroup();
+      const accountGroup = new AccountGroup();
       accountGroup.parentId = this.parent.id;
       return accountGroup;
     }

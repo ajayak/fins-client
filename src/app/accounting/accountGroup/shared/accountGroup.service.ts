@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import {
   isNil,
   sortBy
@@ -85,7 +85,7 @@ export class AccountGroupService {
     if (isNil(accountGroups)) { return []; };
     accountGroups = sortBy(accountGroups, (ag: AccountGroup) => ag.name.toLowerCase());
     const treeNodes: TreeNode[] = accountGroups.map(accountGroup => {
-      let treeNode: TreeNode = {
+      const treeNode: TreeNode = {
         label: accountGroup.name,
         data: accountGroup.displayName,
         expandedIcon: 'fa-folder-open',

@@ -17,7 +17,7 @@ import { Store } from '../store';
   `
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
-  public visible: boolean = false;
+  public visible = false;
   private subscription: Subscription;
 
   constructor(private store: Store) { }

@@ -15,7 +15,7 @@ import {
 import { GenericValidator } from '../../shared';
 
 @Component({
-  selector: 'signin-form',
+  selector: 'fs-signin-form',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

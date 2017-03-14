@@ -8,10 +8,10 @@ import { ToastService } from '../shared';
 @Component({
   selector: 'fs-auth',
   template: `
-    <signin-form
+    <fs-signin-form
       (onSubmit)="onSubmit($event)"
       (onForgotPassword)="onForgotPasword()"
-    ></signin-form>
+    ></fs-signin-form>
   `
 })
 // tslint:disable-next-line:component-class-suffix

@@ -7,7 +7,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Person } from '../../shared';
 

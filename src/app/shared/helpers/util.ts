@@ -2,10 +2,10 @@ import { defaults } from 'lodash';
 
 export const transformToTree =
   (arr: any[], uniqueKey = 'id', parentKey = 'parentId', children = 'children') => {
-    let nodes = {};
+    const nodes = {};
     return arr.filter((obj) => {
-      let id = obj[uniqueKey];
-      let parentId = obj[parentKey];
+      const id = obj[uniqueKey];
+      const parentId = obj[parentKey];
 
       nodes[id] = defaults(obj, nodes[id], { children: [] });
       // tslint:disable-next-line:no-unused-expression

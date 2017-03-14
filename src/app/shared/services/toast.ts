@@ -9,6 +9,8 @@ import {
 } from 'sweetalert2';
 
 export type ToastType = SweetAlertType;
+
+// tslint:disable-next-line:no-empty-interface
 export interface ToastOptions extends SweetAlertOptions { }
 
 @Injectable()

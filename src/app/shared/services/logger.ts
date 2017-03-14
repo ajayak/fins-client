@@ -36,6 +36,7 @@ export class LogService {
 
   public info(message: string, data?: any) {
     if (environment.production) { return; }
+    // tslint:disable-next-line:no-console
     console.info(message, data);
     this.toastr.info({
       title: message,

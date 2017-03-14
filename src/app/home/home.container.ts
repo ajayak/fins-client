@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '../shared';
 
 @Component({
-  selector: 'home',
+  selector: 'fs-home',
   template: `
     <fs-navbar></fs-navbar>
     <fs-sidenav [open]="isSideNavOpen">
@@ -19,7 +19,7 @@ import { Store } from '../shared';
 // tslint:disable-next-line:component-class-suffix
 export class HomeContainer implements OnInit, OnDestroy {
   public subscription: Subscription;
-  public isSideNavOpen: boolean = false;
+  public isSideNavOpen = false;
 
   constructor(private store: Store) { }
 

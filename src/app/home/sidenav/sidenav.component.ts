@@ -11,7 +11,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideNavComponent {
-  @Input() public open: boolean = false;
+  @Input() public open = false;
 
   public folders = [
     {

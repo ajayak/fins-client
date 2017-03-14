@@ -65,7 +65,7 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   }
 
   public renderTree() {
-    let tree = this.accountGroupService.convertAccountGroupsToTreeNode(this.accountGroups);
+    const tree = this.accountGroupService.convertAccountGroupsToTreeNode(this.accountGroups);
     tree.forEach(node => this.expandRecursive(node, true));
     this.accountGroupTreeItems = tree;
   }

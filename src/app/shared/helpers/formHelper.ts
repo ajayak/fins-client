@@ -29,23 +29,22 @@ const generateErrorMessages = (errorType: string, info: any): string => {
     case 'accountGroupAlreadyExists':
       return `Account group with same name already exists under this parent`;
     default:
-      console.info(errorType, info);
       return 'Unknown Error. Added this error to error list';
   }
 };
 
 export const controlIsValid = (form: FormGroup, control: string): boolean => {
-  let formControl = form.get(control);
+  const formControl = form.get(control);
   return formControlIsValid(form, formControl);
 };
 
 export const getControlErrors = (form: FormGroup, control: string): string[] | null => {
-  let formControl = form.get(control);
+  const formControl = form.get(control);
   if (formControlIsValid(form, formControl)) {
     return null;
   }
-  let errors = formControl.errors;
-  let errorMessages = Object.keys(errors)
+  const errors = formControl.errors;
+  const errorMessages = Object.keys(errors)
     .map((key) => generateErrorMessages(key, errors[key]));
   return errorMessages;
 };
@@ -101,13 +100,13 @@ export class GenericValidator {
   // controlName1: 'Validation Message.',
   // controlName2: 'Validation Message.'
   public processMessages(container: FormGroup): { [key: string]: string } {
-    let messages = {};
-    for (let controlKey in container.controls) {
+    const messages = {};
+    for (const controlKey in container.controls) {
       if (container.controls.hasOwnProperty(controlKey)) {
-        let c = container.controls[controlKey];
+        const c = container.controls[controlKey];
         // If it is a FormGroup, process its child controls.
         if (c instanceof FormGroup) {
-          let childMessages = this.processMessages(c);
+          const childMessages = this.processMessages(c);
           Object.assign(messages, childMessages);
         } else {
           // Only validate if there are validation messages for the control

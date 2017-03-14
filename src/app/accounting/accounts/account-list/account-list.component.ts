@@ -43,8 +43,8 @@ export class AccountListComponent implements OnInit, OnChanges {
   public totalRecordCount: number;
   public searchTerm: string;
   public pageNo: number;
-  public pageSize: number = 10;
-  public sortBy: string = 'name';
+  public pageSize: number;
+  public sortBy = 'name';
   public sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
   public ngOnInit(): void {

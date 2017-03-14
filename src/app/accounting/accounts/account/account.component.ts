@@ -36,7 +36,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
   @Output() public onAccountUpdate = new EventEmitter();
   public displayMessage: { [key: string]: string } = {};
   public accountForm: FormGroup;
-  public mode: string = 'Add';
+  public mode = 'Add';
 
   get contactPersons(): FormArray {
     return <FormArray>this.accountForm.get('contactPersons');
