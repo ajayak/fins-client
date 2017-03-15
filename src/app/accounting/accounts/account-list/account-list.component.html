@@ -30,9 +30,15 @@
             let-value="value">
     <div layout="row">
       <a md-icon-button
-         [routerLink]="['', 'account', value]">
+         [routerLink]="['', 'account', value]"
+         mdTooltip="Edit Account">
         <md-icon>edit</md-icon>
       </a>
+      <button md-icon-button
+              (click)="deleteAccount(value)"
+              mdTooltip="Delete Account">
+        <md-icon>clear</md-icon>
+      </button>
     </div>
   </template>
 </td-data-table>

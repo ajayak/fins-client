@@ -174,7 +174,8 @@
            *ngFor="let person of contactPersons.controls; let i=index">
         <div [formGroupName]="i">
           <td-expansion-panel label="Contact Person {{i+1}}"
-                              sublabel="Person associated with account">
+                              sublabel="Person associated with account"
+                              [expand]="person.value.id === 0">
             <td-expansion-summary>
               <md-list>
                 <fs-person-summary [personForm]="person"

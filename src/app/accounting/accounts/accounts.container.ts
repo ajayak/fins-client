@@ -4,6 +4,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { isNil } from 'lodash';
 
@@ -12,6 +13,7 @@ import {
   AccountPageList
 } from './shared';
 import { PagingModel } from '../../shared/models';
+import { ToastService } from '../../shared/services';
 
 @Component({
   selector: 'fs-account',
@@ -26,7 +28,8 @@ import { PagingModel } from '../../shared/models';
         [routerLink]="['','account', '0']">Add Account</a>
       <fs-account-list
         [accountList]="accountList"
-        (onChange)="onPagingAction($event)">
+        (onChange)="onPagingAction($event)"
+        (onAccountDelete)="deleteAccount($event)">
       </fs-account-list>
     </md-card-content>
   </md-card>
@@ -36,13 +39,24 @@ import { PagingModel } from '../../shared/models';
 export class AccountsContainer implements OnInit, OnDestroy {
   public accountList: AccountPageList = new AccountPageList();
   private subscription: Subscription;
+  private page = new PagingModel();
 
   constructor(
-    private AccountService: AccountService,
-    private router: Router) { }
+    private accountService: AccountService,
+    private router: Router,
+    private snackBar: MdSnackBar,
+    private toastr: ToastService) { }
 
   public onPagingAction(page: PagingModel) {
-    this.initializeAccounts(page);
+    this.page = page;
+    this.initializeAccounts();
+  }
+
+  public deleteAccount(accountId: number) {
+    this.accountService.deleteAccount(accountId)
+      .subscribe(
+      () => this.onDeleteSuccess(),
+      error => this.onDeleteError(error));
   }
 
   public ngOnInit() {
@@ -53,16 +67,21 @@ export class AccountsContainer implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public addAccount() {
-    this.router.navigate(['', 'account', '0']);
+  private initializeAccounts() {
+    this.subscription = this.accountService
+      .getAllAccounts(this.page.pageNo, this.page.pageSize, this.page.sort)
+      .subscribe(accountList => this.accountList = accountList);
   }
 
-  private initializeAccounts(page?: PagingModel) {
-    if (isNil(page)) {
-      page = new PagingModel();
-    }
-    this.subscription = this.AccountService
-      .getAllAccounts(page.pageNo, page.pageSize, page.sort)
-      .subscribe(accountList => this.accountList = accountList);
+  private onDeleteSuccess() {
+    this.snackBar.open(`Account deleted successfully`, 'Close', { duration: 2000 });
+    this.initializeAccounts();
+  }
+
+  private onDeleteError(error) {
+    this.toastr.error({
+      title: 'Unable to delete Account',
+      text: error.error_description
+    });
   }
 }

@@ -30,6 +30,7 @@ import {
 export class AccountListComponent implements OnInit, OnChanges {
   @Input() public accountList: AccountPageList = new AccountPageList();
   @Output() public onChange = new EventEmitter();
+  @Output() public onAccountDelete = new EventEmitter();
 
   public columns: ITdDataTableColumn[] = [
     { name: 'id', label: '' },
@@ -54,6 +55,10 @@ export class AccountListComponent implements OnInit, OnChanges {
 
   public ngOnChanges() {
     this.updateGrid();
+  }
+
+  public deleteAccount(accountId: number) {
+    this.onAccountDelete.emit(accountId);
   }
 
   public sort(sortEvent: ITdDataTableSortChangeEvent): void {

@@ -36,4 +36,8 @@ export class AccountService {
   public updateAccount(account: Account): Observable<Account> {
     return this.apiService.put(config.urls.account, account);
   }
+
+  public deleteAccount(accountId: number): Observable<boolean> {
+    return this.apiService.delete(`${config.urls.account}/${accountId}`);
+  }
 }
