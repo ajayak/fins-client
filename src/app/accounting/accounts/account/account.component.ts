@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   AfterViewInit,
+  OnChanges,
   Input,
   Output,
   EventEmitter,
@@ -28,7 +29,7 @@ import { States } from '../../../states/shared';
   templateUrl: 'account.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountComponent implements OnInit, AfterViewInit {
+export class AccountComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public account: Account;
   @Input() public accountGroups: Array<{}> = [];
   @Input() public states: States[] = [];
@@ -64,6 +65,10 @@ export class AccountComponent implements OnInit, AfterViewInit {
     this.accountForm.valueChanges.subscribe(() => {
       this.displayMessage = this.genericValidator.processMessages(this.accountForm);
     });
+  }
+
+  public ngOnChanges(): void {
+    this.ngOnInit();
   }
 
   public saveAccount(): void {

@@ -29,8 +29,10 @@
   <template tdDataTableTemplate="id"
             let-value="value">
     <div layout="row">
-      <span flex>{{value}}</span>
-      <md-icon>edit</md-icon>
+      <a md-icon-button
+         [routerLink]="['', 'account', value]">
+        <md-icon>edit</md-icon>
+      </a>
     </div>
   </template>
 </td-data-table>

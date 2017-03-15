@@ -40,7 +40,8 @@ import {
 import {
   ApiService,
   ToastService,
-  LogService
+  LogService,
+  EntityService
 } from './services';
 import { JwtHelperService } from './services';
 import {
@@ -86,7 +87,8 @@ import {
     TdMediaService,
 
     // App services
-    SpinnerService
+    SpinnerService,
+    EntityService
   ]
 })
 export class SharedModule {
@@ -100,7 +102,8 @@ export class SharedModule {
         Store,
         StoreHelper,
         ToastService,
-        LogService
+        LogService,
+        EntityService
       ]
     };
   }

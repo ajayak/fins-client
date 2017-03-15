@@ -26,9 +26,7 @@ export class AppComponent implements OnInit {
   constructor(public appState: Store) { }
 
   public ngOnInit() {
-    console.log('Initial App State', this.appState.getState());
     this.appState.changes.subscribe((state) => {
-      console.log('New State: ', state);
       window['state'] = state;
     });
   }

@@ -1,4 +1,4 @@
-export { ApiService } from './apiService';
+export { ApiService } from './api.service';
 export { LogService } from './logger';
 export {
   ToastOptions,
@@ -9,3 +9,4 @@ export {
   JwtHelperService,
   tokenNotExpired
 } from './jwtHelper';
+export { EntityService } from './entity.service';

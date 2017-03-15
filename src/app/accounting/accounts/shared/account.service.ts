@@ -32,4 +32,8 @@ export class AccountService {
   public addAccount(account: Account): Observable<Account> {
     return this.apiService.post(config.urls.account, account);
   }
+
+  public updateAccount(account: Account): Observable<Account> {
+    return this.apiService.put(config.urls.account, account);
+  }
 }

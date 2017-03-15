@@ -3,12 +3,15 @@ import {
   OnInit
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 
 import {
   Account,
   AccountService
 } from '../shared';
 import { States } from '../../../states/shared';
+import { ToastService } from '../../../shared/services';
+
 
 @Component({
   selector: 'fs-account',
@@ -30,7 +33,9 @@ export class AccountContainer implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private accountService: AccountService) { }
+    private accountService: AccountService,
+    private toastr: ToastService,
+    private snackBar: MdSnackBar) { }
 
   public ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -41,21 +46,25 @@ export class AccountContainer implements OnInit {
   }
 
   public onAccountAdd(account: Account) {
-    console.log(account);
     this.accountService.addAccount(account)
-      .subscribe(this.onSuccess, this.onError);
+      .subscribe(
+      (result: Account) => this.onSuccess(result, 'Added'),
+      (error) => this.onError(error));
   }
 
   public onAccountUpdate(account: Account) {
-    this.account = account;
-    console.log(account);
+    this.accountService.updateAccount(account)
+      .subscribe(
+      (result: Account) => this.onSuccess(result, 'Updated'),
+      (error) => this.onError(error));
   }
 
-  private onSuccess(result) {
-    console.log(result);
+  private onSuccess(account: Account, mode: string) {
+    this.account = account;
+    this.snackBar.open(`Account ${mode} successfully`, 'Close', { duration: 2000 });
   }
 
   private onError(error) {
-    console.log(error);
+    this.toastr.error({ title: 'Failed to save account', text: 'Please try again later' });
   }
 }
