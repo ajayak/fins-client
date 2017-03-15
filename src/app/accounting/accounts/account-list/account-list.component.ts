@@ -10,6 +10,7 @@ import {
 import { isUndefined } from 'lodash';
 
 import { PagingModel } from '../../../shared/models';
+import { ToastService } from '../../../shared/services';
 import {
   TdDataTableSortingOrder,
   ITdDataTableSortChangeEvent,
@@ -48,6 +49,8 @@ export class AccountListComponent implements OnInit, OnChanges {
   public sortBy = 'name';
   public sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
+  constructor(private toastr: ToastService) { }
+
   public ngOnInit(): void {
     this.updateGrid();
     this.filter();
@@ -58,7 +61,10 @@ export class AccountListComponent implements OnInit, OnChanges {
   }
 
   public deleteAccount(accountId: number) {
-    this.onAccountDelete.emit(accountId);
+    const account = this.accounts.find(value => value.id === accountId);
+    this.toastr.confirm({
+      titleText: `Are you sure you want to delete ${account.name}?`
+    }).then(() => this.onAccountDelete.emit(accountId));
   }
 
   public sort(sortEvent: ITdDataTableSortChangeEvent): void {

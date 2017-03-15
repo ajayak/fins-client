@@ -5,6 +5,10 @@ import {
   Response
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {
+  isObject,
+  isNil
+} from 'lodash';
 
 import { config } from '../../core';
 import { SpinnerService } from '../spinner';
@@ -95,6 +99,10 @@ export class ApiService {
     let err;
     try {
       err = res.json();
+      if (!isNil(err.error) && isObject(err.error)) {
+        err.error_description = err.error.message;
+        err.error = err.error.exception;
+      }
     } catch (error) {
       err = {
         error: res['_body'],
