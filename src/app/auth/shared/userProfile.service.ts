@@ -29,4 +29,11 @@ export class UserProfileService {
 
     return auth.accounting.indexOf(Accounting.accountGroupManager) !== -1;
   }
+
+  public isItemGroupManager(): boolean {
+    const auth = this.store.getState().auth;
+    if (isNil(auth) || isNil(auth.accounting)) { return false; }
+
+    return auth.accounting.indexOf(Accounting.accountGroupManager) !== -1;
+  }
 }

@@ -1,0 +1,7 @@
+<p-tree [value]="itemGroupTreeItems"
+        selectionMode="single"
+        [(selection)]="selectedNode"
+        [contextMenu]="cm"></p-tree>
+
+<p-contextMenu #cm
+               [model]="items"></p-contextMenu>

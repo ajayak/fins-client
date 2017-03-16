@@ -9,6 +9,7 @@ import { SharedModule } from './shared';
 import { AuthModule } from './auth';
 import { HomeModule } from './home';
 import { AccountingModule } from './accounting';
+import { InventoryModule } from './inventory';
 import { StatesModule } from './states';
 
 import {
@@ -49,6 +50,7 @@ const APP_PROVIDERS = [
     HomeModule,
     StatesModule,
     AccountingModule,
+    InventoryModule,
 
     // 404 Route
     AppRoutingModule
