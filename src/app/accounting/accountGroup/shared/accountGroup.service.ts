@@ -33,7 +33,7 @@ export class AccountGroupService {
   }
 
   public getAccountGroupDictionary(): Observable<{ [key: string]: string }> {
-    return this.apiService.get(this.accountGroupUrl);
+    return this.apiService.get(config.urls.accountGroupDictionary);
   }
 
   public accountGroupExistsInOrganization

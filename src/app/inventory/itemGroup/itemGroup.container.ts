@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 import { isNil } from 'lodash';
 
-import { UserProfileService } from '../../auth';
 import { Store } from '../../shared/store';
 import { ToastService } from '../../shared/services';
 import {
@@ -48,7 +47,6 @@ export class ItemGroupContainer implements OnInit, OnDestroy {
     private itemGroupService: ItemGroupService,
     private store: Store,
     private snackBar: MdSnackBar,
-    private userProfile: UserProfileService,
     private toastr: ToastService) { }
 
   public ngOnInit() {
@@ -77,8 +75,7 @@ export class ItemGroupContainer implements OnInit, OnDestroy {
   }
 
   public deleteItemGroup(itemGroupId: number) {
-    const orgId = this.userProfile.getOrgId();
-    this.itemGroupService.deleteItemGroup(orgId, itemGroupId)
+    this.itemGroupService.deleteItemGroup(itemGroupId)
       .subscribe(
       () => this.snackBar.open(`Item Group deleted successfully`, 'Close', { duration: 2000 }),
       (error) => this.toastr.error({

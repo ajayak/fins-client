@@ -10,7 +10,6 @@ export const config = {
     account: '/api/account',
     itemGroup: '/api/itemGroup',
     itemGroupDictionary: '/api/itemGroup/list',
-    deleteItemGroup: '/api/itemGroup/itemGroupId/organization/orgId',
     states: '/api/state'
   },
   appKeys: {

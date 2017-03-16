@@ -19,27 +19,21 @@ import {
 
 @Injectable()
 export class ItemGroupService {
+  private itemGroupUrl = config.urls.itemGroup;
+
   constructor(
     private apiService: ApiService,
     private user: UserProfileService,
     private storeHelper: StoreHelper,
     private store: Store) { }
 
-  public getItemGroup(orgId?: number): Observable<ItemGroup[]> {
-    let url = config.urls.itemGroup;
-    if (this.user.isSiteAdmin()) {
-      url += `/${orgId}`;
-    }
-    return this.apiService.get(url)
+  public getItemGroup(): Observable<ItemGroup[]> {
+    return this.apiService.get(this.itemGroupUrl)
       .do(result => this.storeHelper.update(StateHelper.itemGroups, result));
   }
 
-  public getItemGroupDictionary(orgId?: number): Observable<{ [key: string]: string }> {
-    let url = config.urls.itemGroupDictionary;
-    if (this.user.isSiteAdmin()) {
-      url += `/${orgId}`;
-    }
-    return this.apiService.get(url);
+  public getItemGroupDictionary(): Observable<{ [key: string]: string }> {
+    return this.apiService.get(config.urls.itemGroupDictionary);
   }
 
   public itemGroupExistsInOrganization
@@ -56,26 +50,22 @@ export class ItemGroupService {
 
   public addItemGroup(ItemGroup: ItemGroup): Observable<ItemGroup> {
     return this.apiService
-      .post(config.urls.itemGroup, ItemGroup)
+      .post(this.itemGroupUrl, ItemGroup)
       .do(result => this.addItemGroupInState(ItemGroup, result));
   }
 
   public updateItemGroup(ItemGroup: ItemGroup): Observable<ItemGroup> {
     return this.apiService
-      .put(config.urls.itemGroup, ItemGroup)
+      .put(this.itemGroupUrl, ItemGroup)
       .do(result => {
         this.storeHelper.findAndAddOrUpdateInArray(StateHelper.itemGroups, result);
       });
   }
 
-  public deleteItemGroup
-    (orgId: number, ItemGroupId: number): Observable<boolean> {
-    const url = config.urls.deleteItemGroup
-      .replace(/ItemGroupId/i, `${ItemGroupId}`)
-      .replace(/orgId/i, `${orgId}`);
-    return this.apiService.delete(url)
+  public deleteItemGroup(itemGroupId: number): Observable<boolean> {
+    return this.apiService.delete(`${this.itemGroupUrl}/${itemGroupId}`)
       .do(result => {
-        if (result === true) { this.deleteItemGroupFromState(ItemGroupId); }
+        if (result === true) { this.deleteItemGroupFromState(itemGroupId); }
       });
   }
 
