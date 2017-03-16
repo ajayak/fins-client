@@ -2,19 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Resolve } from '@angular/router';
 import { AccountGroupService } from '../../accountGroup';
-import { UserProfileService } from '../../../auth';
 
 @Injectable()
 export class AccountGroupResolver implements Resolve<{ [key: string]: string }> {
-  constructor(
-    private accountGroupService: AccountGroupService,
-    private profile: UserProfileService,
-  ) { }
+  constructor(    private accountGroupService: AccountGroupService) { }
 
   public resolve() {
-    const orgId = this.profile.getOrgId();
-
-    return this.accountGroupService.getAccountGroupDictionary(orgId)
+    return this.accountGroupService.getAccountGroupDictionary()
       .map(accountGroups => {
         if (accountGroups) {
           return this.mapObjectToArray(accountGroups);

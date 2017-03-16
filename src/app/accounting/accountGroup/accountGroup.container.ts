@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 import { isNil } from 'lodash';
 
-import { UserProfileService } from '../../auth';
 import { Store } from '../../shared/store';
 import { ToastService } from '../../shared/services';
 import { AccountGroupService } from './shared';
@@ -46,7 +45,6 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
     private accountGroupService: AccountGroupService,
     private store: Store,
     private snackBar: MdSnackBar,
-    private userProfile: UserProfileService,
     private toastr: ToastService) { }
 
   public ngOnInit() {
@@ -75,8 +73,7 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   }
 
   public deleteAccountGroup(accountGroupId: number) {
-    const orgId = this.userProfile.getOrgId();
-    this.accountGroupService.deleteAccountGroup(orgId, accountGroupId)
+    this.accountGroupService.deleteAccountGroup(accountGroupId)
       .subscribe(
       () => this.snackBar.open(`Account Group deleted successfully`, 'Close', { duration: 2000 }),
       (error) => this.toastr.error({

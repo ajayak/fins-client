@@ -7,7 +7,6 @@ export const config = {
     token: '/connect/token',
     accountGroup: '/api/accountGroup',
     accountGroupDictionary: '/api/accountGroup/list',
-    deleteAccountGroup: '/api/accountGroup/accountGroupId/organization/orgId',
     account: '/api/account',
     itemGroup: '/api/itemGroup',
     itemGroupDictionary: '/api/itemGroup/list',

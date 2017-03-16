@@ -27,21 +27,13 @@ export class AccountGroupService {
     private storeHelper: StoreHelper,
     private store: Store) { }
 
-  public getAccountGroup(orgId?: number): Observable<AccountGroup[]> {
-    let url = config.urls.accountGroup;
-    if (this.user.isSiteAdmin()) {
-      url += `/${orgId}`;
-    }
-    return this.apiService.get(url)
+  public getAccountGroup(): Observable<AccountGroup[]> {
+    return this.apiService.get(this.accountGroupUrl)
       .do(result => this.storeHelper.update(StateHelper.accountGroups, result));
   }
 
-  public getAccountGroupDictionary(orgId?: number): Observable<{ [key: string]: string }> {
-    let url = config.urls.accountGroupDictionary;
-    if (this.user.isSiteAdmin()) {
-      url += `/${orgId}`;
-    }
-    return this.apiService.get(url);
+  public getAccountGroupDictionary(): Observable<{ [key: string]: string }> {
+    return this.apiService.get(this.accountGroupUrl);
   }
 
   public accountGroupExistsInOrganization
@@ -58,24 +50,20 @@ export class AccountGroupService {
 
   public addAccountGroup(accountGroup: AccountGroup): Observable<AccountGroup> {
     return this.apiService
-      .post(config.urls.accountGroup, accountGroup)
+      .post(this.accountGroupUrl, accountGroup)
       .do(result => this.addAccountGroupInState(accountGroup, result));
   }
 
   public updateAccountGroup(accountGroup: AccountGroup): Observable<AccountGroup> {
     return this.apiService
-      .put(config.urls.accountGroup, accountGroup)
+      .put(this.accountGroupUrl, accountGroup)
       .do(result => {
         this.storeHelper.findAndAddOrUpdateInArray(StateHelper.accountGroups, result);
       });
   }
 
-  public deleteAccountGroup
-    (orgId: number, accountGroupId: number): Observable<boolean> {
-    const url = config.urls.deleteAccountGroup
-      .replace(/accountGroupId/i, `${accountGroupId}`)
-      .replace(/orgId/i, `${orgId}`);
-    return this.apiService.delete(url)
+  public deleteAccountGroup(accountGroupId: number): Observable<boolean> {
+    return this.apiService.delete(`${this.accountGroupUrl}/${accountGroupId}`)
       .do(result => {
         if (result === true) { this.deleteAccountGroupFromState(accountGroupId); }
       });
