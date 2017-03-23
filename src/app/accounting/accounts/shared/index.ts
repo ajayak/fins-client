@@ -4,6 +4,7 @@ export {
 } from './account-list.model';
 export { AccountService } from './account.service';
 export { AccountResolver } from './account-resolver.service';
+export { AccountGuard } from './account.guard';
 export { AccountGroupResolver } from './accountGroup-resolver.service';
 export { StatesResolver } from './states-resolver.service';
 export { Account } from './account.model';

@@ -14,7 +14,8 @@ import {
   AccountService,
   AccountResolver,
   AccountGroupResolver,
-  StatesResolver
+  StatesResolver,
+  AccountGuard
 } from './shared';
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
     AccountService,
     AccountResolver,
     AccountGroupResolver,
-    StatesResolver
+    StatesResolver,
+    AccountGuard
   ]
 })
 export class AccountModule { }

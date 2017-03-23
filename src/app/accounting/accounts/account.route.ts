@@ -5,13 +5,15 @@ import { AccountContainer } from './account';
 import {
   AccountResolver,
   AccountGroupResolver,
-  StatesResolver
+  StatesResolver,
+  AccountGuard
 } from './shared';
 
 export const accountRoutes: Routes = [
   {
     path: 'accounts',
-    component: AccountsContainer
+    component: AccountsContainer,
+    canActivate: [AccountGuard]
   },
   {
     path: 'account/:id',
@@ -20,7 +22,8 @@ export const accountRoutes: Routes = [
       account: AccountResolver,
       accountGroups: AccountGroupResolver,
       states: StatesResolver
-    }
+    },
+    canActivate: [AccountGuard]
   }
 ];
 

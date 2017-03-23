@@ -4,7 +4,8 @@ import { isNil } from 'lodash';
 import { Store } from '../../shared/store';
 import {
   UserTypes,
-  Accounting
+  Accounting,
+  Inventory
 } from '../../core';
 
 @Injectable()
@@ -30,10 +31,17 @@ export class UserProfileService {
     return auth.accounting.indexOf(Accounting.accountGroupManager) !== -1;
   }
 
-  public isItemGroupManager(): boolean {
+  public isAccountManager(): boolean {
     const auth = this.store.getState().auth;
     if (isNil(auth) || isNil(auth.accounting)) { return false; }
 
-    return auth.accounting.indexOf(Accounting.accountGroupManager) !== -1;
+    return auth.accounting.indexOf(Accounting.accountManager) !== -1;
+  }
+
+  public isItemGroupManager(): boolean {
+    const auth = this.store.getState().auth;
+    if (isNil(auth) || isNil(auth.inventory)) { return false; }
+
+    return auth.accounting.indexOf(Inventory.itemGroupManager) !== -1;
   }
 }

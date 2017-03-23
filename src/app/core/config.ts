@@ -26,5 +26,11 @@ export const UserTypes = {
 };
 
 export const Accounting = {
-  accountGroupManager: 'AccountGroupManager'
+  accountGroupManager: 'AccountGroupManager',
+  accountManager: 'AccountManager'
+};
+
+export const Inventory = {
+  itemGroupManager: 'ItemGroupManager',
+  itemManager: 'ItemManager'
 };
