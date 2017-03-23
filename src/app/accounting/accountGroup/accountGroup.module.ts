@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared';
 import {
   AccountGroupService,
-  AccountGroupGuard
+  AccountGroupGuard,
+  AccountGroupResolver
 } from './shared';
 import { routedComponents } from './accountGroup.route';
 import { AccountGroupTreeComponent } from './accountGroup-tree';
@@ -23,7 +24,8 @@ import { AccountGroupCreatorDialogComponent } from './accountGroup-creator';
   ],
   providers: [
     AccountGroupService,
-    AccountGroupGuard
+    AccountGroupGuard,
+    AccountGroupResolver
   ],
   entryComponents: [AccountGroupCreatorDialogComponent]
 })

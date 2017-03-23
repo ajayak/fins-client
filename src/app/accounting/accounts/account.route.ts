@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
+import { AccountGroupResolver } from '../accountGroup/shared';
 import { AccountsContainer } from './accounts.container';
 import { AccountContainer } from './account';
 import {
   AccountResolver,
-  AccountGroupResolver,
   StatesResolver,
   AccountGuard
 } from './shared';
