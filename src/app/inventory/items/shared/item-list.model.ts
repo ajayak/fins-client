@@ -1,6 +1,6 @@
 import { PageListResultModel } from '../../../shared/models';
 
-export class AccountList {
+export class ItemList {
   public id: number;
   public name: string;
   public displayName: string;
@@ -9,8 +9,8 @@ export class AccountList {
 }
 
 // tslint:disable-next-line:max-classes-per-file
-export class AccountPageList extends PageListResultModel {
-  public items: AccountList[];
+export class ItemPageList extends PageListResultModel {
+  public items: ItemList[];
 
   constructor() {
     super();

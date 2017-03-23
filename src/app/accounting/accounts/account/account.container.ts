@@ -9,7 +9,7 @@ import {
   Account,
   AccountService
 } from '../shared';
-import { States } from '../../../states/shared';
+import { States } from '../../../common/states/shared';
 import { ToastService } from '../../../shared/services';
 
 

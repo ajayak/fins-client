@@ -42,13 +42,13 @@ export class UserProfileService {
     const auth = this.store.getState().auth;
     if (isNil(auth) || isNil(auth.inventory)) { return false; }
 
-    return auth.accounting.indexOf(Inventory.itemGroupManager) !== -1;
+    return auth.inventory.indexOf(Inventory.itemGroupManager) !== -1;
   }
 
   public isItemManager(): boolean {
     const auth = this.store.getState().auth;
     if (isNil(auth) || isNil(auth.inventory)) { return false; }
 
-    return auth.accounting.indexOf(Inventory.itemManager) !== -1;
+    return auth.inventory.indexOf(Inventory.itemManager) !== -1;
   }
 }

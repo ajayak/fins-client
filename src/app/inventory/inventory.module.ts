@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { ItemGroupModule } from './itemGroup';
+import { ItemModule } from './items';
 
 @NgModule({
   imports: [
-    ItemGroupModule
+    ItemGroupModule,
+    ItemModule
   ],
   exports: [],
   declarations: [],

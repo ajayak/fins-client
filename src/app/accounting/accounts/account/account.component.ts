@@ -22,7 +22,7 @@ import {
   Person
 } from '../shared';
 import { GenericValidator } from '../../../shared';
-import { States } from '../../../states/shared';
+import { States } from '../../../common/states/shared';
 
 @Component({
   selector: 'fs-account-form',
