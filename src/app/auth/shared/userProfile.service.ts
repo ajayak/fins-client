@@ -44,4 +44,11 @@ export class UserProfileService {
 
     return auth.accounting.indexOf(Inventory.itemGroupManager) !== -1;
   }
+
+  public isItemManager(): boolean {
+    const auth = this.store.getState().auth;
+    if (isNil(auth) || isNil(auth.inventory)) { return false; }
+
+    return auth.accounting.indexOf(Inventory.itemManager) !== -1;
+  }
 }
