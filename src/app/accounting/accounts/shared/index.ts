@@ -5,6 +5,5 @@ export {
 export { AccountService } from './account.service';
 export { AccountResolver } from './account-resolver.service';
 export { AccountGuard } from './account.guard';
-export { StatesResolver } from './states-resolver.service';
 export { Account } from './account.model';
 export { Person } from './person.model';

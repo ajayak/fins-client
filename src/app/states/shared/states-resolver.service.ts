@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import {
-  States,
-  StatesService
-} from '../../../states/shared';
+import { StatesService } from './states.service';
+import { States } from './states.model';
 
 @Injectable()
 export class StatesResolver implements Resolve<States[]> {

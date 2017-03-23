@@ -13,7 +13,6 @@ import {
 import {
   AccountService,
   AccountResolver,
-  StatesResolver,
   AccountGuard
 } from './shared';
 
@@ -33,7 +32,6 @@ import {
   providers: [
     AccountService,
     AccountResolver,
-    StatesResolver,
     AccountGuard
   ]
 })
