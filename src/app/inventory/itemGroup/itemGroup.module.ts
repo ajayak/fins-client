@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared';
 import {
   ItemGroupService,
-  ItemGroupGuard
+  ItemGroupGuard,
+  ItemGroupResolver
 } from './shared';
 import { routedComponents } from './itemGroup.route';
 import { ItemGroupTreeComponent } from './itemGroup-tree';
@@ -23,7 +24,8 @@ import { ItemGroupCreatorDialogComponent } from './itemGroup-creator';
   ],
   providers: [
     ItemGroupService,
-    ItemGroupGuard
+    ItemGroupGuard,
+    ItemGroupResolver
   ],
   entryComponents: [ItemGroupCreatorDialogComponent]
 })

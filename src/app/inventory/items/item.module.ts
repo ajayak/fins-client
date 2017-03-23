@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { routedComponents } from './item.route';
 import { ItemListComponent } from './item-list';
-// import { ItemComponent } from './item';
+import { ItemComponent } from './item';
 
 import {
   ItemService,
-  // ItemResolver,
+  ItemResolver,
   ItemGuard
 } from './shared';
 
@@ -19,11 +19,11 @@ import {
   declarations: [
     routedComponents,
     ItemListComponent,
-    // ItemComponent
+    ItemComponent
   ],
   providers: [
     ItemService,
-    // ItemResolver,
+    ItemResolver,
     ItemGuard
   ]
 })

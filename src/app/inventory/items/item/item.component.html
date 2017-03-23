@@ -1,0 +1,45 @@
+<md-card>
+  <md-card-title> {{mode}} Item </md-card-title>
+  <md-card-subtitle> This page allows to manage Item </md-card-subtitle>
+  <md-divider></md-divider>
+
+  <form novalidate
+        (ngSubmit)="saveItem()"
+        [formGroup]="itemForm">
+    <md-card-content>
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Item Name"
+                 formControlName="name" />
+          <span class="input-error"
+                *ngIf="displayMessage.name">
+            {{displayMessage.name}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Item code"
+                 formControlName="code" />
+          <span class="input-error"
+                *ngIf="displayMessage.code">
+            {{displayMessage.code}}
+          </span>
+        </md-input-container>
+      </div>
+
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions align="end">
+      <a md-button
+         [routerLink]="['', 'items']">Back</a>
+
+      <button md-raised-button
+              type="submit"
+              color="primary"
+              [disabled]="!itemForm.valid">{{mode}} Item</button>
+    </md-card-actions>
+  </form>
+</md-card>
