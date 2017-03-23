@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AccountGroupResolver } from '../accountGroup/shared';
-import { StatesResolver } from '../../states/shared';
+import { StatesResolver } from '../../common/states/shared';
 import { AccountsContainer } from './accounts.container';
 import { AccountContainer } from './account';
 import {

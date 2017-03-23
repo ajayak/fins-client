@@ -10,7 +10,7 @@ import { AuthModule } from './auth';
 import { HomeModule } from './home';
 import { AccountingModule } from './accounting';
 import { InventoryModule } from './inventory';
-import { StatesModule } from './states';
+import { StatesModule } from './common';
 
 import {
   AppRoutingModule,
