@@ -14,3 +14,8 @@ export const transformToTree =
       return !parentId;
     });
   };
+
+export function mapObjectToArray(obj): Array<{}> {
+  return Object.keys(obj)
+    .map(id => ({ value: `${id}`, name: obj[id] }));
+}

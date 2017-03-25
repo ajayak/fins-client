@@ -45,8 +45,8 @@
                    placeholder="Account Group"
                    formControlName="accountGroupId">
           <md-option *ngFor="let accountGroup of accountGroups"
-                     [value]="accountGroup.id">
-            {{accountGroup.value}}
+                     [value]="accountGroup.value">
+            {{accountGroup.name}}
           </md-option>
           <!--BUG: Error message not visible-->
           <span class="inspanut-error"

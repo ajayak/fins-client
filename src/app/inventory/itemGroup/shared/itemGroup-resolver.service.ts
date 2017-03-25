@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Resolve } from '@angular/router';
 import { ItemGroupService } from './itemGroup.service';
+import { mapObjectToArray } from '../../../shared/helpers';
 
 @Injectable()
 export class ItemGroupResolver implements Resolve<{ [key: string]: string }> {
@@ -11,17 +12,12 @@ export class ItemGroupResolver implements Resolve<{ [key: string]: string }> {
     return this.itemGroupService.getItemGroupDictionary()
       .map(itemGroups => {
         if (itemGroups) {
-          return this.mapObjectToArray(itemGroups);
+          return mapObjectToArray(itemGroups);
         }
         return Observable.of(null);
       })
       .catch((error: any) => {
         return Observable.of(null);
       });
-  }
-
-  private mapObjectToArray(obj): Array<{}> {
-    return Object.keys(obj)
-      .map(id => ({ id: `${id}`, value: obj[id] }));
   }
 }

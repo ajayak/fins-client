@@ -32,8 +32,8 @@
                    placeholder="Item Group"
                    formControlName="itemGroupId">
           <md-option *ngFor="let itemGroup of itemGroups"
-                     [value]="itemGroup.id">
-            {{itemGroup.value}}
+                     [value]="itemGroup.value">
+            {{itemGroup.name}}
           </md-option>
           <!--BUG: Error message not visible-->
           <span class="inspanut-error"
