@@ -77,7 +77,7 @@
                         formControlName="openingBalanceType">
           <md-radio-button *ngFor="let type of transactionTypes"
                            [name]="type.name"
-                           [value]="type.value">{{type.name}} {{type|json}} </md-radio-button>
+                           [value]="type.value">{{type.name}}</md-radio-button>
         </md-radio-group>
       </div>
       <div layout="column"

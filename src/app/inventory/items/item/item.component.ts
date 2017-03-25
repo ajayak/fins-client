@@ -16,6 +16,10 @@ import {
 import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 
+import {
+  Size,
+  EnumEx
+} from '../../../core';
 import { Item } from '../shared';
 import { GenericValidator } from '../../../shared';
 
@@ -29,6 +33,7 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public itemGroups: Array<{}> = [];
   @Output() public onItemAdd = new EventEmitter();
   @Output() public onItemUpdate = new EventEmitter();
+  public sizes = EnumEx.getNamesAndValuesString(Size);
   public displayMessage: { [key: string]: string } = {};
   public itemForm: FormGroup;
   public mode = 'Add';
@@ -69,7 +74,23 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
     this.itemForm = this.fb.group({
       id: [item.id],
       name: [item.name, [Validators.required, Validators.maxLength(200)]],
-      code: [item.code, [Validators.required, Validators.maxLength(200)]]
+      code: [item.code, [Validators.required, Validators.maxLength(200)]],
+      description: [item.description, [Validators.maxLength(1000)]],
+      itemGroupId: [item.itemGroupId.toString(), [Validators.required]],
+      unitId: [item.unitId.toString(), [Validators.required]],
+      quantity: [item.quantity, [Validators.required, Validators.maxLength(8), Validators.pattern('^[0-9]*$')]],
+      weight: [item.weight, [Validators.maxLength(8), Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
+      safetyStockLevel: [item.safetyStockLevel, [Validators.maxLength(8), Validators.pattern('^[0-9]*$')]],
+      size: [item.size.toString()],
+      standardCost: [item.standardCost, [Validators.maxLength(8), Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
+      listPrice: [item.listPrice, [Validators.maxLength(8), Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
+      isSelfMade: [item.isSelfMade],
+      isFinishedGood: [item.isFinishedGood],
+      color: [item.color, [Validators.maxLength(20)]],
+      daysToManufacture: [item.daysToManufacture, [Validators.maxLength(4), Validators.pattern('^[0-9]*$')]],
+      sellStartDate: [item.sellStartDate],
+      sellEndTime: [item.sellEndTime],
+      reorderPoint: [item.reorderPoint]
     });
   }
 

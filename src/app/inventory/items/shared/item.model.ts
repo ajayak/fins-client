@@ -2,6 +2,7 @@ export class Item {
   public id: number;
   public name: string;
   public code: string;
+  public description?: string;
   public isSelfMade: boolean;
   public isFinishedGood: boolean;
   public color?: string;
@@ -9,7 +10,7 @@ export class Item {
   public reorderPoint?: string;
   public standardCost?: number;
   public listPrice?: number;
-  public quantity?: number;
+  public quantity: number;
   public size?: number;
   public weight?: number;
   public daysToManufacture?: number;
@@ -22,5 +23,6 @@ export class Item {
     this.id = 0;
     this.unitId = 0;
     this.itemGroupId = 0;
+    this.size = 0;
   }
 }

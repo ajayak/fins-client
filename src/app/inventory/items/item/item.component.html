@@ -28,6 +28,79 @@
             {{displayMessage.code}}
           </span>
         </md-input-container>
+        <md-select flex
+                   placeholder="Item Group"
+                   formControlName="itemGroupId">
+          <md-option *ngFor="let itemGroup of itemGroups"
+                     [value]="itemGroup.id">
+            {{itemGroup.value}}
+          </md-option>
+          <!--BUG: Error message not visible-->
+          <span class="inspanut-error"
+                *ngIf="displayMessage.itemGroupId">
+            {{displayMessage.itemGroupId}}
+          </span>
+        </md-select>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Quantity"
+                 formControlName="quantity" />
+          <span class="input-error"
+                *ngIf="displayMessage.quantity">
+            {{displayMessage.quantity}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Weight"
+                 formControlName="weight" />
+          <span class="input-error"
+                *ngIf="displayMessage.weight">
+            {{displayMessage.weight}}
+          </span>
+        </md-input-container>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <textarea mdInput
+                    placeholder="Description"
+                    formControlName="description">
+          </textarea>
+          <span class="input-error"
+                *ngIf="displayMessage.description">
+            {{displayMessage.description}}
+          </span>
+        </md-input-container>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Unit"
+                 formControlName="unitId" />
+          <span class="input-error"
+                *ngIf="displayMessage.unitId">
+            {{displayMessage.unitId}}
+          </span>
+        </md-input-container>
+        <md-select flex
+                   placeholder="Size"
+                   formControlName="size">
+          <md-option *ngFor="let size of sizes"
+                     [value]="size.value">
+            {{size.name}}
+          </md-option>
+        </md-select>
       </div>
 
     </md-card-content>
