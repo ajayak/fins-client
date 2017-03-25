@@ -19,6 +19,7 @@ import { ToastService } from '../../../shared/services';
     <fs-item-form
       [item]="item"
       [itemGroups]="itemGroupDictionary"
+      [units]="units"
       (onItemAdd)="onItemAdd($event)"
       (onItemUpdate)="onItemUpdate($event)"
     ></fs-item-form>

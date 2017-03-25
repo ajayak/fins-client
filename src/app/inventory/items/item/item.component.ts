@@ -22,6 +22,7 @@ import {
 } from '../../../core';
 import { Item } from '../shared';
 import { GenericValidator } from '../../../shared';
+import { NameCode } from '../../../shared/models';
 
 @Component({
   selector: 'fs-item-form',
@@ -31,6 +32,7 @@ import { GenericValidator } from '../../../shared';
 export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public item: Item;
   @Input() public itemGroups: Array<{}> = [];
+  @Input() public units: NameCode<number>[] = [];
   @Output() public onItemAdd = new EventEmitter();
   @Output() public onItemUpdate = new EventEmitter();
   public sizes = EnumEx.getNamesAndValuesString(Size);

@@ -61,28 +61,19 @@
       <div layout="column"
            layout-gt-xs="row"
            layout-margin>
-        <md-input-container flex>
-          <input mdInput
-                 placeholder="Unit"
-                 formControlName="unitId" />
-          <span class="input-error"
+        <md-select flex
+                   placeholder="Unit"
+                   formControlName="unitId">
+          <md-option *ngFor="let unit of units"
+                     [value]="unit.id">
+            {{unit.name}} ({{unit.code}})
+          </md-option>
+          <!--BUG: Error message not visible-->
+          <span class="inspanut-error"
                 *ngIf="displayMessage.unitId">
             {{displayMessage.unitId}}
           </span>
-        </md-input-container>
-        <md-select flex
-                   placeholder="Size"
-                   formControlName="size">
-          <md-option *ngFor="let size of sizes"
-                     [value]="size.value">
-            {{size.name}}
-          </md-option>
         </md-select>
-      </div>
-
-      <div layout="column"
-           layout-gt-xs="row"
-           layout-margin>
         <md-input-container flex>
           <input mdInput
                  placeholder="Quantity"
@@ -92,6 +83,19 @@
             {{displayMessage.quantity}}
           </span>
         </md-input-container>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-select flex
+                   placeholder="Size"
+                   formControlName="size">
+          <md-option *ngFor="let size of sizes"
+                     [value]="size.value">
+            {{size.name}}
+          </md-option>
+        </md-select>
         <md-input-container flex>
           <input mdInput
                  placeholder="Weight"
