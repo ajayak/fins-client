@@ -38,7 +38,8 @@ import { ToastService } from '../../shared/services';
 // tslint:disable-next-line:component-class-suffix
 export class ItemsContainer implements OnInit, OnDestroy {
   public itemList: ItemPageList = new ItemPageList();
-  private subscription: Subscription;
+  private itemSubscription: Subscription;
+  private deleteItemSubscription: Subscription;
   private page = new PagingModel();
 
   constructor(
@@ -53,7 +54,7 @@ export class ItemsContainer implements OnInit, OnDestroy {
   }
 
   public deleteItem(itemId: number) {
-    this.itemService.deleteItem(itemId)
+    this.deleteItemSubscription = this.itemService.deleteItem(itemId)
       .subscribe(
       () => this.onDeleteSuccess(),
       error => this.onDeleteError(error));
@@ -64,11 +65,12 @@ export class ItemsContainer implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.itemSubscription.unsubscribe();
+    this.deleteItemSubscription.unsubscribe();
   }
 
   private initializeItems() {
-    this.subscription = this.itemService
+    this.itemSubscription = this.itemService
       .getAllItems(this.page.pageNo, this.page.pageSize, this.page.sort)
       .subscribe(itemList => this.itemList = itemList);
   }

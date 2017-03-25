@@ -1,9 +1,11 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
 
 import {
   Item,
@@ -26,10 +28,12 @@ import { ToastService } from '../../../shared/services';
   `
 })
 // tslint:disable-next-line:component-class-suffix
-export class ItemContainer implements OnInit {
+export class ItemContainer implements OnInit, OnDestroy {
   public item: Item;
   public itemGroupDictionary: Array<{}> = [];
   public units: Array<NameCode<number>[]> = [];
+  private addItemSubscription: Subscription;
+  private updateItemSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,17 +50,22 @@ export class ItemContainer implements OnInit {
   }
 
   public onItemAdd(item: Item) {
-    this.itemService.addItem(item)
+    this.addItemSubscription = this.itemService.addItem(item)
       .subscribe(
       (result: Item) => this.onSuccess(result, 'Added'),
       (error) => this.onError(error));
   }
 
   public onItemUpdate(item: Item) {
-    this.itemService.updateItem(item)
+    this.updateItemSubscription = this.itemService.updateItem(item)
       .subscribe(
       (result: Item) => this.onSuccess(result, 'Updated'),
       (error) => this.onError(error));
+  }
+
+  public ngOnDestroy() {
+    this.addItemSubscription.unsubscribe();
+    this.updateItemSubscription.unsubscribe();
   }
 
   private onSuccess(item: Item, mode: string) {

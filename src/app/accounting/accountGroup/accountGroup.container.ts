@@ -39,6 +39,9 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   public accountGroups: AccountGroup[] = [];
   public rootAccountGroup = { id: 0, parentId: 0, mode: 'Add' };
   private getAccountGroupSubscription: Subscription;
+  private addAccountGroupSubscription: Subscription;
+  private updateAccountGroupSubscription: Subscription;
+  private deleteAccountGroupSubscription: Subscription;
   private storeSubscription: Subscription;
 
   constructor(
@@ -58,7 +61,7 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
 
   public addAccountGroup(accountGroup: AccountGroup): void {
     if (isNil(accountGroup)) { return; };
-    this.accountGroupService.addAccountGroup(accountGroup)
+    this.addAccountGroupSubscription = this.accountGroupService.addAccountGroup(accountGroup)
       .subscribe(
       () => this.onAddUpdateSuccess(accountGroup.name, 'updated'),
       error => this.onError(error));
@@ -66,14 +69,14 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
 
   public updateAccountGroup(accountGroup: AccountGroup) {
     if (isNil(accountGroup)) { return; };
-    this.accountGroupService.updateAccountGroup(accountGroup)
+    this.updateAccountGroupSubscription = this.accountGroupService.updateAccountGroup(accountGroup)
       .subscribe(
       () => this.onAddUpdateSuccess(accountGroup.name, 'updated'),
       error => this.onError(error));
   }
 
   public deleteAccountGroup(accountGroupId: number) {
-    this.accountGroupService.deleteAccountGroup(accountGroupId)
+    this.deleteAccountGroupSubscription = this.accountGroupService.deleteAccountGroup(accountGroupId)
       .subscribe(
       () => this.snackBar.open(`Account Group deleted successfully`, 'Close', { duration: 2000 }),
       (error) => this.toastr.error({
@@ -85,6 +88,9 @@ export class AccountGroupContainer implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.storeSubscription.unsubscribe();
     this.getAccountGroupSubscription.unsubscribe();
+    this.addAccountGroupSubscription.unsubscribe();
+    this.updateAccountGroupSubscription.unsubscribe();
+    this.deleteAccountGroupSubscription.unsubscribe();
   }
 
   private onAddUpdateSuccess(name: string, operation: string) {

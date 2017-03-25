@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { SigninModel } from './signinForm';
 import { AuthService } from './shared';
@@ -15,17 +19,23 @@ import { ToastService } from '../shared';
   `
 })
 // tslint:disable-next-line:component-class-suffix
-export class AuthContainer {
+export class AuthContainer implements OnDestroy {
+  private authenticateSubscription: Subscription;
+
   constructor(
     private authService: AuthService,
     private toastr: ToastService,
     private router: Router) { }
 
   public onSubmit($event: SigninModel) {
-    this.authService.authenticate($event)
+    this.authenticateSubscription = this.authService.authenticate($event)
       .subscribe(
       success => this.onLoginSuccess(success),
       error => this.onLoginError(error));
+  }
+
+  public ngOnDestroy() {
+    this.authenticateSubscription.unsubscribe();
   }
 
   public onForgotPasword(): void {

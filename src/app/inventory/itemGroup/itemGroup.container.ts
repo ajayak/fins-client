@@ -42,6 +42,9 @@ export class ItemGroupContainer implements OnInit, OnDestroy {
   public rootItemGroup = { id: 0, parentId: 0, mode: 'Add' };
   private getItemGroupSubscription: Subscription;
   private storeSubscription: Subscription;
+  private addItemGroupSubscription: Subscription;
+  private updateItemGroupSubscription: Subscription;
+  private deleteItemGroupSubscription: Subscription;
 
   constructor(
     private itemGroupService: ItemGroupService,
@@ -60,7 +63,7 @@ export class ItemGroupContainer implements OnInit, OnDestroy {
 
   public addItemGroup(itemGroup: ItemGroup): void {
     if (isNil(itemGroup)) { return; };
-    this.itemGroupService.addItemGroup(itemGroup)
+    this.addItemGroupSubscription = this.itemGroupService.addItemGroup(itemGroup)
       .subscribe(
       () => this.onAddUpdateSuccess(itemGroup.name, 'updated'),
       error => this.onError(error));
@@ -68,14 +71,14 @@ export class ItemGroupContainer implements OnInit, OnDestroy {
 
   public updateItemGroup(itemGroup: ItemGroup) {
     if (isNil(itemGroup)) { return; };
-    this.itemGroupService.updateItemGroup(itemGroup)
+    this.updateItemGroupSubscription = this.itemGroupService.updateItemGroup(itemGroup)
       .subscribe(
       () => this.onAddUpdateSuccess(itemGroup.name, 'updated'),
       error => this.onError(error));
   }
 
   public deleteItemGroup(itemGroupId: number) {
-    this.itemGroupService.deleteItemGroup(itemGroupId)
+    this.deleteItemGroupSubscription = this.itemGroupService.deleteItemGroup(itemGroupId)
       .subscribe(
       () => this.snackBar.open(`Item Group deleted successfully`, 'Close', { duration: 2000 }),
       (error) => this.toastr.error({
@@ -87,6 +90,9 @@ export class ItemGroupContainer implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this.storeSubscription.unsubscribe();
     this.getItemGroupSubscription.unsubscribe();
+    this.addItemGroupSubscription.unsubscribe();
+    this.updateItemGroupSubscription.unsubscribe();
+    this.deleteItemGroupSubscription.unsubscribe();
   }
 
   private onAddUpdateSuccess(name: string, operation: string) {

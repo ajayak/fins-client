@@ -107,6 +107,29 @@
         </md-input-container>
       </div>
 
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Standard Cost"
+                 formControlName="standardCost" />
+          <span class="input-error"
+                *ngIf="displayMessage.standardCost">
+            {{displayMessage.standardCost}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="List Price"
+                 formControlName="listPrice" />
+          <span class="input-error"
+                *ngIf="displayMessage.listPrice">
+            {{displayMessage.listPrice}}
+          </span>
+        </md-input-container>
+      </div>
+
     </md-card-content>
     <md-divider></md-divider>
     <md-card-actions align="end">

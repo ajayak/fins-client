@@ -13,6 +13,7 @@ import {
   AccountPageList
 } from './shared';
 import { PagingModel } from '../../shared/models';
+
 import { ToastService } from '../../shared/services';
 
 @Component({
@@ -38,7 +39,8 @@ import { ToastService } from '../../shared/services';
 // tslint:disable-next-line:component-class-suffix
 export class AccountsContainer implements OnInit, OnDestroy {
   public accountList: AccountPageList = new AccountPageList();
-  private subscription: Subscription;
+  private accountSubscription: Subscription;
+  private deleteAccountSubscription: Subscription;
   private page = new PagingModel();
 
   constructor(
@@ -53,7 +55,7 @@ export class AccountsContainer implements OnInit, OnDestroy {
   }
 
   public deleteAccount(accountId: number) {
-    this.accountService.deleteAccount(accountId)
+    this.deleteAccountSubscription = this.accountService.deleteAccount(accountId)
       .subscribe(
       () => this.onDeleteSuccess(),
       error => this.onDeleteError(error));
@@ -64,11 +66,12 @@ export class AccountsContainer implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.accountSubscription.unsubscribe();
+    this.deleteAccountSubscription.unsubscribe();
   }
 
   private initializeAccounts() {
-    this.subscription = this.accountService
+    this.accountSubscription = this.accountService
       .getAllAccounts(this.page.pageNo, this.page.pageSize, this.page.sort)
       .subscribe(accountList => this.accountList = accountList);
   }
