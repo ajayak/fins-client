@@ -75,10 +75,9 @@
         </md-input-container>
         <md-radio-group flex
                         formControlName="openingBalanceType">
-          <md-radio-button name="Debit"
-                           value="0">Debit </md-radio-button>
-          <md-radio-button name="Credit"
-                           value="1">Credit </md-radio-button>
+          <md-radio-button *ngFor="let type of transactionTypes"
+                           [name]="type.name"
+                           [value]="type.value">{{type.name}} {{type|json}} </md-radio-button>
         </md-radio-group>
       </div>
       <div layout="column"

@@ -18,6 +18,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 
 import {
+  TransactionType,
+  EnumEx
+} from '../../../core';
+import {
   Account,
   Person
 } from '../shared';
@@ -35,6 +39,7 @@ export class AccountComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public states: States[] = [];
   @Output() public onAccountAdd = new EventEmitter();
   @Output() public onAccountUpdate = new EventEmitter();
+  public transactionTypes = EnumEx.getNamesAndValuesString(TransactionType);
   public displayMessage: { [key: string]: string } = {};
   public accountForm: FormGroup;
   public mode = 'Add';
