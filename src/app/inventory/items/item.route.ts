@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { ItemGroupResolver } from '../itemGroup/shared';
+import { UnitResolver } from '../../common/unit/shared';
 import { ItemsContainer } from './items.container';
 import { ItemContainer } from './item';
 import {
@@ -20,6 +21,7 @@ export const itemRoutes: Routes = [
     resolve: {
       item: ItemResolver,
       itemGroups: ItemGroupResolver,
+      units: UnitResolver
     },
     canActivate: [ItemGuard]
   }

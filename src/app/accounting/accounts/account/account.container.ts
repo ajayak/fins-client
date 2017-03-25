@@ -9,7 +9,7 @@ import {
   Account,
   AccountService
 } from '../shared';
-import { States } from '../../../common/states/shared';
+import { NameCode } from '../../../shared/models';
 import { ToastService } from '../../../shared/services';
 
 
@@ -29,7 +29,7 @@ import { ToastService } from '../../../shared/services';
 export class AccountContainer implements OnInit {
   public account: Account;
   public accountGroupDictionary: Array<{}> = [];
-  public states: States[] = [];
+  public states: NameCode<number>[] = [];
 
   constructor(
     private route: ActivatedRoute,

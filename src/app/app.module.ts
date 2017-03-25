@@ -10,7 +10,7 @@ import { AuthModule } from './auth';
 import { HomeModule } from './home';
 import { AccountingModule } from './accounting';
 import { InventoryModule } from './inventory';
-import { StatesModule } from './common';
+import { CommonModule } from './common';
 
 import {
   AppRoutingModule,
@@ -48,7 +48,7 @@ const APP_PROVIDERS = [
     SharedModule.forRoot(),
     AuthModule,
     HomeModule,
-    StatesModule,
+    CommonModule,
     AccountingModule,
     InventoryModule,
 

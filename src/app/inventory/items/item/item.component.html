@@ -47,29 +47,6 @@
            layout-gt-xs="row"
            layout-margin>
         <md-input-container flex>
-          <input mdInput
-                 placeholder="Quantity"
-                 formControlName="quantity" />
-          <span class="input-error"
-                *ngIf="displayMessage.quantity">
-            {{displayMessage.quantity}}
-          </span>
-        </md-input-container>
-        <md-input-container flex>
-          <input mdInput
-                 placeholder="Weight"
-                 formControlName="weight" />
-          <span class="input-error"
-                *ngIf="displayMessage.weight">
-            {{displayMessage.weight}}
-          </span>
-        </md-input-container>
-      </div>
-
-      <div layout="column"
-           layout-gt-xs="row"
-           layout-margin>
-        <md-input-container flex>
           <textarea mdInput
                     placeholder="Description"
                     formControlName="description">
@@ -101,6 +78,29 @@
             {{size.name}}
           </md-option>
         </md-select>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Quantity"
+                 formControlName="quantity" />
+          <span class="input-error"
+                *ngIf="displayMessage.quantity">
+            {{displayMessage.quantity}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Weight"
+                 formControlName="weight" />
+          <span class="input-error"
+                *ngIf="displayMessage.weight">
+            {{displayMessage.weight}}
+          </span>
+        </md-input-container>
       </div>
 
     </md-card-content>

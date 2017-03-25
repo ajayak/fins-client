@@ -1,1 +1,1 @@
-export * from './states';
+export { CommonModule } from './common.module';

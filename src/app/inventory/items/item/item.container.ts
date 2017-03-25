@@ -9,9 +9,9 @@ import {
   Item,
   ItemService
 } from '../shared';
-import { States } from '../../../common/states/shared';
+import { ItemGroup } from '../../itemGroup/shared';
+import { NameCode } from '../../../shared/models';
 import { ToastService } from '../../../shared/services';
-
 
 @Component({
   selector: 'fs-item',
@@ -28,6 +28,7 @@ import { ToastService } from '../../../shared/services';
 export class ItemContainer implements OnInit {
   public item: Item;
   public itemGroupDictionary: Array<{}> = [];
+  public units: Array<NameCode<number>[]> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class ItemContainer implements OnInit {
     this.route.data.subscribe(data => {
       this.item = data.item;
       this.itemGroupDictionary = data.itemGroups;
+      this.units = data.units;
     });
   }
 

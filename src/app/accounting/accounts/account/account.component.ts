@@ -26,7 +26,7 @@ import {
   Person
 } from '../shared';
 import { GenericValidator } from '../../../shared';
-import { States } from '../../../common/states/shared';
+import { NameCode } from '../../../shared/models';
 
 @Component({
   selector: 'fs-account-form',
@@ -36,7 +36,7 @@ import { States } from '../../../common/states/shared';
 export class AccountComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public account: Account;
   @Input() public accountGroups: Array<{}> = [];
-  @Input() public states: States[] = [];
+  @Input() public states: NameCode<number>[] = [];
   @Output() public onAccountAdd = new EventEmitter();
   @Output() public onAccountUpdate = new EventEmitter();
   public transactionTypes = EnumEx.getNamesAndValuesString(TransactionType);

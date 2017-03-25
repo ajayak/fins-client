@@ -11,7 +11,8 @@ export const config = {
     itemGroup: '/api/itemGroup',
     itemGroupDictionary: '/api/itemGroup/list',
     item: '/api/item',
-    states: '/api/state'
+    states: '/api/state',
+    unit: '/api/unit'
   },
   appKeys: {
     jwtAccessKey: 'fins_app_access',
