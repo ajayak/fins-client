@@ -118,13 +118,6 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   private setItemForm(item: Item) {
-    if (item.unitId) {
-      // PATCH: Find permanet solution. Number not binding in md-select
-      item.unitId = '' + item.unitId;
-    }
-    if (item.itemGroupId) {
-      item.itemGroupId = '' + item.itemGroupId;
-    }
     this.itemForm = this.fb.group({
       id: [item.id],
       name: [item.name, [Validators.required, Validators.maxLength(200)]],
