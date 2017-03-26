@@ -27,6 +27,8 @@ import {
   CovalentMediaModule,
   TdMediaService
 } from '@covalent/core/media/media.module';
+import { CovalentFileModule } from '../../../node_modules/@covalent/core/file/file.module';
+
 // import { TdMediaService } from '../../../node_modules/@covalent/core/media/media.module';
 
 // Ng Prime
@@ -77,6 +79,7 @@ import {
     CovalentJsonFormatterModule,
     CovalentMediaModule,
     ContextMenuModule,
+    CovalentFileModule,
 
     // App exports
     SpinnerComponent

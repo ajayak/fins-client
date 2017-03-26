@@ -18,6 +18,10 @@ export const config = {
     jwtAccessKey: 'fins_app_access',
     jwtIdKey: 'fins_app_id',
     storeKey: 'fins_store_state'
+  },
+  constants: {
+    maxItemImageSize: 2,
+    allowedImageFormats: ['.png', '.img', '.jpeg', '.jpg']
   }
 };
 

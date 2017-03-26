@@ -148,6 +148,20 @@
         <div flex>
           <md-checkbox formControlName="isFinishedGood">Finished Good</md-checkbox>
         </div>
+        <div flex>
+          <td-file-upload #itemImageFileUpload
+                          [accept]="allowedFileExtensions"
+                          (select)="onImageSelectEvent($event)">
+            <md-icon *ngIf="encodingInProgress"
+                     class="md-icon-spin">autorenew</md-icon>
+            <md-icon *ngIf="!encodingInProgress">image</md-icon>
+            <span>{{ itemImageFileUpload.files?.name }}</span>
+            <template td-file-input-label>
+              <md-icon>attach_file</md-icon>
+              <span>Choose Item Image</span>
+            </template>
+          </td-file-upload>
+        </div>
       </div>
 
       <div layout="column"
@@ -215,7 +229,7 @@
       <button md-raised-button
               type="submit"
               color="primary"
-              [disabled]="!itemForm.valid">{{mode}} Item</button>
+              [disabled]="!itemForm.valid || encodingInProgress">{{mode}} Item</button>
     </md-card-actions>
   </form>
 </md-card>

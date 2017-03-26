@@ -113,7 +113,15 @@ export class AccountComponent implements OnInit, AfterViewInit, OnChanges {
     this.contactPersons.removeAt(index);
   }
 
+  public compareById(obj1, obj2) {
+    return obj1.id === obj2.id;
+  }
+
   private setAccountForm(account: Account) {
+    if (account.accountGroupId) {
+      // PATCH: Find permanet solution. Number not binding in md-select
+      account.accountGroupId = '' + account.accountGroupId;
+    }
     this.accountForm = this.fb.group({
       id: [account.id],
       name: [account.name, [Validators.required, Validators.maxLength(200)]],
@@ -121,7 +129,7 @@ export class AccountComponent implements OnInit, AfterViewInit, OnChanges {
       code: [account.code, [Validators.required, Validators.maxLength(200)]],
       openingBalance: [account.openingBalance],
       openingBalanceType: [account.openingBalanceType.toString()],
-      accountGroupId: [account.accountGroupId.toString(), [Validators.required]],
+      accountGroupId: [account.accountGroupId, [Validators.required]],
       address: [account.address, [Validators.maxLength(1000)]],
       stateId: [account.stateId, []],
       ward: [account.ward, [Validators.maxLength(50)]],

@@ -6,6 +6,9 @@ import {
   Input,
   Output,
   EventEmitter,
+  ViewChild,
+  ChangeDetectorRef,
+  NgZone,
   ChangeDetectionStrategy
 } from '@angular/core';
 import {
@@ -15,10 +18,13 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
+import { TdFileUploadComponent } from '@covalent/core/file/file-upload/file-upload.component';
+import { includes } from 'lodash';
 
 import {
   Size,
-  EnumEx
+  EnumEx,
+  config
 } from '../../../core';
 import { Item } from '../shared';
 import { GenericValidator } from '../../../shared';
@@ -35,17 +41,22 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public units: NameCode<number>[] = [];
   @Output() public onItemAdd = new EventEmitter();
   @Output() public onItemUpdate = new EventEmitter();
+  @ViewChild('itemImageFileUpload') public itemImageFileUpload: TdFileUploadComponent;
   public sizes = EnumEx.getNamesAndValuesString(Size);
   public displayMessage: { [key: string]: string } = {};
   public itemForm: FormGroup;
+  public allowedFileExtensions = config.constants.allowedImageFormats.join(',');
   public mode = 'Add';
+  public encodingInProgress = false;
 
   private genericValidator: GenericValidator;
   private validationMessages: { [key: string]: { [key: string]: string } };
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MdSnackBar
+    private snackBar: MdSnackBar,
+    private cd: ChangeDetectorRef,
+    private zone: NgZone
   ) {
     this.initializeErrorMessages();
     this.genericValidator = new GenericValidator(this.validationMessages);
@@ -68,22 +79,63 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   public saveItem(): void {
-    const value = this.itemForm.value;
+    const value: Item = this.itemForm.value;
     this.isEditMode() ? this.onItemUpdate.emit(value) : this.onItemAdd.emit(value);
   }
 
+  public onImageSelectEvent(file: File) {
+    const maxSize = config.constants.maxItemImageSize;
+    if (file.size / 1024 > maxSize * 1024) {
+      this.clearImageControl(`File size should be less than ${maxSize} MB`);
+    }
+    const fileExtension = file.name.split('.').pop();
+    const fileIsValid = includes(this.allowedFileExtensions, fileExtension);
+    if (!fileIsValid) {
+      this.clearImageControl(`Please select valid image file`);
+    }
+    this.encodingInProgress = true;
+    this.encodeImageFileAsURL((result) => {
+      this.zone.run(() => {
+        this.itemForm.patchValue({ 'base64Image': result });
+      });
+    });
+  }
+
+  private encodeImageFileAsURL(cb) {
+    const file = this.itemImageFileUpload.files as Blob;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      this.encodingInProgress = false;
+      cb(reader.result);
+      this.cd.markForCheck();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  private clearImageControl(message: string) {
+    this.snackBar.open(message, 'Close', { duration: 2000 });
+    this.itemImageFileUpload.cancel();
+  }
+
   private setItemForm(item: Item) {
+    if (item.unitId) {
+      // PATCH: Find permanet solution. Number not binding in md-select
+      item.unitId = '' + item.unitId;
+    }
+    if (item.itemGroupId) {
+      item.itemGroupId = '' + item.itemGroupId;
+    }
     this.itemForm = this.fb.group({
       id: [item.id],
       name: [item.name, [Validators.required, Validators.maxLength(200)]],
       code: [item.code, [Validators.required, Validators.maxLength(200)]],
       description: [item.description, [Validators.maxLength(1000)]],
-      itemGroupId: [item.itemGroupId.toString(), [Validators.required]],
-      unitId: [item.unitId.toString(), [Validators.required]],
+      itemGroupId: [item.itemGroupId, [Validators.required]],
+      unitId: [item.unitId, [Validators.required]],
       quantity: [item.quantity, [Validators.required, Validators.maxLength(8), Validators.pattern('^[0-9]*$')]],
       weight: [item.weight, [Validators.maxLength(8), Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
       safetyStockLevel: [item.safetyStockLevel, [Validators.maxLength(8), Validators.pattern('^[0-9]*$')]],
-      size: [item.size.toString()],
+      size: [item.size],
       standardCost: [item.standardCost, [Validators.maxLength(8), Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
       listPrice: [item.listPrice, [Validators.maxLength(8), Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
       isSelfMade: [item.isSelfMade],
@@ -92,7 +144,9 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
       daysToManufacture: [item.daysToManufacture, [Validators.maxLength(4), Validators.pattern('^[0-9]*$')]],
       sellStartDate: [item.sellStartDate],
       sellEndTime: [item.sellEndTime],
-      reorderPoint: [item.reorderPoint, [Validators.maxLength(50)]]
+      reorderPoint: [item.reorderPoint, [Validators.maxLength(50)]],
+      displayImageName: [item.displayImageName],
+      base64Image: []
     });
   }
 

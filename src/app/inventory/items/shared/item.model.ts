@@ -16,13 +16,15 @@ export class Item {
   public daysToManufacture?: number;
   public sellStartDate?: Date;
   public sellEndTime?: Date;
-  public itemGroupId: number;
-  public unitId: number;
+  public itemGroupId: number | string;
+  public unitId: number | string;
+  public displayImageName: string;
+  public base64Image: string;
 
   constructor() {
     this.id = 0;
-    this.unitId = 0;
-    this.itemGroupId = 0;
     this.size = 0;
+    this.isSelfMade = false;
+    this.isFinishedGood = false;
   }
 }

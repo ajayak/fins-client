@@ -17,5 +17,5 @@ export const transformToTree =
 
 export function mapObjectToArray(obj): Array<{}> {
   return Object.keys(obj)
-    .map(id => ({ value: `${id}`, name: obj[id] }));
+    .map(id => ({ value: id, name: obj[id] }));
 }

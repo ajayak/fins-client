@@ -5,7 +5,7 @@ export class Account {
   public name: string;
   public displayName: string;
   public code: string;
-  public accountGroupId: number;
+  public accountGroupId: number | string;
   public openingBalance?: number;
   public openingBalanceType: string;
   public address: string;
@@ -23,7 +23,6 @@ export class Account {
     this.id = 0;
     this.openingBalance = 0;
     this.stateId = 0;
-    this.accountGroupId = 0;
     this.openingBalanceType = '0';
     this.contactPersons = [];
   }
