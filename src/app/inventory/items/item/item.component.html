@@ -105,6 +105,105 @@
             {{displayMessage.weight}}
           </span>
         </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Safety Stock Level"
+                 formControlName="safetyStockLevel" />
+          <span class="input-error"
+                *ngIf="displayMessage.safetyStockLevel">
+            {{displayMessage.safetyStockLevel}}
+          </span>
+        </md-input-container>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Standard Cost"
+                 formControlName="standardCost" />
+          <span class="input-error"
+                *ngIf="displayMessage.standardCost">
+            {{displayMessage.standardCost}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="List Price"
+                 formControlName="listPrice" />
+          <span class="input-error"
+                *ngIf="displayMessage.listPrice">
+            {{displayMessage.listPrice}}
+          </span>
+        </md-input-container>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <div flex>
+          <md-checkbox formControlName="isSelfMade">Self Made</md-checkbox>
+        </div>
+        <div flex>
+          <md-checkbox formControlName="isFinishedGood">Finished Good</md-checkbox>
+        </div>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Color"
+                 formControlName="color" />
+          <span class="input-error"
+                *ngIf="displayMessage.color">
+            {{displayMessage.color}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="ReOrder Point"
+                 formControlName="reorderPoint" />
+          <span class="input-error"
+                *ngIf="displayMessage.reorderPoint">
+            {{displayMessage.reorderPoint}}
+          </span>
+        </md-input-container>
+      </div>
+
+      <div layout="column"
+           layout-gt-xs="row"
+           layout-margin>
+        <!--TODO: Replace with material datepicker-->
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Sell Start Date"
+                 formControlName="sellStartDate" />
+          <span class="input-error"
+                *ngIf="displayMessage.sellStartDate">
+            {{displayMessage.sellStartDate}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Sell End Date"
+                 formControlName="sellEndTime" />
+          <span class="input-error"
+                *ngIf="displayMessage.sellEndTime">
+            {{displayMessage.sellEndTime}}
+          </span>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput
+                 placeholder="Days To Manufacture"
+                 formControlName="daysToManufacture" />
+          <span class="input-error"
+                *ngIf="displayMessage.daysToManufacture">
+            {{displayMessage.daysToManufacture}}
+          </span>
+        </md-input-container>
       </div>
 
     </md-card-content>

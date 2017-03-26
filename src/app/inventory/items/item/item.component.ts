@@ -92,7 +92,7 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
       daysToManufacture: [item.daysToManufacture, [Validators.maxLength(4), Validators.pattern('^[0-9]*$')]],
       sellStartDate: [item.sellStartDate],
       sellEndTime: [item.sellEndTime],
-      reorderPoint: [item.reorderPoint]
+      reorderPoint: [item.reorderPoint, [Validators.maxLength(50)]]
     });
   }
 
@@ -106,12 +106,52 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   private initializeErrorMessages() {
     this.validationMessages = {
       name: {
-        required: 'Item name is required.',
-        maxlength: 'Item name cannot exceed 200 characters.'
+        required: 'Item name is required',
+        maxlength: 'Item name cannot exceed 200 characters'
       },
       code: {
-        required: 'Item code is required.',
-        maxlength: 'Item code cannot exceed 50 characters.'
+        required: 'Item code is required',
+        maxlength: 'Item code cannot exceed 50 characters'
+      },
+      description: {
+        maxlength: 'Description cannot exceed 50 characters'
+      },
+      itemGroupId: {
+        required: 'Item Group is required'
+      },
+      unitId: {
+        required: 'Unit is required'
+      },
+      quantity: {
+        required: 'Quantity is required',
+        maxlength: 'Quantity cannot exceed 8 characters',
+        pattern: 'Quantity is not in valid format'
+      },
+      weight: {
+        maxlength: 'Weight cannot exceed 8 characters',
+        pattern: 'Weight is not in valid format'
+      },
+      safetyStockLevel: {
+        maxlength: 'Safety Stock Level cannot exceed 8 characters',
+        pattern: 'Safety Stock Level is not in valid format'
+      },
+      standardCost: {
+        maxlength: 'Standard Cost cannot exceed 8 characters',
+        pattern: 'Standard Cost is not in valid format'
+      },
+      listPrice: {
+        maxlength: 'List Price cannot exceed 8 characters',
+        pattern: 'List Price is not in valid format'
+      },
+      color: {
+        maxlength: 'Color cannot exceed 20 characters'
+      },
+      reorderPoint: {
+        maxlength: 'ReOrder Point cannot exceed 50 characters'
+      },
+      daysToManufacture: {
+        maxlength: 'Days To Manufacture cannot exceed 4 characters.',
+        pattern: 'Days To Manufacture is not in valid format'
       }
     };
   }
