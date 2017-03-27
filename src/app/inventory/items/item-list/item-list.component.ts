@@ -13,8 +13,7 @@ import { PagingModel } from '../../../shared/models';
 import { ToastService } from '../../../shared/services';
 import {
   TdDataTableSortingOrder,
-  ITdDataTableSortChangeEvent,
-  ITdDataTableColumn
+  ITdDataTableSortChangeEvent
 } from '@covalent/core/data-table/data-table.module';
 import { IPageChangeEvent } from '@covalent/core/paging/paging.module';
 
@@ -26,18 +25,23 @@ import {
 @Component({
   selector: 'fs-item-list',
   templateUrl: 'item-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`
+    img {
+      cursor: pointer
+    }
+  `]
 })
 export class ItemListComponent implements OnInit, OnChanges {
   @Input() public itemList: ItemPageList = new ItemPageList();
   @Output() public onChange = new EventEmitter();
   @Output() public onItemDelete = new EventEmitter();
 
-  public columns: ITdDataTableColumn[] = [
-    { name: 'id', label: '' },
-    { name: 'name', label: 'Name' },
-    { name: 'code', label: 'Item Code' },
-    { name: 'itemGroupName', label: 'Item Group' },
+  public columns = [
+    { name: 'id', label: '', active: false },
+    { name: 'name', label: 'Name', active: false },
+    { name: 'code', label: 'Item Code', active: false },
+    { name: 'itemGroupName', label: 'Item Group', active: false },
   ];
 
   public items: ItemList[] = [];
@@ -68,7 +72,14 @@ export class ItemListComponent implements OnInit, OnChanges {
 
   public sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
-    this.sortOrder = sortEvent.order;
+    this.columns.forEach(c => {
+      if (c.name === sortEvent.name) {
+        c.active = !c.active;
+        this.sortOrder = c.active ? TdDataTableSortingOrder.Descending : TdDataTableSortingOrder.Ascending;
+      } else {
+        c.active = false;
+      }
+    });
     this.filter();
   }
 

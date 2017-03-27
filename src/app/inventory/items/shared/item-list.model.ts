@@ -5,7 +5,8 @@ export class ItemList {
   public name: string;
   public displayName: string;
   public code: string;
-  public accountGroupName: string;
+  public itemGroupName: string;
+  public imageUrl: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file

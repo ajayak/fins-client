@@ -149,7 +149,7 @@
           <md-checkbox formControlName="isFinishedGood">Finished Good</md-checkbox>
         </div>
         <div flex
-             *ngIf="item.displayImageName.length === 0">
+             *ngIf="item.displayImageName == null || item.displayImageName.length === 0">
           <td-file-upload #itemImageFileUpload
                           [accept]="allowedFileExtensions"
                           (select)="onImageSelectEvent($event)">

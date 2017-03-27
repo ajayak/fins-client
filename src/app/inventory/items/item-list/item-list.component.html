@@ -1,26 +1,31 @@
-<!--<div layout="row"
-     layout-align="start center"
-     class="pad-left-sm pad-right-sm">
+<table td-data-table>
+  <th td-data-table-column
+      *ngFor="let column of columns"
+      [name]="column.name"
+      [sortable]="true"
+      [sortOrder]="sortOrder"
+      [active]="column.active"
+      (sortChange)="sort($event)">
+    {{column.label}}
+  </th>
+</table>
+<md-grid-list cols="3"
+              rowHeight="220px">
+  <md-grid-tile *ngFor="let item of items">
+    <img [src]="item.imageUrl"
+         [routerLink]="['', 'item', item.id]">
+    <md-grid-tile-footer>
+      <h3 md-line>{{ item.name }}</h3>
+      <h4 md-line>Code: {{ item.code }}</h4>
+      <span md-line> {{ item.itemGroupName }}</span>
+      <button md-icon-button>
+        <md-icon>clear</md-icon>
+      </button>
+    </md-grid-tile-footer>
+  </md-grid-tile>
+</md-grid-list>
 
-  
-  <span *ngIf="!searchBox.searchVisible"
-        class="push-left-sm">
-    <span *ngIf="(selectable && !selectedRows.length) || !selectable"
-          class="md-title">Title here</span>
-    <span *ngIf="selectedRows.length && selectable"
-          class="md-body-1">0 item(s) selected</span>
-  </span>
-  <td-search-box #searchBox
-                 backIcon="arrow_back"
-                 class="push-right-sm"
-                 placeholder="Search here"
-                 (searchDebounce)="search($event)"
-                 flex>
-  </td-search-box>
-</div>
-<md-divider></md-divider>-->
-
-<td-data-table [data]="items"
+<!--<td-data-table [data]="items"
                [columns]="columns"
                [sortable]="true"
                [sortBy]="sortBy"
@@ -30,7 +35,6 @@
             let-value="value">
     <div layout="row">
       <a md-icon-button
-         [routerLink]="['', 'item', value]"
          mdTooltip="Edit Item">
         <md-icon>edit</md-icon>
       </a>
@@ -41,7 +45,7 @@
       </button>
     </div>
   </template>
-</td-data-table>
+</td-data-table>-->
 <td-paging-bar #pagingBar
                [pageSizes]="[5, 10, 15, 20]"
                [total]="totalRecordCount"
