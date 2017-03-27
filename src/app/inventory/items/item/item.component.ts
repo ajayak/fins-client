@@ -33,7 +33,18 @@ import { NameCode } from '../../../shared/models';
 @Component({
   selector: 'fs-item-form',
   templateUrl: 'item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`
+    md-chip md-icon{
+      position: relative;
+      top: 5px;
+      left: 5px;
+      height: 18px;
+      width: 18px;
+      font-size: 19px;
+      cursor: pointer;
+    }
+  `]
 })
 export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public item: Item;
@@ -82,6 +93,14 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
   public saveItem(): void {
     const value: Item = this.itemForm.value;
     this.isEditMode() ? this.onItemUpdate.emit(value) : this.onItemAdd.emit(value);
+  }
+
+  public removeImage() {
+    this.item.displayImageName = '';
+    this.itemForm.patchValue({
+      'base64Image': '',
+      'displayImageName': ''
+    });
   }
 
   public onImageSelectEvent(file: File) {

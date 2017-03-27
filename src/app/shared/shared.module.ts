@@ -27,7 +27,7 @@ import {
   CovalentMediaModule,
   TdMediaService
 } from '@covalent/core/media/media.module';
-import { CovalentFileModule } from '../../../node_modules/@covalent/core/file/file.module';
+import { CovalentFileModule } from '@covalent/core/file/file.module';
 
 // import { TdMediaService } from '../../../node_modules/@covalent/core/media/media.module';
 
