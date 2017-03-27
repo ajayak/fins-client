@@ -20,7 +20,7 @@
 </div>
 <md-divider></md-divider>-->
 
-<td-data-table [data]="accounts"
+<td-data-table [data]="items"
                [columns]="columns"
                [sortable]="true"
                [sortBy]="sortBy"
@@ -30,13 +30,13 @@
             let-value="value">
     <div layout="row">
       <a md-icon-button
-         [routerLink]="['', 'account', value]"
-         mdTooltip="Edit Account">
+         [routerLink]="['', 'item', value]"
+         mdTooltip="Edit Item">
         <md-icon>edit</md-icon>
       </a>
       <button md-icon-button
-              (click)="deleteAccount(value)"
-              mdTooltip="Delete Account">
+              (click)="deleteItem(value)"
+              mdTooltip="Delete Item">
         <md-icon>clear</md-icon>
       </button>
     </div>

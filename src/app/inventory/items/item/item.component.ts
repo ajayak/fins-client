@@ -74,8 +74,9 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  public ngOnChanges(): void {
+  public ngOnChanges(change): void {
     this.ngOnInit();
+    this.cd.detectChanges();
   }
 
   public saveItem(): void {
@@ -96,7 +97,10 @@ export class ItemComponent implements OnInit, AfterViewInit, OnChanges {
     this.encodingInProgress = true;
     this.encodeImageFileAsURL((result) => {
       this.zone.run(() => {
-        this.itemForm.patchValue({ 'base64Image': result });
+        this.itemForm.patchValue({
+          'base64Image': result,
+          'displayImageName': file.name
+        });
       });
     });
   }
