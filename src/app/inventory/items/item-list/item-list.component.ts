@@ -34,6 +34,7 @@ import {
 })
 export class ItemListComponent implements OnInit, OnChanges {
   @Input() public itemList: ItemPageList = new ItemPageList();
+  @Input() public gridColumns: number;
   @Output() public onChange = new EventEmitter();
   @Output() public onItemDelete = new EventEmitter();
 
@@ -56,7 +57,6 @@ export class ItemListComponent implements OnInit, OnChanges {
 
   public ngOnInit(): void {
     this.updateGrid();
-    this.filter();
   }
 
   public ngOnChanges() {

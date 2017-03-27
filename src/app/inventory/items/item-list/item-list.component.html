@@ -9,7 +9,8 @@
     {{column.label}}
   </th>
 </table>
-<md-grid-list cols="3"
+
+<md-grid-list [cols]="gridColumns"
               rowHeight="220px">
   <md-grid-tile *ngFor="let item of items">
     <img [src]="item.imageUrl"
@@ -18,34 +19,14 @@
       <h3 md-line>{{ item.name }}</h3>
       <h4 md-line>Code: {{ item.code }}</h4>
       <span md-line> {{ item.itemGroupName }}</span>
-      <button md-icon-button>
+      <button md-icon-button
+              (click)="deleteItem(item.id)">
         <md-icon>clear</md-icon>
       </button>
     </md-grid-tile-footer>
   </md-grid-tile>
 </md-grid-list>
 
-<!--<td-data-table [data]="items"
-               [columns]="columns"
-               [sortable]="true"
-               [sortBy]="sortBy"
-               [sortOrder]="sortOrder"
-               (sortChange)="sort($event)">
-  <template tdDataTableTemplate="id"
-            let-value="value">
-    <div layout="row">
-      <a md-icon-button
-         mdTooltip="Edit Item">
-        <md-icon>edit</md-icon>
-      </a>
-      <button md-icon-button
-              (click)="deleteItem(value)"
-              mdTooltip="Delete Item">
-        <md-icon>clear</md-icon>
-      </button>
-    </div>
-  </template>
-</td-data-table>-->
 <td-paging-bar #pagingBar
                [pageSizes]="[5, 10, 15, 20]"
                [total]="totalRecordCount"

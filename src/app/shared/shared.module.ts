@@ -22,7 +22,6 @@ import { CovalentPagingModule } from '@covalent/core/paging/paging.module';
 import {
   CovalentExpansionPanelModule
 } from '@covalent/core/expansion-panel/expansion-panel.module';
-import { CovalentJsonFormatterModule } from '@covalent/core/json-formatter/json-formatter.module';
 import {
   CovalentMediaModule,
   TdMediaService
@@ -76,7 +75,6 @@ import {
     CovalentDataTableModule,
     CovalentPagingModule,
     CovalentExpansionPanelModule,
-    CovalentJsonFormatterModule,
     CovalentMediaModule,
     ContextMenuModule,
     CovalentFileModule,

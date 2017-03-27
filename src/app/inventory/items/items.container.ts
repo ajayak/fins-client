@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { isNil } from 'lodash';
+import { TdMediaService } from '@covalent/core/media/services/media.service';
 
 import {
   ItemService,
@@ -28,6 +29,7 @@ import { ToastService } from '../../shared/services';
         [routerLink]="['','item', '0']">Add Item</a>
       <fs-item-list
         [itemList]="itemList"
+        [gridColumns]="gridColumns"
         (onChange)="onPagingAction($event)"
         (onItemDelete)="deleteItem($event)">
       </fs-item-list>
@@ -37,7 +39,9 @@ import { ToastService } from '../../shared/services';
 })
 // tslint:disable-next-line:component-class-suffix
 export class ItemsContainer implements OnInit, OnDestroy {
+  public querySubscription: Subscription;
   public itemList: ItemPageList = new ItemPageList();
+  public gridColumns = 3;
   private subscription: Subscription;
   private page = new PagingModel();
 
@@ -45,7 +49,8 @@ export class ItemsContainer implements OnInit, OnDestroy {
     private itemService: ItemService,
     private router: Router,
     private snackBar: MdSnackBar,
-    private toastr: ToastService) { }
+    private toastr: ToastService,
+    private mediaService: TdMediaService) { }
 
   public onPagingAction(page: PagingModel) {
     this.page = page;
@@ -61,10 +66,23 @@ export class ItemsContainer implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.initializeItems();
+    this.watchScreen();
   }
 
   public ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.querySubscription.unsubscribe();
+  }
+
+  private watchScreen(): void {
+    const isSmallScreen = this.mediaService.query('sm');
+    this.gridColumns = isSmallScreen ? 1 : 3;
+
+    this.querySubscription = this.mediaService
+      .registerQuery('sm')
+      .subscribe((matches: boolean) => {
+        this.gridColumns = matches ? 1 : 3;
+      });
   }
 
   private initializeItems() {

@@ -53,7 +53,6 @@ export class AccountListComponent implements OnInit, OnChanges {
 
   public ngOnInit(): void {
     this.updateGrid();
-    this.filter();
   }
 
   public ngOnChanges() {
