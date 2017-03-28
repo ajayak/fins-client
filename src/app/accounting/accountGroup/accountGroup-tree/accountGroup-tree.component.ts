@@ -5,21 +5,20 @@ import {
   OnInit,
   Output,
   EventEmitter,
+  ViewChild,
   OnChanges
 } from '@angular/core';
 import {
   MdDialog,
-  MdDialogRef
+  MdDialogRef,
+  MdMenuTrigger
 } from '@angular/material';
 import {
   sortBy,
   isNil
 } from 'lodash';
 
-import {
-  TreeNode,
-  MenuItem
-} from 'primeng/components/common/api';
+import { TreeNode } from 'primeng/components/common/api';
 
 import { AccountGroupCreatorDialogComponent } from '../accountGroup-creator';
 import { ToastService } from '../../../shared';
@@ -39,16 +38,17 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
   @Output() public onAccountGroupUpdate = new EventEmitter();
   @Output() public onAccountGroupAdd = new EventEmitter();
   @Output() public onAccountGroupDelete = new EventEmitter();
+  @ViewChild(MdMenuTrigger) public trigger: MdMenuTrigger;
 
   public dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>;
   public accountGroupTreeItems: TreeNode = [];
   public selectedNode: AccountGroupTreeNode;
-  public items: MenuItem[] = [
-    { label: 'View Details', icon: 'fa-search', command: () => this.viewAccountGroupDetails() },
-    { label: 'Add Child', icon: 'fa-plus', command: () => this.addChild() },
-    { label: 'Add Sibling', icon: 'fa-plus', command: () => this.addSibling() },
-    { label: 'Edit', icon: 'fa-edit', command: () => this.editAccountGroup() },
-    { label: 'Delete', icon: 'fa-remove', command: () => this.deleteAccountGroup() }
+  public items = [
+    { label: 'View Details', icon: 'zoom_in', command: () => this.viewAccountGroupDetails() },
+    { label: 'Add Child', icon: 'add', command: () => this.addChild() },
+    { label: 'Add Sibling', icon: 'add_circle', command: () => this.addSibling() },
+    { label: 'Edit', icon: 'edit', command: () => this.editAccountGroup() },
+    { label: 'Delete', icon: 'delete', command: () => this.deleteAccountGroup() }
   ];
 
   constructor(
@@ -116,6 +116,19 @@ export class AccountGroupTreeComponent implements OnInit, OnChanges {
         }
         this.dialogRef = null;
       });
+  }
+
+  public detectRightMouseClick($event) {
+    if ($event.which === 3) {
+      if ($event.target && $event.target.click) {
+        $event.target.click();
+      }
+      this.trigger.openMenu();
+      const menu = document.querySelector('.cdk-overlay-pane') as HTMLElement;
+      menu.style.setProperty('left', `${$event.clientX}px`);
+      menu.style.setProperty('top', `${$event.clientY}px`);
+      return false;
+    }
   }
 
   private expandRecursive(node: TreeNode, isExpand: boolean) {

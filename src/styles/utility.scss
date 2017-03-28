@@ -11,6 +11,10 @@
   font-size: 14px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .md-icon-spin {
   -webkit-animation: md-icon-spin 2s infinite linear;
   animation: md-icon-spin 2s infinite linear;

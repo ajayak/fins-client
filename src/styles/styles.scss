@@ -68,3 +68,7 @@ md-input-container.ng-invalid .mat-input-wrapper,
 md-select.ng-invalid .mat-select-trigger {
   border-right: 2px solid $error-color;
 }
+
+.ui-treenode-label.ui-state-highlight {
+  background-color: red;
+}
