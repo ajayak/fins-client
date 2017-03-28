@@ -17,7 +17,7 @@ import { PagingModel } from '../../shared/models';
 import { ToastService } from '../../shared/services';
 
 @Component({
-  selector: 'fs-item',
+  selector: 'fs-items',
   template: `
   <md-card>
     <md-card-title> Item Listing </md-card-title>
