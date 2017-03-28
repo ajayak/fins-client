@@ -76,8 +76,8 @@ export class AccountGroupService {
       const treeNode: TreeNode = {
         label: accountGroup.name,
         data: accountGroup.displayName,
-        expandedIcon: 'fa-folder-open',
-        collapsedIcon: 'fa-folder'
+        expandedIcon: 'material-icons folder-open',
+        collapsedIcon: 'material-icons folder'
       };
       treeNode['id'] = accountGroup.id;
       treeNode['parentId'] = accountGroup.parentId;

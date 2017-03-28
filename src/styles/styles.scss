@@ -72,3 +72,11 @@ md-select.ng-invalid .mat-select-trigger {
 .ui-treenode-label.ui-state-highlight {
   background-color: red;
 }
+
+span.folder:before {
+  content: 'folder'
+}
+
+span.folder-open:before {
+  content: 'folder_open'
+}
