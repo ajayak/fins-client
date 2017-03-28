@@ -149,7 +149,7 @@
           <md-checkbox formControlName="isFinishedGood">Finished Good</md-checkbox>
         </div>
         <div flex
-             *ngIf="item.displayImageName == null || item.displayImageName.length === 0">
+             *ngIf="(item.displayImageName == null || item.displayImageName.length === 0) ; else imageChip">
           <td-file-upload #itemImageFileUpload
                           [accept]="allowedFileExtensions"
                           (select)="onImageSelectEvent($event)">
@@ -163,15 +163,16 @@
             </template>
           </td-file-upload>
         </div>
-        <div flex
-             *ngIf="item.displayImageName?.length > 0">
-          <md-chip-list>
-            <md-chip selected="true">
-              {{item.displayImageName | slice:0:20}}...
-              <md-icon (click)="removeImage()">clear</md-icon>
-            </md-chip>
-          </md-chip-list>
-        </div>
+        <ng-template #imageChip>
+          <div flex>
+            <md-chip-list>
+              <md-chip selected="true">
+                {{item.displayImageName | slice:0:20}}...
+                <md-icon (click)="removeImage()">clear</md-icon>
+              </md-chip>
+            </md-chip-list>
+          </div>
+        </ng-template>
       </div>
 
       <div layout="column"
