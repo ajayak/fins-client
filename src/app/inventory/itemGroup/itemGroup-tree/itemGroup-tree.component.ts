@@ -3,23 +3,22 @@ import {
   Input,
   ChangeDetectionStrategy,
   OnInit,
+  OnChanges,
   Output,
   EventEmitter,
-  OnChanges
+  ViewChild
 } from '@angular/core';
 import {
   MdDialog,
-  MdDialogRef
+  MdDialogRef,
+  MdMenuTrigger
 } from '@angular/material';
 import {
   sortBy,
   isNil
 } from 'lodash';
 
-import {
-  TreeNode,
-  MenuItem
-} from 'primeng/components/common/api';
+import { TreeNode } from 'primeng/components/common/api';
 
 import { ItemGroupCreatorDialogComponent } from '../itemGroup-creator';
 import { ToastService } from '../../../shared';
@@ -39,16 +38,17 @@ export class ItemGroupTreeComponent implements OnInit, OnChanges {
   @Output() public onItemGroupUpdate = new EventEmitter();
   @Output() public onItemGroupAdd = new EventEmitter();
   @Output() public onItemGroupDelete = new EventEmitter();
+  @ViewChild(MdMenuTrigger) public trigger: MdMenuTrigger;
 
   public dialogRef: MdDialogRef<ItemGroupCreatorDialogComponent>;
   public itemGroupTreeItems: TreeNode = [];
   public selectedNode: ItemGroupTreeNode;
-  public items: MenuItem[] = [
-    { label: 'View Details', icon: 'fa-search', command: () => this.viewItemGroupDetails() },
-    { label: 'Add Child', icon: 'fa-plus', command: () => this.addChild() },
-    { label: 'Add Sibling', icon: 'fa-plus', command: () => this.addSibling() },
-    { label: 'Edit', icon: 'fa-edit', command: () => this.editItemGroup() },
-    { label: 'Delete', icon: 'fa-remove', command: () => this.deleteItemGroup() }
+  public items = [
+    { label: 'View Details', icon: 'zoom_in', command: () => this.viewItemGroupDetails() },
+    { label: 'Add Child', icon: 'add', command: () => this.addChild() },
+    { label: 'Add Sibling', icon: 'add_circle', command: () => this.addSibling() },
+    { label: 'Edit', icon: 'edit', command: () => this.editItemGroup() },
+    { label: 'Delete', icon: 'delete', command: () => this.deleteItemGroup() }
   ];
 
   constructor(
@@ -116,6 +116,19 @@ export class ItemGroupTreeComponent implements OnInit, OnChanges {
         }
         this.dialogRef = null;
       });
+  }
+
+  public detectRightMouseClick($event) {
+    if ($event.which === 3) {
+      if ($event.target && $event.target.click) {
+        $event.target.click();
+      }
+      this.trigger.openMenu();
+      const menu = document.querySelector('.cdk-overlay-pane') as HTMLElement;
+      menu.style.setProperty('left', `${$event.clientX}px`);
+      menu.style.setProperty('top', `${$event.clientY}px`);
+      return false;
+    }
   }
 
   private expandRecursive(node: TreeNode, isExpand: boolean) {

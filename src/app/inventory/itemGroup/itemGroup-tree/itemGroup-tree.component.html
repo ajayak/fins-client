@@ -1,7 +1,24 @@
 <p-tree [value]="itemGroupTreeItems"
         selectionMode="single"
-        [(selection)]="selectedNode"
-        [contextMenu]="cm"></p-tree>
+        [(selection)]="selectedNode">
+  <ng-template let-node
+               pTemplate="default">
+    <div (mouseup)="detectRightMouseClick($event)">
+      {{node.label}}
+    </div>
+  </ng-template>
+</p-tree>
 
-<p-contextMenu #cm
-               [model]="items"></p-contextMenu>
+<md-menu #menu="mdMenu">
+  <button md-menu-item
+          *ngFor="let item of items"
+          (click)="item.command()">
+    <md-icon> {{item.icon}} </md-icon>
+    <span> {{item.label}} </span>
+  </button>
+</md-menu>
+
+<button md-icon-button
+        [mdMenuTriggerFor]="menu"
+        class="hidden">
+</button>

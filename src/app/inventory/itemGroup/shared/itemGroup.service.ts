@@ -76,8 +76,8 @@ export class ItemGroupService {
       const treeNode: TreeNode = {
         label: ItemGroup.name,
         data: ItemGroup.displayName,
-        expandedIcon: 'fa-folder-open',
-        collapsedIcon: 'fa-folder'
+        expandedIcon: 'material-icons folder-open',
+        collapsedIcon: 'material-icons folder'
       };
       treeNode['id'] = ItemGroup.id;
       treeNode['parentId'] = ItemGroup.parentId;

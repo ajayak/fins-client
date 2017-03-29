@@ -32,7 +32,6 @@ import { CovalentFileModule } from '@covalent/core/file/file.module';
 
 // Ng Prime
 import { TreeModule } from 'primeng/components/tree/tree';
-import { ContextMenuModule } from 'primeng/components/contextmenu/contextmenu';
 
 import {
   Store,
@@ -76,7 +75,6 @@ import {
     CovalentPagingModule,
     CovalentExpansionPanelModule,
     CovalentMediaModule,
-    ContextMenuModule,
     CovalentFileModule,
 
     // App exports
