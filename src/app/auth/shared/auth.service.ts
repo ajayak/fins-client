@@ -22,7 +22,6 @@ import { config } from '../../core';
 export class AuthService {
   private JWT_ID_KEY: string = config.appKeys.jwtIdKey;
   private JWT_ACCESS_KEY: string = config.appKeys.jwtAccessKey;
-  private JWT = '';
 
   constructor(
     private router: Router,

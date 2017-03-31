@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
-import {
-  ToastOptions,
-  ToastService,
-  ToastType
-} from './toast';
+import { ToastService } from './toast';
 
 @Injectable()
 export class LogService {

@@ -16,7 +16,6 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 import { TdFileUploadComponent } from '@covalent/core/file/file-upload/file-upload.component';
 import { includes } from 'lodash';

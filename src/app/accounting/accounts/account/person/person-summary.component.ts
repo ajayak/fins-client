@@ -9,8 +9,6 @@ import {
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Person } from '../../shared';
-
 @Component({
   selector: 'fs-person-summary',
   template: `

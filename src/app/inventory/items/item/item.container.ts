@@ -9,7 +9,6 @@ import {
   Item,
   ItemService
 } from '../shared';
-import { ItemGroup } from '../../itemGroup/shared';
 import { NameCode } from '../../../shared/models';
 import { ToastService } from '../../../shared/services';
 

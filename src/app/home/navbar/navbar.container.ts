@@ -13,7 +13,8 @@ import { AuthService } from '../../auth/shared';
 @Component({
   selector: 'fs-navbar',
   templateUrl: 'navbar.container.html',
-  styleUrls: ['./navbar.container.scss']
+  styleUrls: ['./navbar.container.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 // tslint:disable-next-line:component-class-suffix
 export class NavbarContainer implements OnInit {

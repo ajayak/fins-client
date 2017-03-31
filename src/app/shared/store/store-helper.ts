@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { isNil } from 'lodash';
 
 import { Store } from './store';
 

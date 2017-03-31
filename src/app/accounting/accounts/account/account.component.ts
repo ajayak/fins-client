@@ -14,7 +14,6 @@ import {
   FormArray,
   Validators
 } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar } from '@angular/material';
 
 import {

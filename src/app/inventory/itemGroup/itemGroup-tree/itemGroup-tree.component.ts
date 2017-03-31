@@ -13,10 +13,7 @@ import {
   MdDialogRef,
   MdMenuTrigger
 } from '@angular/material';
-import {
-  sortBy,
-  isNil
-} from 'lodash';
+import { isNil } from 'lodash';
 
 import { TreeNode } from 'primeng/components/common/api';
 

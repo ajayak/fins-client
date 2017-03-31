@@ -7,7 +7,6 @@ import {
   ChangeDetectionStrategy,
   OnChanges
 } from '@angular/core';
-import { isUndefined } from 'lodash';
 
 import { PagingModel } from '../../../shared/models';
 import { ToastService } from '../../../shared/services';

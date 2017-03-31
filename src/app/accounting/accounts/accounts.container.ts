@@ -6,7 +6,6 @@ import {
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
-import { isNil } from 'lodash';
 
 import {
   AccountService,

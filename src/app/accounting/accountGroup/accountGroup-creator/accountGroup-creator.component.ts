@@ -11,8 +11,6 @@ import {
   Validators
 } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
-import { isUndefined } from 'lodash';
 
 import {
   AccountGroupTreeNode,
@@ -20,7 +18,6 @@ import {
   AccountGroupService
 } from '../shared';
 import { GenericValidator } from '../../../shared';
-import { UserProfileService } from '../../../auth';
 
 // Change Detection onPush not used due to async validator on name field
 @Component({
@@ -42,8 +39,7 @@ export class AccountGroupCreatorDialogComponent implements OnInit, AfterViewInit
   constructor(
     private fb: FormBuilder,
     private dialogRef: MdDialogRef<AccountGroupCreatorDialogComponent>,
-    private accountGroupService: AccountGroupService,
-    private userProfileService: UserProfileService
+    private accountGroupService: AccountGroupService
   ) {
     this.initializeErrorMessages();
     this.genericValidator = new GenericValidator(this.validationMessages);

@@ -19,10 +19,7 @@ import {
 } from './app.route.module';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import {
-  State,
-  Store
-} from './shared/store';
+import { Store } from './shared/store';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -62,4 +59,5 @@ const APP_PROVIDERS = [
     APP_PROVIDERS
   ]
 })
-export class AppModule { }
+export class AppModule {
+}
