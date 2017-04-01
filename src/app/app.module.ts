@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import './core/reactive-extensions';
 
+import 'hammerjs';
+
 // App Modules
 import { SharedModule } from './shared';
 import { AuthModule } from './auth';

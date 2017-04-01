@@ -5,28 +5,36 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Store } from '../shared';
+import {
+  Store,
+  State
+} from '../shared';
 
 @Component({
   selector: 'fs-home',
   template: `
-    <fs-navbar></fs-navbar>
-    <fs-sidenav [open]="isSideNavOpen">
-      <router-outlet></router-outlet>
-    </fs-sidenav>
+    <div [class]="selectedTheme">
+      <fs-navbar></fs-navbar>
+      <fs-sidenav [open]="isSideNavOpen">
+        <router-outlet></router-outlet>
+      </fs-sidenav>
+    <div>
   `
 })
 // tslint:disable-next-line:component-class-suffix
 export class HomeContainer implements OnInit, OnDestroy {
   public subscription: Subscription;
   public isSideNavOpen = false;
+  public selectedTheme: string;
 
   constructor(private store: Store) { }
 
   public ngOnInit() {
     this.subscription = this.store.changes
-      .map(state => state.openSideNav)
-      .subscribe(sidenavState => this.isSideNavOpen = sidenavState);
+      .subscribe((state: State) => {
+        this.isSideNavOpen = state.openSideNav;
+        this.selectedTheme = state.selectedTheme;
+      });
   }
 
   public ngOnDestroy() {

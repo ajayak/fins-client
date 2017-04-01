@@ -6,6 +6,10 @@ import {
 } from './home.route.module';
 import { SharedModule } from '../shared';
 import { SideNavService } from './sidenav';
+import {
+  ThemeService,
+  ThemeSelectorComponent
+} from './theme-selector';
 
 @NgModule({
   imports: [
@@ -13,7 +17,13 @@ import { SideNavService } from './sidenav';
     SharedModule
   ],
   exports: [],
-  declarations: [routedComponents],
-  providers: [SideNavService],
+  declarations: [
+    routedComponents,
+    ThemeSelectorComponent
+  ],
+  providers: [
+    SideNavService,
+    ThemeService
+  ],
 })
 export class HomeModule { }

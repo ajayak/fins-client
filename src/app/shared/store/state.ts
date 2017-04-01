@@ -5,6 +5,7 @@ import { ItemGroup } from '../../inventory/itemGroup/shared';
 export interface State {
   showSpinner: boolean;
   openSideNav: boolean;
+  selectedTheme: string;
   auth: AuthTokenModel;
   accountGroups: AccountGroup[];
   itemGroups: ItemGroup[];
@@ -13,6 +14,7 @@ export interface State {
 export const defaultState: State = {
   showSpinner: false,
   openSideNav: true,
+  selectedTheme: 'light',
   auth: null,
   accountGroups: null,
   itemGroups: null
@@ -25,6 +27,7 @@ export const defaultState: State = {
 export const StateHelper = {
   showSpinner: 'showSpinner',
   openSideNav: 'openSideNav',
+  selectedTheme: 'selectedTheme',
   auth: 'auth',
   accountGroups: 'accountGroups',
   itemGroups: 'itemGroups'

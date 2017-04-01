@@ -1,13 +1,17 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
 import { SideNavService } from '../sidenav';
-import { Store } from '../../shared';
+import {
+  Store,
+  State
+} from '../../shared';
 import { AuthService } from '../../auth/shared';
 
 @Component({
@@ -17,7 +21,7 @@ import { AuthService } from '../../auth/shared';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 // tslint:disable-next-line:component-class-suffix
-export class NavbarContainer implements OnInit {
+export class NavbarContainer implements OnInit, OnDestroy {
   public sideNavSubscription: Subscription;
   public openSideNav = false;
 
@@ -25,7 +29,8 @@ export class NavbarContainer implements OnInit {
     private sidenav: SideNavService,
     private store: Store,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService) {
+  }
 
   public toggleSidenav() {
     this.sidenav.toggle();
@@ -33,8 +38,18 @@ export class NavbarContainer implements OnInit {
 
   public ngOnInit() {
     this.sideNavSubscription = this.store.changes
-      .map(state => state.openSideNav)
-      .subscribe(sideNavState => this.openSideNav = sideNavState);
+      .subscribe((state: State) => {
+        this.openSideNav = state.openSideNav;
+        this.selectTheme(state.selectedTheme);
+      });
+  }
+
+  public ngOnDestroy() {
+    this.sideNavSubscription.unsubscribe();
+  }
+
+  public selectTheme(theme: string) {
+    console.log(theme);
   }
 
   public signout() {
