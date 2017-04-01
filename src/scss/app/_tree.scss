@@ -1,0 +1,54 @@
+.ui-treenode-label.ui-state-highlight {
+  background-color: mat-color($candy-app-accent);
+}
+
+.dark {
+  .ui-treenode-label.ui-state-highlight {
+    background-color: mat-color($dark-accent);
+  }
+}
+
+span.folder::before {
+  content: 'folder'
+}
+
+span.folder-open::before {
+  content: 'folder_open'
+}
+
+.custom-material-icon {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+}
+
+.ui-tree .ui-tree-container {
+  overflow: visible;
+}
+
+span.ui-tree-toggler {
+  @extend .custom-material-icon;
+}
+
+span.fa-caret-down::before {
+  content: 'expand_more';
+}
+
+span.fa-caret-right::before {
+  content: 'chevron_right';
+}

@@ -18,7 +18,7 @@
     "testTsconfig": "tsconfig.spec.json",
     "prefix": "fs",
     "styles": [
-      "styles/entry.scss"
+      "scss/main.scss"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",

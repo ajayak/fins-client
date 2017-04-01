@@ -1,0 +1,15 @@
+// @import '../../node_modules/@covalent/core/common/platform.css';
+
+/* Angular Material Theme */
+
+@import '~@angular/material/core/theming/all-theme';
+
+/* Covalent Theme */
+
+@import '~@covalent/core/theming/all-theme';
+@include mat-core();
+
+/* Custom themes */
+
+@import 'light';
+@import 'dark';

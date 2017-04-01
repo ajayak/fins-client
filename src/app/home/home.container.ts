@@ -13,19 +13,16 @@ import {
 @Component({
   selector: 'fs-home',
   template: `
-    <div [class]="selectedTheme">
-      <fs-navbar></fs-navbar>
-      <fs-sidenav [open]="isSideNavOpen">
-        <router-outlet></router-outlet>
-      </fs-sidenav>
-    <div>
+    <fs-navbar></fs-navbar>
+    <fs-sidenav [open]="isSideNavOpen">
+      <router-outlet></router-outlet>
+    </fs-sidenav>
   `
 })
 // tslint:disable-next-line:component-class-suffix
 export class HomeContainer implements OnInit, OnDestroy {
   public subscription: Subscription;
   public isSideNavOpen = false;
-  public selectedTheme: string;
 
   constructor(private store: Store) { }
 
@@ -33,11 +30,15 @@ export class HomeContainer implements OnInit, OnDestroy {
     this.subscription = this.store.changes
       .subscribe((state: State) => {
         this.isSideNavOpen = state.openSideNav;
-        this.selectedTheme = state.selectedTheme;
+        this.setBodyTheme(state.selectedTheme);
       });
   }
 
   public ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  private setBodyTheme(theme: string) {
+    document.querySelector('body').setAttribute('class', theme);
   }
 }

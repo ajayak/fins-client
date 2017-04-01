@@ -1,0 +1,33 @@
+  $dark-primary: mat-palette($mat-teal, 500);
+  $dark-accent: mat-palette($mat-amber, A200, A100, A400);
+  $dark-warn: mat-palette($mat-deep-orange);
+  .dark {
+    $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+    @include angular-material-theme($dark-theme);
+    /* Theme specific styles*/
+    /* Angular Error styles */
+    $error-color: mat-color($dark-warn);
+    md-input-container.ng-invalid.ng-touched,
+    md-input-container.ng-invalid.ng-dirty {
+      .mat-input-placeholder.mat-focused,
+      label {
+        color: $error-color;
+      }
+      .mat-input-ripple.mat-focused {
+        background-color: $error-color;
+      }
+    }
+    /* Used to highlight required fields*/
+    md-input-container.ng-invalid .mat-input-wrapper,
+    md-select.ng-invalid .mat-select-trigger {
+      border-right: 2px solid $error-color;
+    }
+    .input-error,
+    .mat-input-element,
+    .mat-option,
+    .mat-dialog-title,
+    .td-data-table-sort-icon.material-icons.mat-icon,
+    .md-caption {
+      color: #fff;
+    }
+  }

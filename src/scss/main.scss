@@ -1,0 +1,23 @@
+/* CSS Reset */
+
+@import '../../node_modules/normalize.css/normalize.css';
+
+/* Sweet Alert Styles */
+
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
+
+/* App Theme*/
+
+@import 'theme/material-theme';
+
+/* Prime Ng Component Styles */
+
+@import '../../node_modules/primeng/components/tree/tree.css';
+
+/* Covalent */
+
+@import '../../node_modules/@covalent/core/common/platform.css';
+
+/* App Styles */
+
+@import 'app/styles';

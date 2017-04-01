@@ -1,0 +1,28 @@
+$candy-app-primary: mat-palette($mat-indigo);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-warn: mat-palette($mat-red);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn); // 
+@include angular-material-theme($candy-app-theme);
+@include covalent-theme($candy-app-theme);
+
+/* Theme specific styles*/
+
+.light {
+  /* Angular Error styles */
+  $error-color: mat-color($candy-app-warn);
+  md-input-container.ng-invalid.ng-touched,
+  md-input-container.ng-invalid.ng-dirty {
+    .mat-input-placeholder.mat-focused,
+    label {
+      color: $error-color;
+    }
+    .mat-input-ripple.mat-focused {
+      background-color: $error-color;
+    }
+  }
+  /* Used to highlight required fields*/
+  md-input-container.ng-invalid .mat-input-wrapper,
+  md-select.ng-invalid .mat-select-trigger {
+    border-right: 2px solid $error-color;
+  }
+}

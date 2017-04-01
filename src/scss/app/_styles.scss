@@ -1,0 +1,39 @@
+/* This file is for setting global styles  */
+
+
+/* App Styles */
+
+@import 'utility';
+
+/*
+  Tree component styles
+*/
+
+@import 'tree';
+.input-error {
+  right: 0;
+  display: block;
+  position: absolute;
+  font-size: 75%;
+  bottom: -.5em;
+  top: 2.4em;
+}
+
+.fins-sidebar,
+.fins-sidebar.mat-sidenav-opened {
+  box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+@media (max-width: 992px) {
+  md-card {
+    min-height: 90%;
+    padding-bottom: 60px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  md-card {
+    min-height: 87.5%;
+    padding-bottom: 60px !important;
+  }
+}
